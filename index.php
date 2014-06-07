@@ -9,7 +9,7 @@
                 box-sizing: border-box;
             }
             body{
-                /*background-color: lightgray;*/
+                background-color: lightgray;
             }
             form{
                 width: 70%;
