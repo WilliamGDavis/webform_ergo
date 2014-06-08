@@ -20,30 +20,24 @@ class error_action {
 
 require 'class.ClientValue';
 
-//class Client_Value {
-//
-//    public $CompanyName;
-//    public $CurrentDateTime;
-//    public $StreetAddress;
-//
-//}
-//function check_POSTarray_mandatory($post_array) {
-//    //Checks the POST array for mandatory fields
-//    foreach ($post_array as $post_variable => $value) {
-//        //Only checks the values of 1, meaning it was a mandatory field
-//        //If not filled out, stop processing the script
-//        if (!isset($_POST[$post_variable]) && $value == 1) {
-//            die("Please fill in the $post_variable to continue");
-//        }
-//    }
-//}
-function check_POSTarray_mandatory($Client) {
+function check_POSTarray($Client) {
     //Checks the POST array for mandatory fields
     foreach ($Client as $array => $formField) {
+        $fieldValue = $formField['Value'];
+        $minLength = $formField['MinLength'];
+        $maxLength = $formField['MaxLength'];
+        $display = $formField['Display'];
+        //Check for empty required form fields
         if ($formField['Required'] == 1 && $formField['Value'] == '') {
             //Display the field that is generating the error
-            $fieldName = $formField['Display'];
-            die("Please fill in the $fieldName to continue");
+            echo "Please fill in the $display to continue<br />";
+        } elseif ($formField['Required'] == 1 && $formField != '') {
+            //Check the values for the correct attribute requirements
+            switch ($formField['Value_Type']) {
+                Case "String":
+                    check_string_length($fieldValue, $minLength, $maxLength, $display);
+                    break;
+            }
         }
     }
 }
@@ -84,14 +78,14 @@ $Client->StreetAddress = array(
     'Display' => 'Street Address'
 );
 
-check_POSTarray_mandatory($Client);
+check_POSTarray($Client);
 
-echo $Client->CompanyName['Value'];
-echo '<br />';
-echo '<pre>';
-print_r($Client->CompanyName);
-echo '</pre>';
-echo '<br />';
+//echo $Client->CompanyName['Value'];
+//echo '<br />';
+//echo '<pre>';
+//print_r($Client->CompanyName);
+//echo '</pre>';
+//echo '<br />';
 echo '<pre>';
 print_r($Client);
 echo '</pre>';
@@ -403,13 +397,13 @@ function email_pdf($attachment, $email_password) {
     return;
 }
 
-function check_text($string, $length, $error) {
+function check_string_length($string, $minLength, $maxLength, $display) {
     $cleaned_string = '';
     //Remove spaces before and after
     $cleaned_string = trim($string);
     //Make sure the string is less than the maximum allowed length
-    if ((strlen($cleaned_string) > $length)) {
-        die("$error should be less than $length characters");
+    if ((strlen($cleaned_string) < $minLength) || strlen($cleaned_string) > $maxLength) {
+        die("$display should be between $minLength and $maxLength characters");
     }
     return $cleaned_string;
 }
