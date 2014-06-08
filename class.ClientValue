@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * Description of class
+ *
+ * @author Owner
+ */
+class Client_Value {
+
+    public $CompanyName;
+    public $CurrentDateTime;
+    public $StreetAddress;
+
+}

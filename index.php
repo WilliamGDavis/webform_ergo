@@ -68,22 +68,28 @@
                     <input type="text" name="zip" class="pure-input-1 length_text" maxlength="5" />
                 </div>
                 <div class="pure-u-1-3">
-                    <label>First Name:</label><input type="text" name="firstName" class="pure-input-1" />
+                    <label>First Name:</label><label class="charNum"></label>
+                    <input type="text" name="firstName" class="pure-input-1 length_text" maxlength="28" />
                 </div>
                 <div class="pure-u-1-3">
-                    <label>Last Name:</label><input type="text" name="lastName" class="pure-input-1" />
+                    <label>Last Name:</label><label class="charNum"></label>
+                    <input type="text" name="lastName" class="pure-input-1 length_text" maxlength="28" />
                 </div>
                 <div class="pure-u-1-3">
-                    <label>Title:</label><input type="text" name="title" class="pure-input-1" />
+                    <label>Title:</label><label class="charNum"></label>
+                    <input type="text" name="title" class="pure-input-1 length_text" maxlength="60" />
                 </div>
                 <div class="pure-u-1-3">
-                    <label>Phone:</label><input type="text" name="phone" class="pure-input-1" />
+                    <label>Phone:</label><label class="charNum"></label>
+                    <input type="text" name="phone" class="pure-input-1 length_text" maxlength="10" />
                 </div>
                 <div class="pure-u-1-3">
-                    <label>Fax:</label><input type="text" name="fax" class="pure-input-1" />
+                    <label>Fax:</label><label class="charNum"></label>
+                    <input type="text" name="fax" class="pure-input-1 length_text" maxlength="10" />
                 </div>
                 <div class="pure-u-1-3">
-                    <label>Email:</label><input type="text" name="email" class="pure-input-1" />
+                    <label>Email:</label><label class="charNum"></label>
+                    <input type="text" name="email" class="pure-input-1 length_text" maxlength="60" />
                 </div>
                 <br />
                 <br />

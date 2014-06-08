@@ -1,22 +1,102 @@
 <?php
 
-class error_action{
+class error_action {
+
     public $e_type;
     public $e_message;
-    
-    function process_error($e_type, $e_message){
+
+    function process_error($e_type, $e_message) {
         $e_type = $this->e_type;
         $e_message = $this->e_message;
-        
-        if ($e_type == "Error_Continue"){
+
+        if ($e_type == "Error_Continue") {
             
-        } elseif ($e_type == "Error_Halt"){
+        } elseif ($e_type == "Error_Halt") {
             
+        }
+    }
+
+}
+
+require 'class.ClientValue';
+
+//class Client_Value {
+//
+//    public $CompanyName;
+//    public $CurrentDateTime;
+//    public $StreetAddress;
+//
+//}
+//function check_POSTarray_mandatory($post_array) {
+//    //Checks the POST array for mandatory fields
+//    foreach ($post_array as $post_variable => $value) {
+//        //Only checks the values of 1, meaning it was a mandatory field
+//        //If not filled out, stop processing the script
+//        if (!isset($_POST[$post_variable]) && $value == 1) {
+//            die("Please fill in the $post_variable to continue");
+//        }
+//    }
+//}
+function check_POSTarray_mandatory($Client) {
+    //Checks the POST array for mandatory fields
+    foreach ($Client as $array => $formField) {
+        if ($formField['Required'] == 1 && $formField['Value'] == '') {
+            //Display the field that is generating the error
+            $fieldName = $formField['Display'];
+            die("Please fill in the $fieldName to continue");
         }
     }
 }
 
 require('fpdf.php');
+
+//Create a new Client
+$Client = new Client_Value();
+
+//TODO: 
+//Validate $_POST variables
+//TODO
+//Add the appropriate values to the Client Class
+//$Client->CompanyName['company_name'] = array(
+$Client->CompanyName = array(
+    'Name' => 'CompanyName',
+    'Type' => 'Textbox',
+    //TODO: Sanitize before passing in POST
+    'Value' => $_POST['company_name'],
+    'Value_Type' => 'String',
+    'MinLength' => 1,
+    'MaxLength' => 60,
+    'Required' => 1,
+    'Display' => 'Company Name'
+);
+$Client->CurrentDateTime = array(
+    'Value' => date("F j, Y, g:i a"),
+    'Required' => 1
+);
+$Client->StreetAddress = array(
+    'Name' => 'StreetAddress',
+    'Type' => 'Textbox',
+    'Value' => $_POST['street_address'],
+    'Value_Type' => 'String',
+    'MinLength' => 1,
+    'MaxLength' => 60,
+    'Required' => 1,
+    'Display' => 'Street Address'
+);
+
+check_POSTarray_mandatory($Client);
+
+echo $Client->CompanyName['Value'];
+echo '<br />';
+echo '<pre>';
+print_r($Client->CompanyName);
+echo '</pre>';
+echo '<br />';
+echo '<pre>';
+print_r($Client);
+echo '</pre>';
+
+
 $email_password = $_POST['email_password'];
 
 //Customer Variables
@@ -325,7 +405,6 @@ function email_pdf($attachment, $email_password) {
 
 function check_text($string, $length, $error) {
     $cleaned_string = '';
-//    $cleaned_string = filter_var(trim($string), FILTER_SANITIZE_STRING);
     //Remove spaces before and after
     $cleaned_string = trim($string);
     //Make sure the string is less than the maximum allowed length
