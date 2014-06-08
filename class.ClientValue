@@ -1,13 +1,12 @@
-    <?php
+<?php
 
-    require('fpdf.php');
-    /**
-    * Description of class
-    *
-    * @author William G Davis 2014
-    */
-        class PDF extends FPDF {
-
+require('fpdf.php');
+/**
+* Description of class
+*
+* @author William G Davis 2014
+*/
+class PDF extends FPDF {
     // Page header
     function Header() {
         // Logo
@@ -21,10 +20,9 @@
         // Line break
         $this->Ln(15);
     }
+}
 
-    }
-    class Client_Value {
-
+class Client_Value {
     public $CompanyName;
     public $CurrentDateTime;
     public $Delivery;
@@ -34,341 +32,329 @@
     public $Zip;
 
     function pdf_output(){
-    $pdf = new PDF();
-    $pdf->AddPage('L');
-    $pdf->SetFont('Arial', '', 12);
+        $pdf = new PDF();
+        $pdf->AddPage('L');
+        $pdf->SetFont('Arial', '', 12);
 
-    //Cell Options
-    //Width | Height | Text | Border(0 or 1) | New Line(0 or 1) | 
-    //Text Orientation('L', 'C', or 'R' | Background (true or false) | Link (url)
-    //Internal Information
-    $pdf->Cell(80, 10, "Salesperson: ________________________________");
-    //Do something like this to make black space within a line
-    $pdf->Cell(80);
-    $pdf->cell(115, 10, "Request #: _________________________________", 0, 0, 'R');
-    $pdf->Ln(15);
-    $pdf->Cell(70, 10, "Customer Information", 'B', 0, 'L');
-    $pdf->Cell(15, 10, '', 'B');
-    $pdf->cell(85, 10, "Date: " . $this->CurrentDateTime['Value'], 'B', 0, 'C');
-    $pdf->cell(30, 10, '', 'B');
-    $pdf->cell(75, 10, "Delivery Requested: " . $this->Delivery['Value'], 'B', 0, 'L');
-    $pdf->Ln(15);
-    //Customer Information
-    //Get current x and y to make Multicells span the same line
-    $x = $pdf->GetX();
-    $y = $pdf->GetY();
-    $pdf->MultiCell(80, 5, ""
-            . $this->CompanyName['Value']. "\n"
-            . $this->StreetAddress['Value'] . "\n"
-            . $this->City['Value'] . ", " . $this->State['Value'] . " " . $this->Zip['Value']);
-    
-    //$pdf->SetXY($x + 95, $y);
-    //$pdf->MultiCell(80, 5, "Contact:\n"
-    //        . "$firstName $lastName\n\n"
-    //        . "Title:\n"
-    //        . "$title");
-    //$pdf->SetXY($x + 200, $y);
-    //$pdf->MultiCell(80, 5, "Phone:\n"
-    //        . "$phone\n"
-    //        . "Fax:\n"
-    //        . "$fax\n"
-    //        . "Email:\n"
-    //        . "$email");
-    //$pdf->Ln(10);
-    ////End User Information
-    //$pdf->Cell(275, 10, "End User Information", 'B', 0, 'L');
-    //$pdf->Ln(15);
-    //$x = $pdf->GetX();
-    //$y = $pdf->GetY();
-    //$pdf->MultiCell(80, 5, ""
-    //        . "$user_company_name\n"
-    //        . "$user_street_address\n"
-    //        . "$user_city, $user_state, $user_zip");
-    //
-    //$pdf->SetXY($x + 95, $y);
-    //$pdf->MultiCell(80, 5, "Contact:\n"
-    //        . "$user_firstName $user_lastName\n\n"
-    //        . "Title:\n"
-    //        . "$user_title");
-    //$pdf->SetXY($x + 200, $y);
-    //$pdf->MultiCell(80, 5, "Phone:\n"
-    //        . "$user_phone\n"
-    //        . "Fax:\n"
-    //        . "$user_fax\n"
-    //        . "Email:\n"
-    //        . "$user_email");
-    //$pdf->Ln();
-    //$pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
-    //$pdf->Ln(10);
-    //$pdf->MultiCell(275, 5, "Part Description:\n"
-    //        . "$part_description");
-    //$pdf->Ln(10);
-    //$pdf->cell(80, 10, "Quantity Required: $quantity");
-    //$pdf->cell(20);
-    //$pdf->cell(80, 10, "LH/RH Units: $lh_rh_unit");
-    //$pdf->Ln();
-    ////Part Dimensions
-    //$pdf->cell(275, 10, 'Part Dimensions', 'B');
-    //$pdf->Ln(20);
-    //$pdf->cell(40);
-    //$pdf->cell(40, 10, 'Weight', 1, 0, 'C');
-    //$pdf->cell(40, 10, 'Height', 1, 0, 'C');
-    //$pdf->cell(40, 10, 'Width', 1, 0, 'C');
-    //$pdf->cell(40, 10, 'Length', 1, 0, 'C');
-    //$pdf->cell(40, 10, 'Inner Dimensions', 1, 0, 'C');
-    //$pdf->cell(40, 10, 'Outer Dimensions', 1, 0, 'C');
-    //$pdf->Ln(10);
-    //$pdf->cell(40, 10, 'Maximum', 1);
-    //$pdf->cell(40, 10, $max_weight, 1);
-    //$pdf->cell(40, 10, $max_height, 1);
-    //$pdf->cell(40, 10, $max_width, 1);
-    //$pdf->cell(40, 10, $max_length, 1);
-    //$pdf->cell(40, 10, $max_id, 1);
-    //$pdf->cell(40, 10, $max_od, 1);
-    //$pdf->Ln(10);
-    //$pdf->cell(40, 10, 'Minimum', 1);
-    //$pdf->cell(40, 10, $min_weight, 1);
-    //$pdf->cell(40, 10, $min_height, 1);
-    //$pdf->cell(40, 10, $min_width, 1);
-    //$pdf->cell(40, 10, $min_length, 1);
-    //$pdf->cell(40, 10, $min_id, 1);
-    //$pdf->cell(40, 10, $min_od, 1);
-    //$pdf->Ln(10);
-    //$pdf->cell(275, 10, "***Please indicate a separate sheet for additional parts if necessary***", 0, 0, 'C');
-    //$pdf->Ln(10);
-    //$pdf->cell(275, 10, "Part Surface", 'B', 0, 'L');
-    //$pdf->Ln(10);
-    //$pdf->cell(40, 10, "Wet: $st_wet");
-    //$pdf->cell(60);
-    //$pdf->cell(40, 10, "Hot: $st_hot");
-    //$pdf->cell(60);
-    //$pdf->cell(40, 10, "Class A: $st_classA");
-    //$pdf->Ln(5);
-    //$pdf->cell(40, 10, "Dry: $st_dry");
-    //$pdf->cell(60);
-    //$pdf->cell(40, 10, "Temperature: $temperature");
-    //$pdf->cell(60);
-    //$pdf->cell(40, 10, "Textured: $st_textured");
-    //$pdf->Ln(5);
-    //$pdf->cell(40, 10, "Oily: $st_oily");
-    //$pdf->cell(60);
-    //$pdf->cell(40, 10, "Scale: $tempScale");
-    //$pdf->cell(60);
-    //$pdf->cell(40, 10, "Fragile: $st_fragile");
-    //$pdf->Ln(15);
-    //$pdf->cell(275, 10, "Description of Current Process or Sequence of Operations:");
-    //$pdf->Ln(10);
-    //$pdf->MultiCell(275, 10, $process_description, 1);
-    //$pdf->Ln(10);
-    //$pdf->cell(275, 10, "Production Rate (Cycles/Hour): $production_rate");
-    //$pdf->Ln(5);
-    //$pdf->cell(275, 10, "Shifts/Day: $shifts");
-    //$pdf->Ln(20);
-    //$pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
-    //$pdf->Ln(15);
-    //$pdf->MultiCell(275, 5, "What is the part being picked up from?");
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 10, $eng_pickup, 1);
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 5, "Please list any obstructions that may interfere with engaging the part:");
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 10, $eng_obstructions, 1);
-    //$pdf->Ln(5);
-    ////Moving or Stationary?
-    ////Placeholder
-    //$pdf->MultiCell(275, 5, "Recommended area to engage on the part:");
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 10, $eng_recommended, 1);
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 5, "Areas of the part that cannot be touched:");
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 10, $eng_noTouching, 1);
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 5, "Operator's perspective of part orientation:");
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 10, $eng_orientation, 1);
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 5, "Dimensional elevation of part at set down:");
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 10, $eng_dimElevation, 1);
-    //$pdf->Ln(5);
+        //Cell Options
+        //Width | Height | Text | Border(0 or 1) | New Line(0 or 1) |
+        //Text Orientation('L', 'C', or 'R' | Background (true or false) | Link (url)
+        //Internal Information
+        $pdf->Cell(80, 10, "Salesperson: ________________________________");
+        //Do something like this to make black space within a line
+        $pdf->Cell(80);
+        $pdf->cell(115, 10, "Request #: _________________________________", 0, 0, 'R');
+        $pdf->Ln(15);
+        $pdf->Cell(70, 10, "Customer Information", 'B', 0, 'L');
+        $pdf->Cell(15, 10, '', 'B');
+        $pdf->cell(85, 10, "Date: " . $this->CurrentDateTime['Value'], 'B', 0, 'C');
+        $pdf->cell(30, 10, '', 'B');
+        $pdf->cell(75, 10, "Delivery Requested: " . $this->Delivery['Value'], 'B', 0, 'L');
+        $pdf->Ln(15);
+        //Customer Information
+        //Get current x and y to make Multicells span the same line
+        $x = $pdf->GetX();
+        $y = $pdf->GetY();
+        $pdf->MultiCell(80, 5, ""
+                . $this->CompanyName['Value']. "\n"
+                . $this->StreetAddress['Value'] . "\n"
+                . $this->City['Value'] . ", " . $this->State['Value'] . " " . $this->Zip['Value']);
 
-
-
-    ////Create an email attachment
-    //$attachment = $pdf->Output('attachment.pdf', 'S');
-    ////Attach the PDF and send an email
-    //email_pdf($attachment, $email_password);
-    //Output the PDF to the browser window
-    $pdf->Output();
+        //$pdf->SetXY($x + 95, $y);
+        //$pdf->MultiCell(80, 5, "Contact:\n"
+        //        . "$firstName $lastName\n\n"
+        //        . "Title:\n"
+        //        . "$title");
+        //$pdf->SetXY($x + 200, $y);
+        //$pdf->MultiCell(80, 5, "Phone:\n"
+        //        . "$phone\n"
+        //        . "Fax:\n"
+        //        . "$fax\n"
+        //        . "Email:\n"
+        //        . "$email");
+        //$pdf->Ln(10);
+        ////End User Information
+        //$pdf->Cell(275, 10, "End User Information", 'B', 0, 'L');
+        //$pdf->Ln(15);
+        //$x = $pdf->GetX();
+        //$y = $pdf->GetY();
+        //$pdf->MultiCell(80, 5, ""
+        //        . "$user_company_name\n"
+        //        . "$user_street_address\n"
+        //        . "$user_city, $user_state, $user_zip");
+        //
+        //$pdf->SetXY($x + 95, $y);
+        //$pdf->MultiCell(80, 5, "Contact:\n"
+        //        . "$user_firstName $user_lastName\n\n"
+        //        . "Title:\n"
+        //        . "$user_title");
+        //$pdf->SetXY($x + 200, $y);
+        //$pdf->MultiCell(80, 5, "Phone:\n"
+        //        . "$user_phone\n"
+        //        . "Fax:\n"
+        //        . "$user_fax\n"
+        //        . "Email:\n"
+        //        . "$user_email");
+        //$pdf->Ln();
+        //$pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
+        //$pdf->Ln(10);
+        //$pdf->MultiCell(275, 5, "Part Description:\n"
+        //        . "$part_description");
+        //$pdf->Ln(10);
+        //$pdf->cell(80, 10, "Quantity Required: $quantity");
+        //$pdf->cell(20);
+        //$pdf->cell(80, 10, "LH/RH Units: $lh_rh_unit");
+        //$pdf->Ln();
+        ////Part Dimensions
+        //$pdf->cell(275, 10, 'Part Dimensions', 'B');
+        //$pdf->Ln(20);
+        //$pdf->cell(40);
+        //$pdf->cell(40, 10, 'Weight', 1, 0, 'C');
+        //$pdf->cell(40, 10, 'Height', 1, 0, 'C');
+        //$pdf->cell(40, 10, 'Width', 1, 0, 'C');
+        //$pdf->cell(40, 10, 'Length', 1, 0, 'C');
+        //$pdf->cell(40, 10, 'Inner Dimensions', 1, 0, 'C');
+        //$pdf->cell(40, 10, 'Outer Dimensions', 1, 0, 'C');
+        //$pdf->Ln(10);
+        //$pdf->cell(40, 10, 'Maximum', 1);
+        //$pdf->cell(40, 10, $max_weight, 1);
+        //$pdf->cell(40, 10, $max_height, 1);
+        //$pdf->cell(40, 10, $max_width, 1);
+        //$pdf->cell(40, 10, $max_length, 1);
+        //$pdf->cell(40, 10, $max_id, 1);
+        //$pdf->cell(40, 10, $max_od, 1);
+        //$pdf->Ln(10);
+        //$pdf->cell(40, 10, 'Minimum', 1);
+        //$pdf->cell(40, 10, $min_weight, 1);
+        //$pdf->cell(40, 10, $min_height, 1);
+        //$pdf->cell(40, 10, $min_width, 1);
+        //$pdf->cell(40, 10, $min_length, 1);
+        //$pdf->cell(40, 10, $min_id, 1);
+        //$pdf->cell(40, 10, $min_od, 1);
+        //$pdf->Ln(10);
+        //$pdf->cell(275, 10, "***Please indicate a separate sheet for additional parts if necessary***", 0, 0, 'C');
+        //$pdf->Ln(10);
+        //$pdf->cell(275, 10, "Part Surface", 'B', 0, 'L');
+        //$pdf->Ln(10);
+        //$pdf->cell(40, 10, "Wet: $st_wet");
+        //$pdf->cell(60);
+        //$pdf->cell(40, 10, "Hot: $st_hot");
+        //$pdf->cell(60);
+        //$pdf->cell(40, 10, "Class A: $st_classA");
+        //$pdf->Ln(5);
+        //$pdf->cell(40, 10, "Dry: $st_dry");
+        //$pdf->cell(60);
+        //$pdf->cell(40, 10, "Temperature: $temperature");
+        //$pdf->cell(60);
+        //$pdf->cell(40, 10, "Textured: $st_textured");
+        //$pdf->Ln(5);
+        //$pdf->cell(40, 10, "Oily: $st_oily");
+        //$pdf->cell(60);
+        //$pdf->cell(40, 10, "Scale: $tempScale");
+        //$pdf->cell(60);
+        //$pdf->cell(40, 10, "Fragile: $st_fragile");
+        //$pdf->Ln(15);
+        //$pdf->cell(275, 10, "Description of Current Process or Sequence of Operations:");
+        //$pdf->Ln(10);
+        //$pdf->MultiCell(275, 10, $process_description, 1);
+        //$pdf->Ln(10);
+        //$pdf->cell(275, 10, "Production Rate (Cycles/Hour): $production_rate");
+        //$pdf->Ln(5);
+        //$pdf->cell(275, 10, "Shifts/Day: $shifts");
+        //$pdf->Ln(20);
+        //$pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
+        //$pdf->Ln(15);
+        //$pdf->MultiCell(275, 5, "What is the part being picked up from?");
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 10, $eng_pickup, 1);
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 5, "Please list any obstructions that may interfere with engaging the part:");
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 10, $eng_obstructions, 1);
+        //$pdf->Ln(5);
+        ////Moving or Stationary?
+        ////Placeholder
+        //$pdf->MultiCell(275, 5, "Recommended area to engage on the part:");
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 10, $eng_recommended, 1);
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 5, "Areas of the part that cannot be touched:");
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 10, $eng_noTouching, 1);
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 5, "Operator's perspective of part orientation:");
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 10, $eng_orientation, 1);
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 5, "Dimensional elevation of part at set down:");
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 10, $eng_dimElevation, 1);
+        //$pdf->Ln(5);
+        //Output the PDF to the browser window
+        $pdf->Output();
     }
+
     function pdf_attach(){
-    $pdf = new PDF();
-    $pdf->AddPage('L');
-    $pdf->SetFont('Arial', '', 12);
+        $pdf = new PDF();
+        $pdf->AddPage('L');
+        $pdf->SetFont('Arial', '', 12);
 
-    //Cell Options
-    //Width | Height | Text | Border(0 or 1) | New Line(0 or 1) | 
-    //Text Orientation('L', 'C', or 'R' | Background (true or false) | Link (url)
-    //Internal Information
-    $pdf->Cell(80, 10, "Salesperson: ________________________________");
-    //Do something like this to make black space within a line
-    $pdf->Cell(80);
-    $pdf->cell(115, 10, "Request #: _________________________________", 0, 0, 'R');
-    $pdf->Ln(15);
-    $pdf->Cell(70, 10, "Customer Information", 'B', 0, 'L');
-    $pdf->Cell(15, 10, '', 'B');
-    $pdf->cell(85, 10, "Date: " . $this->CurrentDateTime['Value'], 'B', 0, 'C');
-    $pdf->cell(30, 10, '', 'B');
-    $pdf->cell(75, 10, "Delivery Requested: " . $this->Delivery['Value'], 'B', 0, 'L');
-    $pdf->Ln(15);
-    //Customer Information
-    //Get current x and y to make Multicells span the same line
-    $x = $pdf->GetX();
-    $y = $pdf->GetY();
-    $pdf->MultiCell(80, 5, ""
-            . $this->CompanyName['Value']. "\n"
-            . $this->StreetAddress['Value'] . "\n"
-            . $this->City['Value'] . ", " . $this->State['Value'] . " " . $this->Zip['Value']);
-    
-    //$pdf->SetXY($x + 95, $y);
-    //$pdf->MultiCell(80, 5, "Contact:\n"
-    //        . "$firstName $lastName\n\n"
-    //        . "Title:\n"
-    //        . "$title");
-    //$pdf->SetXY($x + 200, $y);
-    //$pdf->MultiCell(80, 5, "Phone:\n"
-    //        . "$phone\n"
-    //        . "Fax:\n"
-    //        . "$fax\n"
-    //        . "Email:\n"
-    //        . "$email");
-    //$pdf->Ln(10);
-    ////End User Information
-    //$pdf->Cell(275, 10, "End User Information", 'B', 0, 'L');
-    //$pdf->Ln(15);
-    //$x = $pdf->GetX();
-    //$y = $pdf->GetY();
-    //$pdf->MultiCell(80, 5, ""
-    //        . "$user_company_name\n"
-    //        . "$user_street_address\n"
-    //        . "$user_city, $user_state, $user_zip");
-    //
-    //$pdf->SetXY($x + 95, $y);
-    //$pdf->MultiCell(80, 5, "Contact:\n"
-    //        . "$user_firstName $user_lastName\n\n"
-    //        . "Title:\n"
-    //        . "$user_title");
-    //$pdf->SetXY($x + 200, $y);
-    //$pdf->MultiCell(80, 5, "Phone:\n"
-    //        . "$user_phone\n"
-    //        . "Fax:\n"
-    //        . "$user_fax\n"
-    //        . "Email:\n"
-    //        . "$user_email");
-    //$pdf->Ln();
-    //$pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
-    //$pdf->Ln(10);
-    //$pdf->MultiCell(275, 5, "Part Description:\n"
-    //        . "$part_description");
-    //$pdf->Ln(10);
-    //$pdf->cell(80, 10, "Quantity Required: $quantity");
-    //$pdf->cell(20);
-    //$pdf->cell(80, 10, "LH/RH Units: $lh_rh_unit");
-    //$pdf->Ln();
-    ////Part Dimensions
-    //$pdf->cell(275, 10, 'Part Dimensions', 'B');
-    //$pdf->Ln(20);
-    //$pdf->cell(40);
-    //$pdf->cell(40, 10, 'Weight', 1, 0, 'C');
-    //$pdf->cell(40, 10, 'Height', 1, 0, 'C');
-    //$pdf->cell(40, 10, 'Width', 1, 0, 'C');
-    //$pdf->cell(40, 10, 'Length', 1, 0, 'C');
-    //$pdf->cell(40, 10, 'Inner Dimensions', 1, 0, 'C');
-    //$pdf->cell(40, 10, 'Outer Dimensions', 1, 0, 'C');
-    //$pdf->Ln(10);
-    //$pdf->cell(40, 10, 'Maximum', 1);
-    //$pdf->cell(40, 10, $max_weight, 1);
-    //$pdf->cell(40, 10, $max_height, 1);
-    //$pdf->cell(40, 10, $max_width, 1);
-    //$pdf->cell(40, 10, $max_length, 1);
-    //$pdf->cell(40, 10, $max_id, 1);
-    //$pdf->cell(40, 10, $max_od, 1);
-    //$pdf->Ln(10);
-    //$pdf->cell(40, 10, 'Minimum', 1);
-    //$pdf->cell(40, 10, $min_weight, 1);
-    //$pdf->cell(40, 10, $min_height, 1);
-    //$pdf->cell(40, 10, $min_width, 1);
-    //$pdf->cell(40, 10, $min_length, 1);
-    //$pdf->cell(40, 10, $min_id, 1);
-    //$pdf->cell(40, 10, $min_od, 1);
-    //$pdf->Ln(10);
-    //$pdf->cell(275, 10, "***Please indicate a separate sheet for additional parts if necessary***", 0, 0, 'C');
-    //$pdf->Ln(10);
-    //$pdf->cell(275, 10, "Part Surface", 'B', 0, 'L');
-    //$pdf->Ln(10);
-    //$pdf->cell(40, 10, "Wet: $st_wet");
-    //$pdf->cell(60);
-    //$pdf->cell(40, 10, "Hot: $st_hot");
-    //$pdf->cell(60);
-    //$pdf->cell(40, 10, "Class A: $st_classA");
-    //$pdf->Ln(5);
-    //$pdf->cell(40, 10, "Dry: $st_dry");
-    //$pdf->cell(60);
-    //$pdf->cell(40, 10, "Temperature: $temperature");
-    //$pdf->cell(60);
-    //$pdf->cell(40, 10, "Textured: $st_textured");
-    //$pdf->Ln(5);
-    //$pdf->cell(40, 10, "Oily: $st_oily");
-    //$pdf->cell(60);
-    //$pdf->cell(40, 10, "Scale: $tempScale");
-    //$pdf->cell(60);
-    //$pdf->cell(40, 10, "Fragile: $st_fragile");
-    //$pdf->Ln(15);
-    //$pdf->cell(275, 10, "Description of Current Process or Sequence of Operations:");
-    //$pdf->Ln(10);
-    //$pdf->MultiCell(275, 10, $process_description, 1);
-    //$pdf->Ln(10);
-    //$pdf->cell(275, 10, "Production Rate (Cycles/Hour): $production_rate");
-    //$pdf->Ln(5);
-    //$pdf->cell(275, 10, "Shifts/Day: $shifts");
-    //$pdf->Ln(20);
-    //$pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
-    //$pdf->Ln(15);
-    //$pdf->MultiCell(275, 5, "What is the part being picked up from?");
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 10, $eng_pickup, 1);
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 5, "Please list any obstructions that may interfere with engaging the part:");
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 10, $eng_obstructions, 1);
-    //$pdf->Ln(5);
-    ////Moving or Stationary?
-    ////Placeholder
-    //$pdf->MultiCell(275, 5, "Recommended area to engage on the part:");
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 10, $eng_recommended, 1);
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 5, "Areas of the part that cannot be touched:");
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 10, $eng_noTouching, 1);
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 5, "Operator's perspective of part orientation:");
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 10, $eng_orientation, 1);
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 5, "Dimensional elevation of part at set down:");
-    //$pdf->Ln(5);
-    //$pdf->MultiCell(275, 10, $eng_dimElevation, 1);
-    //$pdf->Ln(5);
+        //Cell Options
+        //Width | Height | Text | Border(0 or 1) | New Line(0 or 1) |
+        //Text Orientation('L', 'C', or 'R' | Background (true or false) | Link (url)
+        //Internal Information
+        $pdf->Cell(80, 10, "Salesperson: ________________________________");
+        //Do something like this to make black space within a line
+        $pdf->Cell(80);
+        $pdf->cell(115, 10, "Request #: _________________________________", 0, 0, 'R');
+        $pdf->Ln(15);
+        $pdf->Cell(70, 10, "Customer Information", 'B', 0, 'L');
+        $pdf->Cell(15, 10, '', 'B');
+        $pdf->cell(85, 10, "Date: " . $this->CurrentDateTime['Value'], 'B', 0, 'C');
+        $pdf->cell(30, 10, '', 'B');
+        $pdf->cell(75, 10, "Delivery Requested: " . $this->Delivery['Value'], 'B', 0, 'L');
+        $pdf->Ln(15);
+        //Customer Information
+        //Get current x and y to make Multicells span the same line
+        $x = $pdf->GetX();
+        $y = $pdf->GetY();
+        $pdf->MultiCell(80, 5, ""
+                . $this->CompanyName['Value']. "\n"
+                . $this->StreetAddress['Value'] . "\n"
+                . $this->City['Value'] . ", " . $this->State['Value'] . " " . $this->Zip['Value']);
 
+        //$pdf->SetXY($x + 95, $y);
+        //$pdf->MultiCell(80, 5, "Contact:\n"
+        //        . "$firstName $lastName\n\n"
+        //        . "Title:\n"
+        //        . "$title");
+        //$pdf->SetXY($x + 200, $y);
+        //$pdf->MultiCell(80, 5, "Phone:\n"
+        //        . "$phone\n"
+        //        . "Fax:\n"
+        //        . "$fax\n"
+        //        . "Email:\n"
+        //        . "$email");
+        //$pdf->Ln(10);
+        ////End User Information
+        //$pdf->Cell(275, 10, "End User Information", 'B', 0, 'L');
+        //$pdf->Ln(15);
+        //$x = $pdf->GetX();
+        //$y = $pdf->GetY();
+        //$pdf->MultiCell(80, 5, ""
+        //        . "$user_company_name\n"
+        //        . "$user_street_address\n"
+        //        . "$user_city, $user_state, $user_zip");
+        //
+        //$pdf->SetXY($x + 95, $y);
+        //$pdf->MultiCell(80, 5, "Contact:\n"
+        //        . "$user_firstName $user_lastName\n\n"
+        //        . "Title:\n"
+        //        . "$user_title");
+        //$pdf->SetXY($x + 200, $y);
+        //$pdf->MultiCell(80, 5, "Phone:\n"
+        //        . "$user_phone\n"
+        //        . "Fax:\n"
+        //        . "$user_fax\n"
+        //        . "Email:\n"
+        //        . "$user_email");
+        //$pdf->Ln();
+        //$pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
+        //$pdf->Ln(10);
+        //$pdf->MultiCell(275, 5, "Part Description:\n"
+        //        . "$part_description");
+        //$pdf->Ln(10);
+        //$pdf->cell(80, 10, "Quantity Required: $quantity");
+        //$pdf->cell(20);
+        //$pdf->cell(80, 10, "LH/RH Units: $lh_rh_unit");
+        //$pdf->Ln();
+        ////Part Dimensions
+        //$pdf->cell(275, 10, 'Part Dimensions', 'B');
+        //$pdf->Ln(20);
+        //$pdf->cell(40);
+        //$pdf->cell(40, 10, 'Weight', 1, 0, 'C');
+        //$pdf->cell(40, 10, 'Height', 1, 0, 'C');
+        //$pdf->cell(40, 10, 'Width', 1, 0, 'C');
+        //$pdf->cell(40, 10, 'Length', 1, 0, 'C');
+        //$pdf->cell(40, 10, 'Inner Dimensions', 1, 0, 'C');
+        //$pdf->cell(40, 10, 'Outer Dimensions', 1, 0, 'C');
+        //$pdf->Ln(10);
+        //$pdf->cell(40, 10, 'Maximum', 1);
+        //$pdf->cell(40, 10, $max_weight, 1);
+        //$pdf->cell(40, 10, $max_height, 1);
+        //$pdf->cell(40, 10, $max_width, 1);
+        //$pdf->cell(40, 10, $max_length, 1);
+        //$pdf->cell(40, 10, $max_id, 1);
+        //$pdf->cell(40, 10, $max_od, 1);
+        //$pdf->Ln(10);
+        //$pdf->cell(40, 10, 'Minimum', 1);
+        //$pdf->cell(40, 10, $min_weight, 1);
+        //$pdf->cell(40, 10, $min_height, 1);
+        //$pdf->cell(40, 10, $min_width, 1);
+        //$pdf->cell(40, 10, $min_length, 1);
+        //$pdf->cell(40, 10, $min_id, 1);
+        //$pdf->cell(40, 10, $min_od, 1);
+        //$pdf->Ln(10);
+        //$pdf->cell(275, 10, "***Please indicate a separate sheet for additional parts if necessary***", 0, 0, 'C');
+        //$pdf->Ln(10);
+        //$pdf->cell(275, 10, "Part Surface", 'B', 0, 'L');
+        //$pdf->Ln(10);
+        //$pdf->cell(40, 10, "Wet: $st_wet");
+        //$pdf->cell(60);
+        //$pdf->cell(40, 10, "Hot: $st_hot");
+        //$pdf->cell(60);
+        //$pdf->cell(40, 10, "Class A: $st_classA");
+        //$pdf->Ln(5);
+        //$pdf->cell(40, 10, "Dry: $st_dry");
+        //$pdf->cell(60);
+        //$pdf->cell(40, 10, "Temperature: $temperature");
+        //$pdf->cell(60);
+        //$pdf->cell(40, 10, "Textured: $st_textured");
+        //$pdf->Ln(5);
+        //$pdf->cell(40, 10, "Oily: $st_oily");
+        //$pdf->cell(60);
+        //$pdf->cell(40, 10, "Scale: $tempScale");
+        //$pdf->cell(60);
+        //$pdf->cell(40, 10, "Fragile: $st_fragile");
+        //$pdf->Ln(15);
+        //$pdf->cell(275, 10, "Description of Current Process or Sequence of Operations:");
+        //$pdf->Ln(10);
+        //$pdf->MultiCell(275, 10, $process_description, 1);
+        //$pdf->Ln(10);
+        //$pdf->cell(275, 10, "Production Rate (Cycles/Hour): $production_rate");
+        //$pdf->Ln(5);
+        //$pdf->cell(275, 10, "Shifts/Day: $shifts");
+        //$pdf->Ln(20);
+        //$pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
+        //$pdf->Ln(15);
+        //$pdf->MultiCell(275, 5, "What is the part being picked up from?");
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 10, $eng_pickup, 1);
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 5, "Please list any obstructions that may interfere with engaging the part:");
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 10, $eng_obstructions, 1);
+        //$pdf->Ln(5);
+        ////Moving or Stationary?
+        ////Placeholder
+        //$pdf->MultiCell(275, 5, "Recommended area to engage on the part:");
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 10, $eng_recommended, 1);
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 5, "Areas of the part that cannot be touched:");
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 10, $eng_noTouching, 1);
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 5, "Operator's perspective of part orientation:");
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 10, $eng_orientation, 1);
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 5, "Dimensional elevation of part at set down:");
+        //$pdf->Ln(5);
+        //$pdf->MultiCell(275, 10, $eng_dimElevation, 1);
+        //$pdf->Ln(5);
 
-
-    ////Create an email attachment
-    //$attachment = $pdf->Output('attachment.pdf', 'S');
-    ////Attach the PDF and send an email
-    //email_pdf($attachment, $email_password);
-    //Output the PDF to the browser window
-    return $pdf->Output('attachment.pdf', 'S');
+        //Output the PDF to the browser window
+        return $pdf->Output('attachment.pdf', 'S');
     }
 }

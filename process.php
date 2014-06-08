@@ -24,12 +24,16 @@ function check_ClientArray($Client) {
     //Checks the POST array for mandatory fields
     foreach ($Client as $array => $formField) {
         $value = $formField['Value'];
-        $minLength = $formField['MinLength'];
-        $maxLength = $formField['MaxLength'];
+        if (isset($formField['MinLength'])) {
+            $minLength = $formField['MinLength'];
+        }
+        if (isset($formField['MaxLength'])) {
+            $maxLength = $formField['MaxLength'];
+        }
         $display = $formField['Display'];
         $required = $formField['Required'];
         $valueType = $formField['Value_Type'];
-        
+
         //Check for empty required form fields
         if ($required == 1 && $value == '') {
             //Display the field that is generating the error
@@ -128,11 +132,8 @@ check_ClientArray($Client);
 //$attachment = $Client->pdf_attach();
 ////Attach the PDF and send an email
 //email_pdf($attachment, $email_password);
-
 //Output the PDF to a browser window
 $Client->pdf_output();
-
-
 
 //$firstName = $_POST['firstName'];
 //$lastName = $_POST['lastName'];
