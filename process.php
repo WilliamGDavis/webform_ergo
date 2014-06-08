@@ -1,5 +1,21 @@
 <?php
 
+class error_action{
+    public $e_type;
+    public $e_message;
+    
+    function process_error($e_type, $e_message){
+        $e_type = $this->e_type;
+        $e_message = $this->e_message;
+        
+        if ($e_type == "Error_Continue"){
+            
+        } elseif ($e_type == "Error_Halt"){
+            
+        }
+    }
+}
+
 require('fpdf.php');
 $email_password = $_POST['email_password'];
 

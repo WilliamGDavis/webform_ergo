@@ -49,23 +49,23 @@
                 </div>
                 <div class="pure-u-1">
                     <label>Company Name: </label><label class="charNum"></label>
-                    <input type="text" name="company_name" class="pure-input-1 length_50" maxlength="50" />
+                    <input type="text" name="company_name" class="pure-input-1 length_text" maxlength="60" />
                 </div>
                 <div class="pure-u-1">
                     <label>Street Address: </label><label class="charNum"></label>
-                    <input type="text" name="street_address" class="pure-input-1 length_24" maxlength="24" />
+                    <input type="text" name="street_address" class="pure-input-1 length_text" maxlength="60" />
                 </div>
                 <div class="pure-u-1-3">
-                    <label>City:</label>
-                    <input type="text" name="city" class="pure-input-1" />
+                    <label>City:</label><label class="charNum"></label>
+                    <input type="text" name="city" class="pure-input-1 length_text" maxlength="28" />
                 </div>
                 <div class="pure-u-1-3">
-                    <label>State:</label>
-                    <input type="text" name="state" class="pure-input-1" />
+                    <label>State:</label><label class="charNum"></label>
+                    <input type="text" name="state" class="pure-input-1 length_text" maxlength="2" />
                 </div>
                 <div class="pure-u-1-3">
-                    <label>Zip:</label>
-                    <input type="text" name="zip" class="pure-input-1" />
+                    <label>Zip:</label><label class="charNum"></label>
+                    <input type="text" name="zip" class="pure-input-1 length_text" maxlength="5" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>First Name:</label><input type="text" name="firstName" class="pure-input-1" />
@@ -255,7 +255,7 @@
                 </div>
                 <div class="pure-u-1">
                     <label>Description of current process or sequence of operations: <label class='charNum'></label></label>
-                    <textarea class="pure-u-1 length_700" maxlength="700" rows="6" name="process_description"></textarea>
+                    <textarea class="pure-u-1 length_text" maxlength="700" rows="6" name="process_description"></textarea>
                 </div>
                 <div class="pure-u-1-3">
                     <label>Production Rate (cycles/hour):</label>
