@@ -1,5 +1,7 @@
 <?php
 
+require 'class.ClientValue';
+
 class error_action {
 
     public $e_type;
@@ -18,11 +20,11 @@ class error_action {
 
 }
 
-require 'class.ClientValue';
-
 function check_ClientArray($Client) {
     //Checks the POST array for mandatory fields
+    //Gather the individual form fields within the Client object
     foreach ($Client as $array => $formField) {
+        //Get the values from the Client Object
         $value = $formField['Value'];
         if (isset($formField['MinLength'])) {
             $minLength = $formField['MinLength'];
@@ -54,7 +56,14 @@ $email_password = $_POST['email_password'];
 $Client = new Client_Value();
 
 //Add the appropriate values to the Client Class
-//$Client->CompanyName['company_name'] = array(
+$Client->CurrentDateTime = array(
+    'Value' => date("F j, Y, g:i a"),
+    'Value_Type' => 'Date',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 1,
+    'Display' => 'Date'
+);
 $Client->CompanyName = array(
     'Name' => 'CompanyName',
     'Type' => 'Textbox',
@@ -75,14 +84,6 @@ $Client->Delivery = array(
     'MaxLength' => 3,
     'Required' => 1,
     'Display' => 'Delivery'
-);
-$Client->CurrentDateTime = array(
-    'Value' => date("F j, Y, g:i a"),
-    'Value_Type' => 'Date',
-    'MinLength' => 0,
-    'MaxLength' => 60,
-    'Required' => 1,
-    'Display' => 'Date'
 );
 $Client->StreetAddress = array(
     'Name' => 'StreetAddress',
@@ -124,7 +125,194 @@ $Client->Zip = array(
     'Required' => 1,
     'Display' => 'Zip'
 );
+$Client->FirstName = array(
+    'Name' => 'FirstName',
+    'Type' => 'Textbox',
+    'Value' => (string) $_POST['firstName'],
+    'Value_Type' => 'String',
+    'MinLength' => 1,
+    'MaxLength' => 28,
+    'Required' => 1,
+    'Display' => 'First Name'
+);
+$Client->LastName = array(
+    'Name' => 'LastName',
+    'Type' => 'Textbox',
+    'Value' => (string) $_POST['lastName'],
+    'Value_Type' => 'String',
+    'MinLength' => 1,
+    'MaxLength' => 28,
+    'Required' => 1,
+    'Display' => 'Last Name'
+);
+$Client->Title = array(
+    'Name' => 'Title',
+    'Type' => 'Textbox',
+    'Value' => (string) $_POST['title'],
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Title'
+);
+$Client->Phone = array(
+    'Name' => 'Phone',
+    'Type' => 'Textbox',
+    //Strip all the symbols and whitespaces the phone number
+    'Value' => preg_replace('/(\W*)/', '', trim($_POST['phone'])),
+    'Value_Type' => 'String',
+    'MinLength' => 10,
+    'MaxLength' => 10,
+    'Required' => 1,
+    'Display' => 'Phone'
+);
+$Client->Fax = array(
+    'Name' => 'Fax',
+    'Type' => 'Textbox',
+    'Value' => preg_replace('/(\W*)/', '', trim($_POST['fax'])),
+    'Value_Type' => 'String',
+    'MinLength' => 14,
+    'MaxLength' => 14,
+    'Required' => 0,
+    'Display' => 'Fax'
+);
+$Client->Email = array(
+    'Name' => 'Email',
+    'Type' => 'Textbox',
+    'Value' => preg_replace('/(\W*)/', '', trim($_POST['email'])),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Email'
+);
 
+//User Variables
+$Client->UserCompanyName = array(
+    'Name' => 'UserCompanyName',
+    'Type' => 'Textbox',
+    'Value' => (string) $_POST['user_company_name'],
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'End User Company Name'
+);
+$Client->UserStreetAddress = array(
+    'Name' => 'UserStreetAddress',
+    'Type' => 'Textbox',
+    'Value' => (string) $_POST['user_street_address'],
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'End User Street Address'
+);
+$Client->UserCity = array(
+    'Name' => 'UserCity',
+    'Type' => 'Textbox',
+    'Value' => (string) $_POST['user_city'],
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 28,
+    'Required' => 0,
+    'Display' => 'End User City'
+);
+$Client->UserState = array(
+    'Name' => 'UserState',
+    'Type' => 'Textbox',
+    'Value' => (string) $_POST['user_state'],
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 2,
+    'Required' => 0,
+    'Display' => 'End User State'
+);
+$Client->UserZip = array(
+    'Name' => 'UserZip',
+    'Type' => 'Textbox',
+    'Value' => (string) $_POST['user_zip'],
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 5,
+    'Required' => 0,
+    'Display' => 'End User Zip'
+);
+$Client->UserFirstName = array(
+    'Name' => 'UserFirstName',
+    'Type' => 'Textbox',
+    'Value' => (string) $_POST['user_firstName'],
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 28,
+    'Required' => 0,
+    'Display' => 'End User First Name'
+);
+$Client->UserLastName = array(
+    'Name' => 'UserLastName',
+    'Type' => 'Textbox',
+    'Value' => (string) $_POST['user_lastName'],
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 28,
+    'Required' => 0,
+    'Display' => 'End User Last Name'
+);
+$Client->UserTitle = array(
+    'Name' => 'UserTitle',
+    'Type' => 'Textbox',
+    'Value' => (string) $_POST['user_title'],
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'End User Title'
+);
+$Client->UserPhone = array(
+    'Name' => 'UserPhone',
+    'Type' => 'Textbox',
+    'Value' => preg_replace('/(\W*)/', '', trim($_POST['user_phone'])),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 14,
+    'Required' => 0,
+    'Display' => 'Phone'
+);
+$Client->UserFax = array(
+    'Name' => 'UserFax',
+    'Type' => 'Textbox',
+    'Value' => preg_replace('/(\W*)/', '', trim($_POST['user_fax'])),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 14,
+    'Required' => 0,
+    'Display' => 'End User Fax'
+);
+$Client->UserEmail = array(
+    'Name' => 'UserEmail',
+    'Type' => 'Textbox',
+    'Value' => preg_replace('/(\W*)/', '', trim($_POST['user_email'])),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'End User Email'
+);
+//Part Description
+$Client->PartDescription = array(
+    'Name' => 'PartDescription',
+    'Type' => 'Textbox',
+    'Value' => preg_replace('/(\W*)/', '', trim($_POST['part_description'])),
+    'Value_Type' => 'String',
+    'MinLength' => 1,
+    'MaxLength' => 124,
+    'Required' => 1,
+    'Display' => 'Part Description'
+);
+
+
+//echo $Client->Phone['Value'];
+//echo preg_replace('/(\W*)/', '', $Client->Phone['Value']);
 //Validate the array values
 check_ClientArray($Client);
 

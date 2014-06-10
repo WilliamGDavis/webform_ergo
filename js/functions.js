@@ -1,4 +1,7 @@
 $(document).ready(function() {
+    //Set the mask for the phone number field(s)
+    $("#phone, #fax").mask("(999) 999-9999");
+    
     ////Displays the character count for the text inputs
     //////Maximum Length: ANY
     $('.length_text', this).keyup(function() {

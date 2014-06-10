@@ -1,3 +1,6 @@
+<?php
+require './scripts/functions.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,13 +37,14 @@
             }
         </style>
         <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="js/masked_input.js" type="text/javascript"></script>
         <script src="js/functions.js" type="text/javascript"></script>
     </head>
     <body>
         <form class="pure-form pure-g" action="process.php" method="post" enctype="multipart/form-data">
             <fieldset>
                 <div class="pure-u-1">
-                <label>Email Password (Temporary):</label> <input type="password" name="email_password" />
+                    <label>Email Password (Temporary):</label> <input type="password" name="email_password" />
                 </div>
                 <br />
                 <!-- Customer Information -->
@@ -60,8 +64,10 @@
                     <input type="text" name="city" class="pure-input-1 length_text" maxlength="28" />
                 </div>
                 <div class="pure-u-1-3">
-                    <label>State:</label><label class="charNum"></label>
-                    <input type="text" name="state" class="pure-input-1 length_text" maxlength="2" />
+                    <label>State:</label>
+                    <select name="state" class="pure-input-1">
+                        <?php echo state_builder(); ?>
+                    </select>
                 </div>
                 <div class="pure-u-1-3">
                     <label>Zip:</label><label class="charNum"></label>
@@ -80,12 +86,12 @@
                     <input type="text" name="title" class="pure-input-1 length_text" maxlength="60" />
                 </div>
                 <div class="pure-u-1-3">
-                    <label>Phone:</label><label class="charNum"></label>
-                    <input type="text" name="phone" class="pure-input-1 length_text" maxlength="10" />
+                    <label>Phone:</label>
+                    <input type="text" id="phone" name="phone" class="pure-input-1 length_text" maxlength="14" />
                 </div>
                 <div class="pure-u-1-3">
-                    <label>Fax:</label><label class="charNum"></label>
-                    <input type="text" name="fax" class="pure-input-1 length_text" maxlength="10" />
+                    <label>Fax:</label>
+                    <input type="text" id="fax" name="fax" class="pure-input-1 length_text" maxlength="14" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>Email:</label><label class="charNum"></label>
@@ -98,16 +104,19 @@
                     <legend>End User Information</legend>
                 </div>
                 <div class="pure-u-1">
-                    <label>Company Name:</label>
-                    <input type="text" name="user_company_name" class="pure-input-1" />
+                    <button type="button" id="btn_CopyCompanyInfo">Same as Above</button>
                 </div>
                 <div class="pure-u-1">
-                    <label>Street Address:</label>
-                    <input type="text" name="user_street_address" class="pure-input-1" />
+                    <label>Company Name:</label><label class="charNum"></label>
+                    <input type="text" name="user_company_name" class="pure-input-1 length_text" maxlength="60" />
+                </div>
+                <div class="pure-u-1">
+                    <label>Street Address:</label><label class="charNum"></label>
+                    <input type="text" name="user_street_address" class="pure-input-1 length_text" maxlength="60" />
                 </div>
                 <div class="pure-u-1-3">
-                    <label>City:</label>
-                    <input type="text" name="user_city" class="pure-input-1" />
+                    <label>City:</label><label class="charNum"></label>
+                    <input type="text" name="user_city" class="pure-input-1 length_text" maxlength="28" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>State:</label>
@@ -148,8 +157,8 @@
                     <legend>Application Information</legend>
                 </div>
                 <div class="pure-u-1">
-                    <label>Part Description:</label>
-                    <input type="text" name="part_description" class="pure-input-1" />
+                    <label>Part Description:</label><label class="charNum"></label>
+                    <input type="text" name="part_description" class="pure-input-1 length_text" maxlength="124"/>
                 </div>
                 <div class="pure-u-1-4">
                     <label>Quantity:</label>

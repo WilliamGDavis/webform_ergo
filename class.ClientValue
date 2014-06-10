@@ -23,13 +23,19 @@ class PDF extends FPDF {
 }
 
 class Client_Value {
-    public $CompanyName;
-    public $CurrentDateTime;
-    public $Delivery;
-    public $StreetAddress;
-    public $City;
-    public $State;
-    public $Zip;
+    public $CurrentDateTime; 
+    //Company Variables
+    public $CompanyName; public $Delivery; public $StreetAddress; 
+    public $City; public $State; public $Zip; 
+    public $FirstName; public $LastName; public $Title;
+    public $Phone; public $Fax; public $Email;
+    //User Variables
+    public $UserCompanyName; public $UserDelivery; public $UserStreetAddress;
+    public $UserCity; public $UserState; public $UserZip;
+    public $UserFirstName; public $UserLastName; public $UserTitle;
+    public $UserPhone; public $UserFax; public $UserEmail;
+    //Part Description
+    public $PartDescription;
 
     function pdf_output(){
         $pdf = new PDF();
