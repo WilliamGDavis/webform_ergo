@@ -333,8 +333,128 @@ $Client->LhRhUnit = array(
     'Display' => 'Left Hand / Right Hand Units Required'
 );
 
-//echo $Client->Phone['Value'];
-//echo preg_replace('/(\W*)/', '', $Client->Phone['Value']);
+//Part Dimensions
+$Client->MaxWeight = array(
+    'Name' => 'MaxWeight',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['max_weight']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Maximum Weight'
+);
+$Client->MaxHeight = array(
+    'Name' => 'MaxHeight',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['max_height']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Maximum Height'
+);
+$Client->MaxWidth = array(
+    'Name' => 'MaxWidth',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['max_width']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Maximum Width'
+);
+$Client->MaxLength = array(
+    'Name' => 'MaxLength',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['max_length']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Maximum Length'
+);
+$Client->MaxID = array(
+    'Name' => 'MaxID',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['max_id']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Maximum Inner Dimension (ID)'
+);
+$Client->MaxOD = array(
+    'Name' => 'MaxOD',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['max_od']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Maximum Outer Dimensions (OD)'
+);
+$Client->MinWeight = array(
+    'Name' => 'MinWeight',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['min_weight']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Minimum Weight'
+);
+$Client->MinHeight = array(
+    'Name' => 'MinHeight',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['min_height']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Minimum Height'
+);
+$Client->MinWidth = array(
+    'Name' => 'MinWidth',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['min_width']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Miniimum Width'
+);
+$Client->MinLength = array(
+    'Name' => 'MinLength',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['min_length']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Minimum Length'
+);
+$Client->MinID = array(
+    'Name' => 'MinID',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['min_id']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Minimum Inner Dimension (ID)'
+);
+$Client->MinOD = array(
+    'Name' => 'MinOD',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['min_od']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Minimum Outer Dimensions (OD)'
+);
+
 //Validate the array values
 check_ClientArray($Client);
 
@@ -345,26 +465,7 @@ check_ClientArray($Client);
 //Output the PDF to a browser window
 $Client->pdf_output();
 
-//
-////Application Information
-//$part_description = $_POST['part_description'];
-//$quantity = $_POST['quantity'];
-//$lh_rh_unit = $_POST['lh_rh_unit'];
-//
-////Part Dimensions
-//$max_weight = $_POST['max_weight'];
-//$max_height = $_POST['max_height'];
-//$max_width = $_POST['max_width'];
-//$max_length = $_POST['max_length'];
-//$max_id = $_POST['max_id'];
-//$max_od = $_POST['max_od'];
-//$min_weight = $_POST['min_weight'];
-//$min_height = $_POST['min_height'];
-//$min_width = $_POST['min_width'];
-//$min_length = $_POST['min_length'];
-//$min_id = $_POST['min_id'];
-//$min_od = $_POST['min_od'];
-//
+
 ////Surface Type
 //(isset($_POST['st_wet']) && $_POST['st_wet'] == 'Yes') ?
 //                $st_wet = 'Yes' : $st_wet = 'No';
