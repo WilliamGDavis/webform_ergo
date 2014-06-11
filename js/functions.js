@@ -1,6 +1,6 @@
 $(document).ready(function() {
     //Set the mask for the phone number field(s)
-    $("#phone, #fax").mask("(999) 999-9999");
+    $("#phone, #fax, #userPhone, #userFax").mask("(999) 999-9999");
     
     ////Displays the character count for the text inputs
     //////Maximum Length: ANY
@@ -41,6 +41,11 @@ $(document).ready(function() {
 //                    .text(' (' + char + ' characters left)')
 //                    .css('color', 'black');
 //        }
+    });
+    
+    //Copy the Company Information into the End User Fields
+    $('#btn_CopyCompanyInfo').on('click', function(){
+       alert('Hello'); 
     });
 });
 

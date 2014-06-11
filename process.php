@@ -64,6 +64,7 @@ $Client->CurrentDateTime = array(
     'Required' => 1,
     'Display' => 'Date'
 );
+//Company Variables
 $Client->CompanyName = array(
     'Name' => 'CompanyName',
     'Type' => 'Textbox',
@@ -179,7 +180,7 @@ $Client->Fax = array(
 $Client->Email = array(
     'Name' => 'Email',
     'Type' => 'Textbox',
-    'Value' => preg_replace('/(\W*)/', '', trim($_POST['email'])),
+    'Value' => trim($_POST['email']),
     'Value_Type' => 'String',
     'MinLength' => 0,
     'MaxLength' => 60,
@@ -291,25 +292,46 @@ $Client->UserFax = array(
 $Client->UserEmail = array(
     'Name' => 'UserEmail',
     'Type' => 'Textbox',
-    'Value' => preg_replace('/(\W*)/', '', trim($_POST['user_email'])),
+    'Value' => trim($_POST['user_email']),
     'Value_Type' => 'String',
     'MinLength' => 0,
     'MaxLength' => 60,
     'Required' => 0,
     'Display' => 'End User Email'
 );
-//Part Description
+
+//Application Information
 $Client->PartDescription = array(
     'Name' => 'PartDescription',
     'Type' => 'Textbox',
-    'Value' => preg_replace('/(\W*)/', '', trim($_POST['part_description'])),
+    //Clear whitespace before and after
+    'Value' => trim($_POST['part_description']),
     'Value_Type' => 'String',
     'MinLength' => 1,
     'MaxLength' => 124,
     'Required' => 1,
     'Display' => 'Part Description'
 );
-
+$Client->Quantity = array(
+    'Name' => 'Quantity',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['quantity']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Quantity Required'
+);
+$Client->LhRhUnit = array(
+    'Name' => 'LhRhUnit',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['lh_rh_unit']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 60,
+    'Required' => 0,
+    'Display' => 'Left Hand / Right Hand Units Required'
+);
 
 //echo $Client->Phone['Value'];
 //echo preg_replace('/(\W*)/', '', $Client->Phone['Value']);
@@ -323,25 +345,6 @@ check_ClientArray($Client);
 //Output the PDF to a browser window
 $Client->pdf_output();
 
-//$firstName = $_POST['firstName'];
-//$lastName = $_POST['lastName'];
-//$title = $_POST['title'];
-//$phone = $_POST['phone'];
-//$fax = $_POST['fax'];
-//$email = $_POST['email'];
-//
-////End User Variables
-//$user_company_name = $_POST['user_company_name'];
-//$user_street_address = $_POST['user_street_address'];
-//$user_city = $_POST['user_city'];
-//$user_state = $_POST['user_state'];
-//$user_zip = $_POST['user_zip'];
-//$user_firstName = $_POST['user_firstName'];
-//$user_lastName = $_POST['user_lastName'];
-//$user_title = $_POST['user_title'];
-//$user_phone = $_POST['user_phone'];
-//$user_fax = $_POST['user_fax'];
-//$user_email = $_POST['user_email'];
 //
 ////Application Information
 //$part_description = $_POST['part_description'];

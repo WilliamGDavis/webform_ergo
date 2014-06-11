@@ -1,11 +1,8 @@
 <?php
 
 require('fpdf.php');
-/**
-* Description of class
-*
-* @author William G Davis 2014
-*/
+//FPDF:
+//Create a header for the pdf document
 class PDF extends FPDF {
     // Page header
     function Header() {
@@ -22,20 +19,27 @@ class PDF extends FPDF {
     }
 }
 
+
+/**
+* Description of class
+*
+* @author William G Davis 2014
+*/
 class Client_Value {
     public $CurrentDateTime; 
+    public $Delivery;
     //Company Variables
-    public $CompanyName; public $Delivery; public $StreetAddress; 
+    public $CompanyName;  public $StreetAddress; 
     public $City; public $State; public $Zip; 
     public $FirstName; public $LastName; public $Title;
     public $Phone; public $Fax; public $Email;
     //User Variables
-    public $UserCompanyName; public $UserDelivery; public $UserStreetAddress;
+    public $UserCompanyName; public $UserStreetAddress;
     public $UserCity; public $UserState; public $UserZip;
     public $UserFirstName; public $UserLastName; public $UserTitle;
     public $UserPhone; public $UserFax; public $UserEmail;
     //Part Description
-    public $PartDescription;
+    public $PartDescription; public $Quantity;
 
     function pdf_output(){
         $pdf = new PDF();
@@ -65,56 +69,68 @@ class Client_Value {
                 . $this->CompanyName['Value']. "\n"
                 . $this->StreetAddress['Value'] . "\n"
                 . $this->City['Value'] . ", " . $this->State['Value'] . " " . $this->Zip['Value']);
-
-        //$pdf->SetXY($x + 95, $y);
-        //$pdf->MultiCell(80, 5, "Contact:\n"
-        //        . "$firstName $lastName\n\n"
-        //        . "Title:\n"
-        //        . "$title");
-        //$pdf->SetXY($x + 200, $y);
-        //$pdf->MultiCell(80, 5, "Phone:\n"
-        //        . "$phone\n"
-        //        . "Fax:\n"
-        //        . "$fax\n"
-        //        . "Email:\n"
-        //        . "$email");
-        //$pdf->Ln(10);
-        ////End User Information
-        //$pdf->Cell(275, 10, "End User Information", 'B', 0, 'L');
-        //$pdf->Ln(15);
-        //$x = $pdf->GetX();
-        //$y = $pdf->GetY();
-        //$pdf->MultiCell(80, 5, ""
-        //        . "$user_company_name\n"
-        //        . "$user_street_address\n"
-        //        . "$user_city, $user_state, $user_zip");
-        //
-        //$pdf->SetXY($x + 95, $y);
-        //$pdf->MultiCell(80, 5, "Contact:\n"
-        //        . "$user_firstName $user_lastName\n\n"
-        //        . "Title:\n"
-        //        . "$user_title");
-        //$pdf->SetXY($x + 200, $y);
-        //$pdf->MultiCell(80, 5, "Phone:\n"
-        //        . "$user_phone\n"
-        //        . "Fax:\n"
-        //        . "$user_fax\n"
-        //        . "Email:\n"
-        //        . "$user_email");
-        //$pdf->Ln();
-        //$pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
-        //$pdf->Ln(10);
-        //$pdf->MultiCell(275, 5, "Part Description:\n"
-        //        . "$part_description");
-        //$pdf->Ln(10);
-        //$pdf->cell(80, 10, "Quantity Required: $quantity");
-        //$pdf->cell(20);
-        //$pdf->cell(80, 10, "LH/RH Units: $lh_rh_unit");
-        //$pdf->Ln();
-        ////Part Dimensions
-        //$pdf->cell(275, 10, 'Part Dimensions', 'B');
-        //$pdf->Ln(20);
-        //$pdf->cell(40);
+        //Create columns instead of moving to the next line
+        $pdf->SetXY($x + 95, $y);
+        $pdf->MultiCell(80, 5, "Contact:\n"
+                . $this->FirstName['Value'] . " " . $this->LastName['Value'] . "\n\n"
+                . "Title:\n"
+                . $this->Title['Value']);
+        $pdf->SetXY($x + 200, $y);
+        $pdf->MultiCell(80, 5, "Phone:\n"
+                // Format the phone number in the following format:
+                // (xxx) xxx-xxxx
+                . "(" 
+                . substr($this->Phone['Value'], 0, 3) 
+                . ") " 
+                . substr($this->Phone['Value'], 3, 3) 
+                . "-"
+                . substr($this->Phone['Value'], 6) . "\n"
+                . "Fax:\n"
+                . "("
+                . substr($this->Fax['Value'], 0, 3)
+                . ") "
+                . substr($this->Fax['Value'], 3, 3)
+                . "-"
+                . substr($this->Fax['Value'], 6) . "\n"
+                . "Email:\n"
+                . $this->Email['Value']);
+        $pdf->Ln(10);
+        
+        //End User Information
+        $pdf->Cell(275, 10, "End User Information", 'B', 0, 'L');
+        $pdf->Ln(15);
+        $x = $pdf->GetX();
+        $y = $pdf->GetY();
+        $pdf->MultiCell(80, 5, ""
+                . $this->UserCompanyName['Value'] . "\n"
+                . $this->UserStreetAddress['Value'] . "\n"
+                . $this->UserCity['Value'] . ", " . $this->UserState['Value'] . " " . $this->UserZip['Value']);
+        $pdf->SetXY($x + 95, $y);
+        $pdf->MultiCell(80, 5, "Contact:\n"
+                . $this->UserFirstName['Value'] . " " . $this->UserLastName['Value'] . "\n\n"
+                . "Title:\n"
+                . $this->UserTitle['Value']);
+        $pdf->SetXY($x + 200, $y);
+        $pdf->MultiCell(80, 5, "Phone:\n"
+                . $this->UserPhone['Value'] . "\n"
+                . "Fax:\n"
+                . $this->UserFax['Value'] . "\n"
+                . "Email:\n"
+                . $this->UserEmail['Value']);
+        $pdf->Ln();
+        $pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
+        $pdf->Ln(10);
+        $pdf->MultiCell(275, 5, "Part Description:\n"
+                . $this->PartDescription['Value']);
+        $pdf->Ln(10);
+        $pdf->cell(80, 10, "Quantity Required: " . $this->Quantity['Value']);
+        $pdf->cell(20);
+        $pdf->cell(80, 10, "LH/RH Units: " . $this->LhRhUnit['Value']);
+        $pdf->Ln();
+        //Part Dimensions
+        $pdf->cell(275, 10, 'Part Dimensions', 'B');
+        $pdf->Ln(20);
+        $pdf->cell(40);
         //$pdf->cell(40, 10, 'Weight', 1, 0, 'C');
         //$pdf->cell(40, 10, 'Height', 1, 0, 'C');
         //$pdf->cell(40, 10, 'Width', 1, 0, 'C');

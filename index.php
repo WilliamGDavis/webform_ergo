@@ -104,7 +104,7 @@ require './scripts/functions.php';
                     <legend>End User Information</legend>
                 </div>
                 <div class="pure-u-1">
-                    <button type="button" id="btn_CopyCompanyInfo">Same as Above</button>
+                    <button type="button" id="btn_CopyCompanyInfo" class="pure-button pure-button-primary">Same as Above</button>
                 </div>
                 <div class="pure-u-1">
                     <label>Company Name:</label><label class="charNum"></label>
