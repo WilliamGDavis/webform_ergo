@@ -51,11 +51,27 @@ function check_ClientArray($Client) {
     }
 }
 
-//Create a new Client
+//Temporary
+//TODO: Pass in the email password from an environmental variable
 $email_password = $_POST['email_password'];
+
+//Check for checkbox values (Checked or UnChecked)
+(isset($_POST['st_wet'])) ? $STWet = 'Yes' : $STWet = 'No';
+(isset($_POST['st_oily'])) ? $STOily = 'Yes' : $STOily = 'No';
+(isset($_POST['st_dry'])) ? $STDry = 'Yes' : $STDry = 'No';
+(isset($_POST['st_hot'])) ? $STHot = 'Yes' : $STHot = 'No';
+(isset($_POST['st_temp'])) ? $STTemp = trim($_POST['st_temp']) : $STTemp = '';
+(isset($_POST['st_temp_scale'])) ? $STTempScale = trim($_POST['st_temp_scale']) : $STTempScale = '';
+(isset($_POST['st_classA'])) ? $STClassA = 'Yes' : $STClassA = 'No';
+(isset($_POST['st_fragile'])) ? $STFragile = 'Yes' : $STFragile = 'No';
+(isset($_POST['st_textured'])) ? $STTextured = 'Yes' : $STTextured = 'No';
+(isset($_POST['st_other'])) ? $STOther = 'Yes' : $STOther = 'No';
+(isset($_POST['eng_movement'])) ? $EngMovement = trim($_POST['eng_movement']) : $EngMovement = '';
+
+//Create a new Client Object
 $Client = new Client_Value();
 
-//Add the appropriate values to the Client Class
+//Add the appropriate values to the Client Object
 $Client->CurrentDateTime = array(
     'Value' => date("F j, Y, g:i a"),
     'Value_Type' => 'Date',
@@ -455,6 +471,206 @@ $Client->MinOD = array(
     'Display' => 'Minimum Outer Dimensions (OD)'
 );
 
+//Surface Type
+$Client->STWet = array(
+    'Name' => 'STWet',
+    'Type' => 'Checkbox',
+    'Value' => $STWet,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 3,
+    'Required' => 0,
+    'Display' => 'Surface Type (Wet)'
+);
+$Client->STOily = array(
+    'Name' => 'STOily',
+    'Type' => 'Checkbox',
+    'Value' => $STOily,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 3,
+    'Required' => 0,
+    'Display' => 'Surface Type (Oily)'
+);
+$Client->STDry = array(
+    'Name' => 'STDry',
+    'Type' => 'Checkbox',
+    'Value' => $STDry,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 3,
+    'Required' => 0,
+    'Display' => 'Surface Type (Dry)'
+);
+$Client->STHot = array(
+    'Name' => 'STHot',
+    'Type' => 'Checkbox',
+    'Value' => $STHot,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 3,
+    'Required' => 0,
+    'Display' => 'Surface Type (Hot)',
+    'Temperature' => $STTemp,
+    'TemperatureScale' => $STTempScale
+);
+$Client->STWet = array(
+    'Name' => 'STWet',
+    'Type' => 'Checkbox',
+    'Value' => $STWet,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 3,
+    'Required' => 0,
+    'Display' => 'Surface Type (Wet)'
+);
+$Client->STClassA = array(
+    'Name' => 'STClassA',
+    'Type' => 'Checkbox',
+    'Value' => $STClassA,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 3,
+    'Required' => 0,
+    'Display' => 'Surface Type (Class A)'
+);
+$Client->STFragile = array(
+    'Name' => 'STFragile',
+    'Type' => 'Checkbox',
+    'Value' => $STFragile,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 3,
+    'Required' => 0,
+    'Display' => 'Surface Type (Fragile)'
+);
+$Client->STTextured = array(
+    'Name' => 'STTextured',
+    'Type' => 'Checkbox',
+    'Value' => $STTextured,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 3,
+    'Required' => 0,
+    'Display' => 'Surface Type (Textured)'
+);
+$Client->STOther = array(
+    'Name' => 'STOther',
+    'Type' => 'Checkbox',
+    'Value' => $STOther,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 3,
+    'Required' => 0,
+    'Display' => 'Surface Type (Other)'
+);
+
+// Current Process
+$Client->ProcessDescription = array(
+    'Name' => 'ProcessDescription',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['process_description']),
+    'Value_Type' => 'String',
+    'MinLength' => 1,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Process Description'
+);
+$Client->ProductionRate = array(
+    'Name' => 'ProductionRate',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['production_rate']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 28,
+    'Required' => 0,
+    'Display' => 'Production Rate (Cycles/Hour)'
+);
+$Client->Shifts = array(
+    'Name' => 'Shifts',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['shifts']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 28,
+    'Required' => 0,
+    'Display' => 'Shifts per Day'
+);
+
+//Part Engagement
+$Client->EngPickup = array(
+    'Name' => 'EngPickup',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['eng_pickup']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Pickup'
+);
+$Client->EngObstructions = array(
+    'Name' => 'EngObstructions',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['eng_obstructions']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Obstructions'
+);
+$Client->EngMovement = array(
+    'Name' => 'EngMovement',
+    'Type' => 'Radio',
+    'Value' => $EngMovement,
+    'Value_Type' => 'String',
+    'MinLength' => 6,
+    'MaxLength' => 10,
+    'Required' => 0,
+    'Display' => 'Movement'
+);
+$Client->EngRecommended = array(
+    'Name' => 'EngRecommended',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['eng_recommended']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Recommended'
+);
+$Client->EngNoTouching = array(
+    'Name' => 'EngNoTouching',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['eng_noTouching']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'No Touching'
+);
+$Client->EngOrientation = array(
+    'Name' => 'EngOrientation',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['eng_orientation']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Orientation'
+);
+$Client->EngDimElevation = array(
+    'Name' => 'EngDimElevation',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['eng_dimElevation']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Dimensional Elevation'
+);
+
+// Part Set Down
+
 //Validate the array values
 check_ClientArray($Client);
 
@@ -466,47 +682,6 @@ check_ClientArray($Client);
 $Client->pdf_output();
 
 
-////Surface Type
-//(isset($_POST['st_wet']) && $_POST['st_wet'] == 'Yes') ?
-//                $st_wet = 'Yes' : $st_wet = 'No';
-//(isset($_POST['st_oily']) && $_POST['st_oily'] == 'Yes') ?
-//                $st_oily = 'Yes' : $st_oily = 'No';
-//(isset($_POST['st_dry']) && $_POST['st_dry'] == 'Yes') ?
-//                $st_dry = 'Yes' : $st_dry = 'No';
-//if (isset($_POST['st_hot']) && $_POST['st_hot'] == 'Yes') {
-//    $st_hot = 'Yes';
-//    if (isset($_POST['temperature']) && $_POST['temperature'] != '') {
-//        $temperature = $_POST['temperature'];
-//        if (isset($_POST['tempScale'])) {
-//            $tempScale = $_POST['tempScale'];
-//        } else {
-//            $tempScale = 'Not Chosen';
-//        }
-//    } else {
-//        $temperature = 'No Value';
-//    }
-//} else {
-//    $st_hot = 'No';
-//    $temperature = 'No Value';
-//    $tempScale = 'Not Chosen';
-//}
-//(isset($_POST['st_classA']) && $_POST['st_classA'] == 'Yes') ?
-//                $st_classA = 'Yes' : $st_classA = 'No';
-//(isset($_POST['st_fragile']) && $_POST['st_fragile'] == 'Yes') ?
-//                $st_fragile = 'Yes' : $st_fragile = 'No';
-//(isset($_POST['st_textured']) && $_POST['st_textured'] == 'Yes') ?
-//                $st_textured = 'Yes' : $st_textured = 'No';
-//(isset($_POST['st_other']) && $_POST['st_other'] == 'Yes') ?
-//                $st_other = 'Yes' : $st_other = 'No';
-//
-////Process Description
-//$process_description = $_POST['process_description'];
-//$production_rate = $_POST['production_rate'];
-//$shifts = $_POST['shifts'];
-//
-////Part Engagement
-//$eng_pickup = $_POST['eng_pickup'];
-//$eng_obstructions = $_POST['eng_obstructions'];
 //$eng_recommended = $_POST['eng_recommended'];
 //$eng_noTouching = $_POST['eng_noTouching'];
 //$eng_orientation = $_POST['eng_orientation'];

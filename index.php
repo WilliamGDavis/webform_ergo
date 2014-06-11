@@ -53,49 +53,49 @@ require './scripts/functions.php';
                 </div>
                 <div class="pure-u-1">
                     <label>Company Name: </label><label class="charNum"></label>
-                    <input type="text" name="company_name" class="pure-input-1 length_text" maxlength="60" />
+                    <input type="text" id="txt_CompanyName" name="company_name" class="pure-input-1 length_text" maxlength="60" />
                 </div>
                 <div class="pure-u-1">
                     <label>Street Address: </label><label class="charNum"></label>
-                    <input type="text" name="street_address" class="pure-input-1 length_text" maxlength="60" />
+                    <input type="text" id="txt_StreetAddress" name="street_address" class="pure-input-1 length_text" maxlength="60" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>City:</label><label class="charNum"></label>
-                    <input type="text" name="city" class="pure-input-1 length_text" maxlength="28" />
+                    <input type="text" id="txt_City" name="city" class="pure-input-1 length_text" maxlength="28" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>State:</label>
-                    <select name="state" class="pure-input-1">
+                    <select name="state" id="cb_State" class="pure-input-1">
                         <?php echo state_builder(); ?>
                     </select>
                 </div>
                 <div class="pure-u-1-3">
                     <label>Zip:</label><label class="charNum"></label>
-                    <input type="text" name="zip" class="pure-input-1 length_text" maxlength="5" />
+                    <input type="text" id="txt_Zip" name="zip" class="pure-input-1 length_text" maxlength="5" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>First Name:</label><label class="charNum"></label>
-                    <input type="text" name="firstName" class="pure-input-1 length_text" maxlength="28" />
+                    <input type="text" id="txt_FirstName" name="firstName" class="pure-input-1 length_text" maxlength="28" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>Last Name:</label><label class="charNum"></label>
-                    <input type="text" name="lastName" class="pure-input-1 length_text" maxlength="28" />
+                    <input type="text" id="txt_LastName" name="lastName" class="pure-input-1 length_text" maxlength="28" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>Title:</label><label class="charNum"></label>
-                    <input type="text" name="title" class="pure-input-1 length_text" maxlength="60" />
+                    <input type="text" id="txt_Title" name="title" class="pure-input-1 length_text" maxlength="60" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>Phone:</label>
-                    <input type="text" id="phone" name="phone" class="pure-input-1 length_text" maxlength="14" />
+                    <input type="text" id="txt_Phone" name="phone" class="pure-input-1 length_text" maxlength="14" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>Fax:</label>
-                    <input type="text" id="fax" name="fax" class="pure-input-1 length_text" maxlength="14" />
+                    <input type="text" id="txt_Fax" name="fax" class="pure-input-1 length_text" maxlength="14" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>Email:</label><label class="charNum"></label>
-                    <input type="text" name="email" class="pure-input-1 length_text" maxlength="60" />
+                    <input type="text" id="txt_Email" name="email" class="pure-input-1 length_text" maxlength="60" />
                 </div>
                 <br />
                 <br />
@@ -108,47 +108,49 @@ require './scripts/functions.php';
                 </div>
                 <div class="pure-u-1">
                     <label>Company Name:</label><label class="charNum"></label>
-                    <input type="text" name="user_company_name" class="pure-input-1 length_text" maxlength="60" />
+                    <input type="text" id="txt_UserCompanyName" name="user_company_name" class="pure-input-1 length_text" maxlength="60" />
                 </div>
                 <div class="pure-u-1">
                     <label>Street Address:</label><label class="charNum"></label>
-                    <input type="text" name="user_street_address" class="pure-input-1 length_text" maxlength="60" />
+                    <input type="text" id="txt_UserStreetAddress" name="user_street_address" class="pure-input-1 length_text" maxlength="60" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>City:</label><label class="charNum"></label>
-                    <input type="text" name="user_city" class="pure-input-1 length_text" maxlength="28" />
+                    <input type="text" id="txt_UserCity" name="user_city" class="pure-input-1 length_text" maxlength="28" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>State:</label>
-                    <input type="text" name="user_state" class="pure-input-1" />
+                    <select id="cb_UserState" name="user_state" class="pure-input-1">
+                        <?php echo state_builder(); ?>
+                    </select>
                 </div>
                 <div class="pure-u-1-3">
                     <label>Zip:</label>
-                    <input type="text" name="user_zip" class="pure-input-1" />
+                    <input type="text" id="txt_UserZip" name="user_zip" class="pure-input-1" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>First Name:</label>
-                    <input type="text" name="user_firstName" class="pure-input-1" />
+                    <input type="text" id="txt_UserFirstName" name="user_firstName" class="pure-input-1" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>Last Name:</label>
-                    <input type="text" name="user_lastName" class="pure-input-1" />
+                    <input type="text" id="txt_UserLastName" name="user_lastName" class="pure-input-1" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>Title:</label>
-                    <input type="text" name="user_title" class="pure-input-1" />
+                    <input type="text" id="txt_UserTitle" name="user_title" class="pure-input-1" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>Phone:</label>
-                    <input type="text" name="user_phone" class="pure-input-1" />
+                    <input type="text" id="txt_UserPhone" name="user_phone" class="pure-input-1" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>Fax:</label>
-                    <input type="text" name="user_fax" class="pure-input-1" />
+                    <input type="text" id="txt_UserFax" name="user_fax" class="pure-input-1" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>Email:</label>
-                    <input type="text" name="user_email" class="pure-input-1" />
+                    <input type="text" id="txt_UserEmail" name="user_email" class="pure-input-1" />
                 </div>
                 <br />
                 <br />
@@ -234,16 +236,16 @@ require './scripts/functions.php';
                             <td>
                                 <div class="pure-u-1">
                                     <label>Temperature:</label>
-                                    <input type="text" class="pure-u-1" name="temperature" />
+                                    <input type="text" id="st_temp" class="pure-u-1" name="st_temp" />
                                 </div>
                             </td>
                             <td>
                                 <label for="farenheight" class="pure-radio">
-                                    <input id="farenheight" type="radio" name="tempScale" value="Farenheight" checked>
+                                    <input id="farenheight" type="radio" name="st_temp_scale" value="Farenheight" checked>
                                     Farenheight
                                 </label>
                                 <label for="celcius" class="pure-radio">
-                                    <input id="celcius" type="radio" name="tempScale" value="Celcius">
+                                    <input id="celcius" type="radio" name="st_temp_scale" value="Celcius">
                                     Celcius
                                 </label>
                             </td>
@@ -270,15 +272,15 @@ require './scripts/functions.php';
                 </div>
                 <div class="pure-u-1">
                     <label>Description of current process or sequence of operations: <label class='charNum'></label></label>
-                    <textarea class="pure-u-1 length_text" maxlength="700" rows="6" name="process_description"></textarea>
+                    <textarea class="pure-u-1 length_text" maxlength="700" rows="6" id="process_description" name="process_description"></textarea>
                 </div>
                 <div class="pure-u-1-3">
                     <label>Production Rate (cycles/hour):</label>
-                    <input type="text" class="pure-input-1" name="production_rate" />
+                    <input type="text" class="pure-input-1" id="production_rate" name="production_rate" />
                 </div>
                 <div class="pure-u-1-3">
                     <label>Shifts/Day: </label>
-                    <input type="text" class="pure-input-1" name="shifts" />
+                    <input type="text" class="pure-input-1" id="shifts" name="shifts" />
                 </div>
                 <br />
                 <br />
@@ -288,38 +290,38 @@ require './scripts/functions.php';
                 </div>
                 <div class="pure-u-1">
                     <label>What is part being picked up from? <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" name="eng_pickup"></textarea>
+                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_pickup" name="eng_pickup"></textarea>
                 </div>
                 <div class="pure-u-1">
                     <label>Please list any obstructions that may interfere with engaging the part: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" name="eng_obstructions"></textarea>
+                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_obstructions" name="eng_obstructions"></textarea>
                 </div>
                 <div class="pure-u-1">
                     <p>Is the part Moving or Stationary?</p>
                     <label for="part_moving" class="pure-radio">
-                        <input id="part_moving" type="radio" name="part_movement" value="Moving" checked>
+                        <input id="part_moving" type="radio" name="eng_movement" value="Moving" checked>
                         Moving
                     </label>
                     <label for="part_stationary" class="pure-radio">
-                        <input id="part_stationary" type="radio" name="part_movement" value="Stationary">
+                        <input id="part_stationary" type="radio" name="eng_movement" value="Stationary">
                         Stationary
                     </label>
                 </div>
                 <div class="pure-u-1">
                     <label>Recommended area to engage the part: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" name="eng_recommended"></textarea>
+                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_recommended" name="eng_recommended"></textarea>
                 </div>
                 <div class="pure-u-1">
                     <label>Areas of the part that cannot be touched: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" name="eng_noTouching"></textarea>
+                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_noTouching" name="eng_noTouching"></textarea>
                 </div>
                 <div class="pure-u-1">
                     <label>Operator's perspective of part orientation: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" name="eng_orientation"></textarea>
+                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_orientation" name="eng_orientation"></textarea>
                 </div>
                 <div class="pure-u-1">
                     <label>Dimensional elevation of part at set down: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" name="eng_dimElevation"></textarea>
+                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_dimElevation" name="eng_dimElevation"></textarea>
                 </div>
                 <br />
                 <br />

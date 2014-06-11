@@ -45,6 +45,19 @@ class Client_Value {
     public $MaxLength; public $MaxID; public $MaxOD;
     public $MinWeight; public $MinHeight; public $MinWidth; 
     public $MinLength; public $MinID; public $MinOD;
+    // Part Surface
+    public $STWet; public $STOily; public $STDry;
+    public $STHot; //STHot object passes in STTemp and STTempScale
+    public $STClassA; public $STFragile; public $STTextured; public $STOther;
+    // Process Description
+    public $ProcessDescription; public $ProductionRate; public $Shifts;
+    // Part Engagement
+    public $EngPickup; public $EngObstructions; public $EngMovement;
+    public $EngRecommended; public $EngNoTouching; public $EngOrientation;
+    public $EngDimElevation;
+    // Part Set Down
+    
+    
 
     function pdf_output(){
         $pdf = new PDF();
@@ -163,60 +176,63 @@ class Client_Value {
         $pdf->Ln(10);
         $pdf->cell(275, 10, "Part Surface", 'B', 0, 'L');
         $pdf->Ln(10);
-        //$pdf->cell(40, 10, "Wet: $st_wet");
-        //$pdf->cell(60);
-        //$pdf->cell(40, 10, "Hot: $st_hot");
-        //$pdf->cell(60);
-        //$pdf->cell(40, 10, "Class A: $st_classA");
-        //$pdf->Ln(5);
-        //$pdf->cell(40, 10, "Dry: $st_dry");
-        //$pdf->cell(60);
-        //$pdf->cell(40, 10, "Temperature: $temperature");
-        //$pdf->cell(60);
-        //$pdf->cell(40, 10, "Textured: $st_textured");
-        //$pdf->Ln(5);
-        //$pdf->cell(40, 10, "Oily: $st_oily");
-        //$pdf->cell(60);
-        //$pdf->cell(40, 10, "Scale: $tempScale");
-        //$pdf->cell(60);
-        //$pdf->cell(40, 10, "Fragile: $st_fragile");
-        //$pdf->Ln(15);
-        //$pdf->cell(275, 10, "Description of Current Process or Sequence of Operations:");
-        //$pdf->Ln(10);
-        //$pdf->MultiCell(275, 10, $process_description, 1);
-        //$pdf->Ln(10);
-        //$pdf->cell(275, 10, "Production Rate (Cycles/Hour): $production_rate");
-        //$pdf->Ln(5);
-        //$pdf->cell(275, 10, "Shifts/Day: $shifts");
-        //$pdf->Ln(20);
-        //$pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
-        //$pdf->Ln(15);
-        //$pdf->MultiCell(275, 5, "What is the part being picked up from?");
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 10, $eng_pickup, 1);
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 5, "Please list any obstructions that may interfere with engaging the part:");
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 10, $eng_obstructions, 1);
-        //$pdf->Ln(5);
-        ////Moving or Stationary?
-        ////Placeholder
-        //$pdf->MultiCell(275, 5, "Recommended area to engage on the part:");
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 10, $eng_recommended, 1);
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 5, "Areas of the part that cannot be touched:");
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 10, $eng_noTouching, 1);
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 5, "Operator's perspective of part orientation:");
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 10, $eng_orientation, 1);
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 5, "Dimensional elevation of part at set down:");
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 10, $eng_dimElevation, 1);
-        //$pdf->Ln(5);
+        $pdf->cell(40, 10, "Wet: " . $this->STWet['Value']);
+        $pdf->cell(60);
+        $pdf->cell(40, 10, "Hot: " . $this->STHot['Value']);
+        $pdf->cell(60);
+        $pdf->cell(40, 10, "Class A: " . $this->STClassA['Value']);
+        $pdf->Ln(5);
+        $pdf->cell(40, 10, "Dry: " . $this->STDry['Value']);
+        $pdf->cell(60);
+        $pdf->cell(40, 10, "Temperature: " . $this->STHot['Temperature']);
+        $pdf->cell(60);
+        $pdf->cell(40, 10, "Textured: " . $this->STTextured['Value']);
+        $pdf->Ln(5);
+        $pdf->cell(40, 10, "Oily: " . $this->STOily['Value']);
+        $pdf->cell(60);
+        $pdf->cell(40, 10, "Scale: " . $this->STHot['TemperatureScale']);
+        $pdf->cell(60);
+        $pdf->cell(40, 10, "Fragile: " . $this->STFragile['Value']);
+        $pdf->Ln(15);
+        $pdf->cell(275, 10, "Description of Current Process or Sequence of Operations:");
+        $pdf->Ln(10);
+        $pdf->MultiCell(275, 10, $this->ProcessDescription['Value'], 1);
+        $pdf->Ln(10);
+        $pdf->cell(275, 10, "Production Rate (Cycles/Hour): " . $this->ProductionRate['Value']);
+        $pdf->Ln(5);
+        $pdf->cell(275, 10, "Shifts/Day: " . $this->Shifts['Value']);
+        $pdf->Ln(20);
+        $pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
+        $pdf->Ln(15);
+        $pdf->MultiCell(275, 5, "What is the part being picked up from?");
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 10, $this->EngPickup['Value'], 1);
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 5, "Please list any obstructions that may interfere with engaging the part:");
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 10, $this->EngObstructions['Value'], 1);
+        $pdf->Ln(5);
+        $pdf->Cell(275, 10, "Part Movement: " . $this->EngMovement['Value']);
+        $pdf->Ln(15);
+        $pdf->MultiCell(275, 5, "Recommended area to engage on the part:");
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 10, $this->EngRecommended['Value'], 1);
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 5, "Areas of the part that cannot be touched:");
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 10, $this->EngNoTouching['Value'], 1);
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 5, "Operator's perspective of part orientation:");
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 10, $this->EngOrientation['Value'], 1);
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 5, "Dimensional elevation of part at set down:");
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 10, $this->EngDimElevation['Value'], 1);
+        $pdf->Ln(5);
+        //Part Set Down
+        
+        
         //Output the PDF to the browser window
         $pdf->Output();
     }
