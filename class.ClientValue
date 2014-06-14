@@ -56,11 +56,15 @@ class Client_Value {
     public $EngRecommended; public $EngNoTouching; public $EngOrientation;
     public $EngDimElevation;
     // Part Set Down
+    public $SDLocation; public $SDMovement; public $SDOrientation; public $SDDimElevation;
     
     
 
     function pdf_output(){
         $pdf = new PDF();
+//        //Fill color of the cell
+//        $pdf->SetFillColor(239, 0, 0);
+//        //
         $pdf->AddPage('L');
         $pdf->SetFont('Arial', '', 12);
 
@@ -229,10 +233,27 @@ class Client_Value {
         $pdf->MultiCell(275, 5, "Dimensional elevation of part at set down:");
         $pdf->Ln(5);
         $pdf->MultiCell(275, 10, $this->EngDimElevation['Value'], 1);
-        $pdf->Ln(5);
+        $pdf->Ln(20);
         //Part Set Down
-        
-        
+        $pdf->Cell(275, 10, "Part Set Down", 'B', 0, 'L');
+        $pdf->Ln(15);
+        $pdf->MultiCell(275, 5, "What is the part being set down on/in:");
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 10, $this->SDLocation['Value'], 1);
+        $pdf->Ln(5);
+        $pdf->Cell(275, 10, "Moving or Stationary: " . $this->SDMovement['Value']);
+        $pdf->Ln(10);
+        $pdf->MultiCell(275, 5, "Please list any obstructions that may interfere with engaging the part:");
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 10, $this->SDObstruction['Value'], 1);
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 5, "Operator's Perspective of part orientation:");
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 10, $this->SDOrientation['Value'], 1);
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 5, "Dimensional Elevation of part at set down location:");
+        $pdf->Ln(5);
+        $pdf->MultiCell(275, 10, $this->SDDimElevation['Value'], 1);
         //Output the PDF to the browser window
         $pdf->Output();
     }

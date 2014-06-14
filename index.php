@@ -41,6 +41,8 @@ require './scripts/functions.php';
         <script src="js/functions.js" type="text/javascript"></script>
     </head>
     <body>
+        <!-- Temporarily used to generate fields -->
+        <button type="button" id="btn_GenerateFields">Generate Test</button>
         <form class="pure-form pure-g" action="process.php" method="post" enctype="multipart/form-data">
             <fieldset>
                 <div class="pure-u-1">
@@ -160,15 +162,15 @@ require './scripts/functions.php';
                 </div>
                 <div class="pure-u-1">
                     <label>Part Description:</label><label class="charNum"></label>
-                    <input type="text" name="part_description" class="pure-input-1 length_text" maxlength="124"/>
+                    <input type="text" id="txt_PartDescription" name="part_description" class="pure-input-1 length_text" maxlength="124"/>
                 </div>
                 <div class="pure-u-1-4">
                     <label>Quantity:</label>
-                    <input type="text" name="quantity" class="pure-input-1" />
+                    <input type="text" id="txt_Quantity" name="quantity" class="pure-input-1" />
                 </div>
                 <div class="pure-u-1-4">
                     <label>LH/RH Units Required:</label>
-                    <input type="text" name="lh_rh_unit" class="pure-input-1" />
+                    <input type="text" id="txt_LhRhUnit" name="lh_rh_unit" class="pure-input-1" />
                 </div>
                 <br />
                 <br />
@@ -192,21 +194,21 @@ require './scripts/functions.php';
                         <tbody>
                             <tr>
                                 <td>Maximum</td>
-                                <td><input type="text" name="max_weight" class="pure-input-1" /></td>
-                                <td><input type="text" name="max_height" class="pure-input-1" /></td>
-                                <td><input type="text" name="max_width" class="pure-input-1" /></td>
-                                <td><input type="text" name="max_length" class="pure-input-1" /></td>
-                                <td><input type="text" name="max_id" class="pure-input-1" /></td>
-                                <td><input type="text" name="max_od" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MaxWeight" name="max_weight" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MaxHeight" name="max_height" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MaxWidth" name="max_width" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MaxLength" name="max_length" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MaxID" name="max_id" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MaxOD" name="max_od" class="pure-input-1" /></td>
                             </tr>
                             <tr>
                                 <td>Minimum</td>
-                                <td><input type="text" name="min_weight" class="pure-input-1" /></td>
-                                <td><input type="text" name="min_height" class="pure-input-1" /></td>
-                                <td><input type="text" name="min_width" class="pure-input-1" /></td>
-                                <td><input type="text" name="min_length" class="pure-input-1" /></td>
-                                <td><input type="text" name="min_id" class="pure-input-1" /></td>
-                                <td><input type="text" name="min_od" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MinWeight" name="min_weight" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MinHeight" name="min_height" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MinWidth" name="min_width" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MinLength" name="min_length" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MinID" name="min_id" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MinOD" name="min_od" class="pure-input-1" /></td>
                             </tr>
                         </tbody>
                     </table>
@@ -298,8 +300,12 @@ require './scripts/functions.php';
                 </div>
                 <div class="pure-u-1">
                     <p>Is the part Moving or Stationary?</p>
+                    <label for="part_notSpecified" class="pure-radio">
+                        <input id="part_notSpecified" type="radio" name="eng_movement" value="Not Specified" checked>
+                        Not Specified
+                    </label>
                     <label for="part_moving" class="pure-radio">
-                        <input id="part_moving" type="radio" name="eng_movement" value="Moving" checked>
+                        <input id="part_moving" type="radio" name="eng_movement" value="Moving">
                         Moving
                     </label>
                     <label for="part_stationary" class="pure-radio">
@@ -331,31 +337,226 @@ require './scripts/functions.php';
                 </div>
                 <div class="pure-u-1">
                     <label>What is part being set down on/in: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700"></textarea>
+                    <textarea class="pure-input-1 notes" id="sd_location" name="sd_location" rows="3" maxlength="700"></textarea>
                 </div>
                 <div class="pure-u-1">
                     <p>Is the set-down location Moving or Stationary?</p>
+                    <label for="setDown_notSpecified" class="pure-radio">
+                        <input id="setDown_notSpecified" type="radio" id="sd_movement" name="sd_movement" value="Not Specified" checked>
+                        Not Specified
+                    </label>
                     <label for="setDown_moving" class="pure-radio">
-                        <input id="setDown_moving" type="radio" name="setDown_movement" value="Moving" checked>
+                        <input id="setDown_moving" type="radio" id="sd_movement" name="sd_movement" value="Moving">
                         Moving
                     </label>
                     <label for="setDown_stationary" class="pure-radio">
-                        <input id="setDown_stationary" type="radio" name="setDown_movement" value="Stationary">
+                        <input id="setDown_stationary" type="radio" id="sd_movement" name="sd_movement" value="Stationary">
                         Stationary
                     </label>
                 </div>
                 <div class="pure-u-1">
+                    <label>Please list any obstructions that may interfere with engaging the part: <label class='charNum'></label></label>
+                    <textarea class="pure-input-1 notes" id="sd_obstruction" name="sd_obstruction" rows="3" maxlength="700"></textarea>
+                </div>
+                <div class="pure-u-1">
                     <label>Operator's perspective of part orientation: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700"></textarea>
+                    <textarea class="pure-input-1 notes" id="sd_orientation" name="sd_orientation" rows="3" maxlength="700"></textarea>
                 </div>
                 <div class="pure-u-1">
                     <label>Dimensional elevation of part at set down: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700"></textarea>
+                    <textarea class="pure-input-1 notes" id="sd_dimElevation" name="sd_dimElevation" rows="3" maxlength="700"></textarea>
                 </div>
                 <br />
                 <br />
                 <div class='pure-u-1'>
                     <legend>Monorail or Crane Systems</legend>
+                </div>
+                <div class="pure-u-1">
+                    <p>Floor Mounted Arm</p>
+                    <label for="fmarm_ns" class="pure-radio">
+                        <input id="fmarm_ns" type="radio" id="crane_systems" name="fma" value="Not Specified" checked>
+                        Not Specified
+                    </label>
+                    <label for="fmarm_yes" class="pure-radio">
+                        <input id="fmarm_yes" type="radio" id="crane_systems" name="fma" value="Yes">
+                        Yes
+                    </label>
+                    <label for="fmarm_no" class="pure-radio">
+                        <input id="fmarm_no" type="radio" id="crane_systems" name="fma" value="No">
+                        No
+                    </label>
+                    <p>XY Rail System</p>
+                    <label for="xyrail_ns" class="pure-radio">
+                        <input id="xyrail_ns" type="radio" id="crane_systems" name="xyrail" value="Not Specified" checked>
+                        Not Specified
+                    </label>
+                    <label for="xyrail_yes" class="pure-radio">
+                        <input id="xyrail_yes" type="radio" id="crane_systems" name="xyrail" value="Yes">
+                        Yes
+                    </label>
+                    <label for="xyrail_no" class="pure-radio">
+                        <input id="xyrail_no" type="radio" id="crane_systems" name="xyrail" value="No">
+                        No
+                    </label>
+                    <p>Jib Crane</p>
+                    <label for="jibcrane_ns" class="pure-radio">
+                        <input id="jibcrane_ns" type="radio" id="crane_systems" name="jibcrane" value="Not Specified" checked>
+                        Not Specified
+                    </label>
+                    <label for="jibcrane_yes" class="pure-radio">
+                        <input id="jibcrane_yes" type="radio" id="crane_systems" name="jibcrane" value="Yes">
+                        Yes
+                    </label>
+                    <label for="jibcrane_no" class="pure-radio">
+                        <input id="jibcrane_no" type="radio" id="crane_systems" name="jibcrane" value="No">
+                        No
+                    </label>
+                </div>
+                <div class="pure-u-1">
+                    <legend>End Effector Specifics</legend>
+                </div>
+                <!-- TODO: 
+                Fill in the rest of the form values
+                -->
+                <div class="pure-u-1">
+                    <legend>Additional Information</legend>
+                </di>
+                <div class="pure-u-1">
+                    <p>Will the rack or dunnage be provided?</p>
+                    <label for="rack_provided_ns" class="pure-radio">
+                        <input id="rack_provided_ns" type="radio" id="rack_provided" name="rack_provided" value="Not Specified" checked>
+                        Not Specified
+                    </label>
+                    <label for="rack_provided_yes" class="pure-radio">
+                        <input id="rack_provided_yes" type="radio" id="rack_provided" name="rack_provided" value="Yes">
+                        Yes
+                    </label>
+                    <label for="rack_provided_no" class="pure-radio">
+                        <input id="rack_provided_no" type="radio" id="rack_provided" name="rack_provided" value="No">
+                        No
+                    </label>
+                </div>
+                <div class="pure-u-1">
+                    <p>Will the part drawing(s) be provided?</p>
+                    <label for="drawings_ns" class="pure-radio">
+                        <input id="drawings_ns" type="radio" id="drawings_provided" name="drawings_provided" value="Not Specified" checked>
+                        Not Specified
+                    </label>
+                    <label for="drawings_yes" class="pure-radio">
+                        <input id="drawings_yes" type="radio" id="drawings_provided" name="drawings_provided" value="Yes">
+                        Yes
+                    </label>
+                    <label for="drawings_no" class="pure-radio">
+                        <input id="drawings_no" type="radio" id="drawings_provided" name="drawings_provided" value="No">
+                        No
+                    </label>
+                </div>
+                <div class="pure-u-1">
+                    <p>Will the floor plan(s) be provided?</p>
+                    <label for="floor_plans_ns" class="pure-radio">
+                        <input id="floor_plans_ns" type="radio" id="floor_plans_provided" name="floor_plans_provided" value="Not Specified" checked>
+                        Not Specified
+                    </label>
+                    <label for="floor_plans_yes" class="pure-radio">
+                        <input id="floor_plans_yes" type="radio" id="floor_plans_provided" name="floor_plans_provided" value="Yes">
+                        Yes
+                    </label>
+                    <label for="floor_plans_no" class="pure-radio">
+                        <input id="floor_plans_no" type="radio" id="floor_plans_provided" name="floor_plans_provided" value="No">
+                        No
+                    </label>
+                </div>
+                <div class="pure-u-1">
+                    <p>Will the machine, fixture, or tool drawing(s) be provided?</p>
+                    <label for="machine_ns" class="pure-radio">
+                        <input id="machine_ns" type="radio" id="machine_provided" name="machine_provided" value="Not Specified" checked>
+                        Not Specified
+                    </label>
+                    <label for="machine_yes" class="pure-radio">
+                        <input id="machine_yes" type="radio" id="machine_provided" name="machine_provided" value="Yes">
+                        Yes
+                    </label>
+                    <label for="machine_no" class="pure-radio">
+                        <input id="machine_no" type="radio" id="machine_provided" name="machine_provided" value="No">
+                        No
+                    </label>
+                </div>
+                <div class="pure-u-1">
+                    <p>Will photo(s) or video(s) be provided?</p>
+                    <label for="photo_video_ns" class="pure-radio">
+                        <input id="photo_video_ns" type="radio" id="photo_video_provided" name="photo_videov_provided" value="Not Specified" checked>
+                        Not Specified
+                    </label>
+                    <label for="photo_video_yes" class="pure-radio">
+                        <input id="photo_video_yes" type="radio" id="photo_video_provided" name="photo_video_provided" value="Yes">
+                        Yes
+                    </label>
+                    <label for="photo_video_no" class="pure-radio">
+                        <input id="photo_video_no" type="radio" id="photo_video_provided" name="photo_video_provided" value="No">
+                        No
+                    </label>
+                </div>
+                <div class="pure-u-1">
+                    <p>Will approval drawings be be required?</p>
+                    <label for="approval_ns" class="pure-radio">
+                        <input id="approval_ns" type="radio" id="approval_provided" name="approval_provided" value="Not Specified" checked>
+                        Not Specified
+                    </label>
+                    <label for="approval_yes" class="pure-radio">
+                        <input id="approval_yes" type="radio" id="approval_provided" name="approval_provided" value="Yes">
+                        Yes
+                    </label>
+                    <label for="approval_no" class="pure-radio">
+                        <input id="approval_no" type="radio" id="approval_provided" name="approval_provided" value="No">
+                        No
+                    </label>
+                </div>
+                <div class="pure-u-1">
+                    <p>Will installation drawings be be required?</p>
+                    <label for="installation_ns" class="pure-radio">
+                        <input id="installation_ns" type="radio" id="installation" name="installation" value="Not Specified" checked>
+                        Not Specified
+                    </label>
+                    <label for="installation_yes" class="pure-radio">
+                        <input id="installation_yes" type="radio" id="installation" name="installation" value="Yes">
+                        Yes
+                    </label>
+                    <label for="installation_no" class="pure-radio">
+                        <input id="installation_no" type="radio" id="installation" name="installation" value="No">
+                        No
+                    </label>
+                </div>
+                <div class="pure-u-1">
+                    <p>Will customer review(s) be be required?</p>
+                    <label for="customer_reviews_ns" class="pure-radio">
+                        <input id="customer_reviews_ns" type="radio" id="customer_reviews" name="customer_reviews" value="Not Specified" checked>
+                        Not Specified
+                    </label>
+                    <label for="customer_reviews_yes" class="pure-radio">
+                        <input id="customer_reviews_yes" type="radio" id="customer_reviews" name="customer_reviews" value="Yes">
+                        Yes
+                    </label>
+                    <label for="customer_reviews_no" class="pure-radio">
+                        <input id="customer_reviews_no" type="radio" id="customer_reviews" name="customer_reviews" value="No">
+                        No
+                    </label>
+                    <label>If yes, please explain: <label class='charNum'></label></label>
+                    <textarea class="pure-input-1 notes" id="customer_reviews_explain" name="customer_reviews_explain" rows="3" maxlength="700"></textarea>
+                </div>
+                <div class="pure-u-1">
+                    <p>Will drawing be required on customer paper?</p>
+                    <label for="customer_paper_ns" class="pure-radio">
+                        <input id="customer_paper_ns" type="radio" id="customer_paper" name="customer_paper" value="Not Specified" checked>
+                        Not Specified
+                    </label>
+                    <label for="customer_paper_yes" class="pure-radio">
+                        <input id="customer_paper_yes" type="radio" id="customer_paper" name="customer_paper" value="Yes">
+                        Yes
+                    </label>
+                    <label for="customer_paper_no" class="pure-radio">
+                        <input id="customer_paper_no" type="radio" id="customer_paper" name="customer_paper" value="No">
+                        No
+                    </label>
                 </div>
                 <div class="pure-u-1">
                     <input class="pure-button pure-button-primary" type="submit" name="" onclick="" />

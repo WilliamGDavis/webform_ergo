@@ -55,7 +55,7 @@ function check_ClientArray($Client) {
 //TODO: Pass in the email password from an environmental variable
 $email_password = $_POST['email_password'];
 
-//Check for checkbox values (Checked or UnChecked)
+//Check for Checkbox and Radio values (Checked or UnChecked)
 (isset($_POST['st_wet'])) ? $STWet = 'Yes' : $STWet = 'No';
 (isset($_POST['st_oily'])) ? $STOily = 'Yes' : $STOily = 'No';
 (isset($_POST['st_dry'])) ? $STDry = 'Yes' : $STDry = 'No';
@@ -67,6 +67,7 @@ $email_password = $_POST['email_password'];
 (isset($_POST['st_textured'])) ? $STTextured = 'Yes' : $STTextured = 'No';
 (isset($_POST['st_other'])) ? $STOther = 'Yes' : $STOther = 'No';
 (isset($_POST['eng_movement'])) ? $EngMovement = trim($_POST['eng_movement']) : $EngMovement = '';
+(isset($_POST['sd_movement'])) ? $SDMovement = trim($_POST['sd_movement']) : $SDMovement = '';
 
 //Create a new Client Object
 $Client = new Client_Value();
@@ -183,6 +184,8 @@ $Client->Phone = array(
     'Required' => 1,
     'Display' => 'Phone'
 );
+//TODO:
+//Fix all Phone Numbers to 10
 $Client->Fax = array(
     'Name' => 'Fax',
     'Type' => 'Textbox',
@@ -670,22 +673,70 @@ $Client->EngDimElevation = array(
 );
 
 // Part Set Down
+$Client->SDLocation = array(
+    'Name' => 'SDLocation',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['sd_location']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Set Down Location'
+);
+$Client->SDMovement = array(
+    'Name' => 'SDMovement',
+    'Type' => 'Textbox',
+    'Value' => $SDMovement,
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Set Down Movement'
+);
+$Client->SDObstruction = array(
+    'Name' => 'SDObstruction',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['sd_obstruction']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Set Down Obstructions'
+);
+$Client->SDOrientation = array(
+    'Name' => 'SDOrientation',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['sd_orientation']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Set Down Orientation'
+);
+$Client->SDDimElevation = array(
+    'Name' => 'SDDimElevation',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['sd_dimElevation']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Set Down Dimensional Elevation'
+);
+
 
 //Validate the array values
 check_ClientArray($Client);
 
-////Create an email attachment
+//Add form values to the database
+add_to_db($Client);
+
+////Create an email attachment and send the email
 //$attachment = $Client->pdf_attach();
-////Attach the PDF and send an email
 //email_pdf($attachment, $email_password);
+
 //Output the PDF to a browser window
 $Client->pdf_output();
-
-
-//$eng_recommended = $_POST['eng_recommended'];
-//$eng_noTouching = $_POST['eng_noTouching'];
-//$eng_orientation = $_POST['eng_orientation'];
-//$eng_dimElevation = $_POST['eng_dimElevation'];
 
 function email_pdf($attachment, $email_password) {
     try {
@@ -721,4 +772,146 @@ function check_string_length($string, $minLength, $maxLength, $display) {
         die("$display should be between $minLength and $maxLength characters");
     }
     return $cleaned_string;
+}
+
+function add_to_db($Client) {
+    include './mysql_login_pdo.php';
+    try {
+        $db->BeginTransaction();
+        $query = "INSERT INTO `form_values` "
+                . "VALUES(:id, :CurrentDateTime, :Delivery, "
+                . ":UserCompanyName, :UserStreetAddress, :UserCity, :UserState, :UserZip, "
+                . ":UserFirstName, :UserLastName, :UserTitle, :UserPhone, :UserFax, :UserEmail)";
+        $stmt = $db->prepare($query);
+        $stmt->execute(array(
+            ':id' => NULL,
+            //TODO: Fix, not working
+            ':CurrentDateTime' => date('Y-m-d H:i:s'),
+            ':Delivery' => $Client->Delivery['Value'],
+            ':UserCompanyName' => $Client->UserCompanyName['Value'],
+            ':UserStreetAddress' => $Client->UserStreetAddress['Value'],
+            ':UserCity' => $Client->UserCity['Value'],
+            ':UserState' => $Client->UserState['Value'],
+            ':UserZip' => $Client->UserZip['Value'],
+            ':UserFirstName' => $Client->UserFirstName['Value'],
+            ':UserLastName' => $Client->UserLastName['Value'],
+            ':UserTitle' => $Client->UserTitle['Value'],
+            ':UserPhone' => $Client->UserPhone['Value'],
+            ':UserFax' => $Client->UserFax['Value'],
+            ':UserEmail' => $Client->UserEmail['Value']
+        ));
+        $id_form_values = $db->lastInsertId();
+        $query = "INSERT INTO `clients_temp` "
+                . "VALUES(:id, :id_form_values, :CompanyName, :StreetAddress, :City, :State, :Zip)";
+        $stmt = $db->prepare($query);
+        $stmt->execute(array(
+            ':id' => NULL,
+            ':id_form_values' => $id_form_values,
+            ':CompanyName' => $Client->CompanyName['Value'],
+            ':StreetAddress' => $Client->StreetAddress['Value'],
+            ':City' => $Client->City['Value'],
+            ':State' => $Client->State['Value'],
+            ':Zip' => $Client->Zip['Value']
+        ));
+        $id_client = $db->lastInsertId();
+        $query = "INSERT INTO `contacts_temp` "
+                . "VALUES(:id, :id_client, :id_form_values, :FirstName, :LastName, :Title, :Phone, :Fax, :Email)";
+        $stmt = $db->prepare($query);
+        $stmt->execute(array(
+            ':id' => NULL,
+            //TODO: Setup foreign key in the db
+            ':id_client' => $id_client,
+            ':id_form_values' =>$id_form_values,
+            ':FirstName' => $Client->FirstName['Value'],
+            ':LastName' => $Client->LastName['Value'],
+            ':Title' => $Client->Title['Value'],
+            ':Phone' => $Client->Phone['Value'],
+            ':Fax' => $Client->Fax['Value'],
+            ':Email' => $Client->Email['Value']
+        ));
+        $query = "INSERT INTO `part_temp` "
+                . "VALUES(:id, :id_form_values, :PartDescription, :Quantity, :LhRhUnit,"
+                . ":MaxWeight, :MaxHeight, :MaxWidth, :MaxLength, :MaxID, :MaxOD,"
+                . ":MinWeight, :MinHeight, :MinWidth, :MinLength, :MinID, :MinOD,"
+                . ":STWet, :STOily, :STDry, :STHot, :STTemp, :STTempScale,"
+                . ":STClassA, :STFragile, :STTextured, :STOther)";
+        $stmt = $db->prepare($query);
+        $stmt->execute(array(
+            ':id' => NULL,
+            //TODO: Setup foreign key in the db
+            ':id_form_values' =>$id_form_values,
+            ':PartDescription' => $Client->PartDescription['Value'],
+            ':Quantity' => $Client->Quantity['Value'],
+            ':LhRhUnit' => $Client->LhRhUnit['Value'],
+            ':MaxWeight' => $Client->MaxWeight['Value'],
+            ':MaxHeight' => $Client->MaxHeight['Value'],
+            ':MaxWidth' => $Client->MaxWidth['Value'],
+            ':MaxLength' => $Client->MaxLength['Value'],
+            ':MaxID' => $Client->MaxID['Value'],
+            ':MaxOD' => $Client->MaxOD['Value'],
+            ':MinWeight' => $Client->MinWeight['Value'],
+            ':MinHeight' => $Client->MinHeight['Value'],
+            ':MinWidth' => $Client->MinWidth['Value'],
+            ':MinLength' => $Client->MinLength['Value'],
+            ':MinID' => $Client->MinID['Value'],
+            ':MinOD' => $Client->MinOD['Value'],
+            ':STWet' => $Client->STWet['Value'],
+            ':STOily' => $Client->STOily['Value'],
+            ':STDry' => $Client->STDry['Value'],
+            ':STHot' => $Client->STHot['Value'],
+            ':STTemp' => $Client->STHot['Temperature'],
+            ':STTempScale' => $Client->STHot['TemperatureScale'],
+            ':STClassA' => $Client->STClassA['Value'],
+            ':STFragile' => $Client->STFragile['Value'],
+            ':STTextured' => $Client->STTextured['Value'],
+            ':STOther' => $Client->STOther['Value']
+        ));
+        $query = "INSERT INTO `process_temp` "
+                . "VALUES(:id, :id_form_values, :ProcessDescription, :ProductionRate, :Shifts,"
+                . ":EngPickup, :EngObstructions, :EngMovement, :EngRecommended, :EngNoTouching,"
+                . ":EngOrientation, :EngDimElevation, :SDLocation, :SDMovement, :SDOrientation, :SDDimElevation)";
+        $stmt = $db->prepare($query);
+        $stmt->execute(array(
+            ':id' => NULL,
+            //TODO: Setup foreign key in the db
+            ':id_form_values' =>$id_form_values,
+            ':ProcessDescription' => $Client->ProcessDescription['Value'],
+            ':ProductionRate' => $Client->ProductionRate['Value'],
+            ':Shifts' => $Client->Shifts['Value'],
+            ':EngPickup' => $Client->EngPickup['Value'],
+            ':EngObstructions' => $Client->EngObstructions['Value'],
+            ':EngMovement' => $Client->EngMovement['Value'],
+            ':EngRecommended' => $Client->EngRecommended['Value'],
+            ':EngNoTouching' => $Client->EngNoTouching['Value'],
+            ':EngOrientation' => $Client->EngOrientation['Value'],
+            ':EngDimElevation' => $Client->EngDimElevation['Value'],
+            ':SDLocation' => $Client->SDLocation['Value'],
+            ':SDMovement' => $Client->SDMovement['Value'],
+            ':SDOrientation' => $Client->SDOrientation['Value'],
+            ':SDDimElevation' => $Client->SDDimElevation['Value']
+        ));
+        $db->commit();
+    } catch (Exception $e) {
+        $db->rollback();
+        //Write the errors to the error_log table in the database and mark with a timestamp
+        db_errorHandler($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
+    }
+    $db = null;
+}
+
+//Handle writing MySQL error(s) to the database
+function db_errorHandler($errno, $errstr, $errfile, $errline) {
+    include 'mysql_login_pdo.php';
+    $query = "INSERT INTO `error_log` "
+            . "VALUES(:id,:error_time,:errno,:errstr,:errfile,:errline)";
+    $stmt = $db->prepare($query);
+    $stmt->execute(array(
+        ':id' => null,
+        ':error_time' => null,
+        ':errno' => $errno,
+        ':errstr' => $errstr,
+        ':errfile' => $errfile,
+        ':errline' => $errline
+    ));
+    return true; //Don't execute PHP error handler
 }
