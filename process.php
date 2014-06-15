@@ -68,6 +68,16 @@ $email_password = $_POST['email_password'];
 (isset($_POST['st_other'])) ? $STOther = 'Yes' : $STOther = 'No';
 (isset($_POST['eng_movement'])) ? $EngMovement = trim($_POST['eng_movement']) : $EngMovement = '';
 (isset($_POST['sd_movement'])) ? $SDMovement = trim($_POST['sd_movement']) : $SDMovement = '';
+(isset($_POST['rack_provided'])) ? $RackProvided = $_POST['rack_provided'] : $RackProvided = '';
+(isset($_POST['drawings_provided'])) ? $DrawingsProvided = $_POST['drawings_provided'] : $DrawingsProvided = '';
+(isset($_POST['floor_plans_provided'])) ? $FloorPlansProvided = $_POST['floor_plans_provided'] : $FloorPlansProvided = '';
+(isset($_POST['machine_provided'])) ? $MachineProvided = $_POST['machine_provided'] : $MachineProvided = '';
+(isset($_POST['photo_video_provided'])) ? $PhotoVideoProvided = $_POST['photo_video_provided'] : $PhotoVideoProvided = '';
+(isset($_POST['approval_provided'])) ? $ApprovalProvided = $_POST['approval_provided'] : $ApprovalProvided = '';
+(isset($_POST['installation'])) ? $Installation = $_POST['installation'] : $Installation = '';
+(isset($_POST['customer_reviews'])) ? $CustomerReviews = $_POST['customer_reviews'] : $CustomerReviews = '';
+(isset($_POST['customer_reviews_explain'])) ? $CustomerReviewsExplain = $_POST['customer_reviews_explain'] : $CustomerReviewsExplain = '';
+(isset($_POST['customer_paper'])) ? $CustomerPaper = $_POST['customer_paper'] : $CustomerPaper = '';
 
 //Create a new Client Object
 $Client = new Client_Value();
@@ -724,6 +734,124 @@ $Client->SDDimElevation = array(
     'Display' => 'Set Down Dimensional Elevation'
 );
 
+//TODO:
+//The rest of the form values
+
+// Additional Information
+$Client->RackProvided = array(
+    'Name' => 'RackProvided',
+    'Type' => 'Checkbox',
+    'Value' => $RackProvided,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 13,
+    'Required' => 0,
+    'Display' => 'RackProvided'
+);
+$Client->DrawingsProvided = array(
+    'Name' => 'DrawingsProvided',
+    'Type' => 'Checkbox',
+    'Value' => $DrawingsProvided,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 13,
+    'Required' => 0,
+    'Display' => 'DrawingsProvided'
+);
+$Client->FloorPlansProvided = array(
+    'Name' => 'FloorPlansProvided',
+    'Type' => 'Checkbox',
+    'Value' => $FloorPlansProvided,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 13,
+    'Required' => 0,
+    'Display' => 'FloorPlansProvided'
+);
+$Client->MachineProvided = array(
+    'Name' => 'MachineProvided',
+    'Type' => 'Checkbox',
+    'Value' => $MachineProvided,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 13,
+    'Required' => 0,
+    'Display' => 'MachineProvided'
+);
+$Client->PhotoVideoProvided = array(
+    'Name' => 'PhotoVideoProvided',
+    'Type' => 'Checkbox',
+    'Value' => $PhotoVideoProvided,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 13,
+    'Required' => 0,
+    'Display' => 'PhotoVideoProvided'
+);
+$Client->ApprovalProvided = array(
+    'Name' => 'ApprovalProvided',
+    'Type' => 'Checkbox',
+    'Value' => $ApprovalProvided,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 13,
+    'Required' => 0,
+    'Display' => 'ApprovalProvided'
+);
+$Client->Installation = array(
+    'Name' => 'Installation',
+    'Type' => 'Checkbox',
+    'Value' => $Installation,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 13,
+    'Required' => 0,
+    'Display' => 'Installation'
+);
+$Client->CustomerReviews = array(
+    'Name' => 'CustomerReviews',
+    'Type' => 'Checkbox',
+    'Value' => $CustomerReviews,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 13,
+    'Required' => 0,
+    'Display' => 'CustomerReviews'
+);
+$Client->CustomerReviewsExplain = array(
+    'Name' => 'CustomerReviewsExplain',
+    'Type' => 'textbox',
+    'Value' => trim($_POST['customer_reviews_explain']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'CustomerReviewsExplain'
+);
+$Client->CustomerPaper = array(
+    'Name' => 'CustomerPaper',
+    'Type' => 'Checkbox',
+    'Value' => $CustomerPaper,
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 13,
+    'Required' => 0,
+    'Display' => 'CustomerPaper'
+);
+
+// Special Requirements
+$Client->SpecialRequirements = array(
+    'Name' => 'SpecialRequirements',
+    'Type' => 'Checkbox',
+    'Value' => trim($_POST['special_requirements']),
+    'Value_Type' => 'String',
+    'MinLength' => 2,
+    'MaxLength' => 13,
+    'Required' => 0,
+    'Display' => 'CustomerPaper'
+);
+
+
 
 //Validate the array values
 check_ClientArray($Client);
@@ -759,6 +887,7 @@ function email_pdf($attachment, $email_password) {
         $mail->Send();
     } catch (Exception $e) {
         db_errorHandler($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
+        die("Email did not send successfully.  Please press the 'BACK' button on your web browser.");
     }
     return;
 }
@@ -781,11 +910,12 @@ function add_to_db($Client) {
         $query = "INSERT INTO `form_values` "
                 . "VALUES(:id, :CurrentDateTime, :Delivery, "
                 . ":UserCompanyName, :UserStreetAddress, :UserCity, :UserState, :UserZip, "
-                . ":UserFirstName, :UserLastName, :UserTitle, :UserPhone, :UserFax, :UserEmail)";
+                . ":UserFirstName, :UserLastName, :UserTitle, :UserPhone, :UserFax, :UserEmail,"
+                . ":SpecialRequirements)";
         $stmt = $db->prepare($query);
         $stmt->execute(array(
             ':id' => NULL,
-            //TODO: Fix, not working
+            //TODO: Fix CurrentDateTime, not writing to the database
             ':CurrentDateTime' => date('Y-m-d H:i:s'),
             ':Delivery' => $Client->Delivery['Value'],
             ':UserCompanyName' => $Client->UserCompanyName['Value'],
@@ -798,7 +928,8 @@ function add_to_db($Client) {
             ':UserTitle' => $Client->UserTitle['Value'],
             ':UserPhone' => $Client->UserPhone['Value'],
             ':UserFax' => $Client->UserFax['Value'],
-            ':UserEmail' => $Client->UserEmail['Value']
+            ':UserEmail' => $Client->UserEmail['Value'],
+            ':SpecialRequirements' => $Client->SpecialRequirements['Value']
         ));
         $id_form_values = $db->lastInsertId();
         $query = "INSERT INTO `clients_temp` "
@@ -890,11 +1021,30 @@ function add_to_db($Client) {
             ':SDOrientation' => $Client->SDOrientation['Value'],
             ':SDDimElevation' => $Client->SDDimElevation['Value']
         ));
+        $query = "INSERT INTO `additional_info_temp` "
+                . "VALUES(:id, :id_form_values, :RackProvided, :DrawingsProvided, :FloorPlansProvided, :MachineProvided,"
+                . ":PhotoVideoProvided, :ApprovalProvided, :Installation, :CustomerReviews, :CustomerReviewsExplain, :CustomerPaper)";
+        $stmt = $db->prepare($query);
+        $stmt->execute(array(
+            ':id' => NULL,
+            ':id_form_values' => $id_form_values,
+            ':RackProvided' => $Client->RackProvided['Value'],
+            ':DrawingsProvided' => $Client->DrawingsProvided['Value'],
+            ':FloorPlansProvided' => $Client->FloorPlansProvided['Value'],
+            ':MachineProvided' => $Client->MachineProvided['Value'],
+            ':PhotoVideoProvided' => $Client->PhotoVideoProvided['Value'],
+            ':ApprovalProvided' => $Client->ApprovalProvided['Value'],
+            ':Installation' => $Client->Installation['Value'],
+            ':CustomerReviews' => $Client->CustomerReviews['Value'],
+            ':CustomerReviewsExplain' => $Client->CustomerReviewsExplain['Value'],
+            ':CustomerPaper' => $Client->CustomerPaper['Value']
+        ));
         $db->commit();
     } catch (Exception $e) {
         $db->rollback();
         //Write the errors to the error_log table in the database and mark with a timestamp
         db_errorHandler($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
+        die("Form did not enter into the database correctly.  Please press the 'BACK' button on your browser and check for invalid entries.");
     }
     $db = null;
 }

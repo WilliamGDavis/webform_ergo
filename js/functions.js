@@ -63,6 +63,13 @@ There's a lot of foot traffic here, so we could use a consulatation regarding th
         $('#sd_obstruction').val("The set-down point is completely free of any and all obstructions.  There is zero foot traffic in this area.");
         $('#sd_orientation').val("The setdown point is the conveyor belt.  The part will be picked up and not rotated and set down on the conveyor belt.");
         $('#sd_dimElevation').val("The conveyor belt is 24 inches off the ground.  The conveyor belt has an elevation handle that lets us adjust the height, so there is some margin here.");
+        $('#drawings_yes').prop('checked', true);
+        $('#floor_plans_yes').prop('checked', true);
+        $('#machine_no').prop('checked', true);
+        $('#approval_yes').prop('checked', true);
+        $('#customer_reviews_yes').prop('checked', true);
+        $('#customer_reviews_explain').val("Our client will have to sign off on all milestones for this project.  We can discuss milestones at the appropriate time.");
+        $('#special_requirements').val("We have no special instructions for you at this time.");
     });
 
     //Displays the character count for the text inputs

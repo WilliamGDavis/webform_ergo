@@ -57,6 +57,15 @@ class Client_Value {
     public $EngDimElevation;
     // Part Set Down
     public $SDLocation; public $SDMovement; public $SDOrientation; public $SDDimElevation;
+    //TODO:
+    //The rest of the form values
+    
+    // Additional Information
+    public $RackProvided; public $DrawingsProvided; public $FloorPlansProvided; public $MachineProvided;
+    public $PhotoVideoProvided; public $ApprovalProvided; public $Installation; public $CustomerReviews;
+    public $CustomerReviewsExplain; public $CustomerPaper;
+    // Special Requirements
+    public $SpecialRequirements;
     
     
 

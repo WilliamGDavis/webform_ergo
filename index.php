@@ -423,121 +423,121 @@ require './scripts/functions.php';
                 </di>
                 <div class="pure-u-1">
                     <p>Will the rack or dunnage be provided?</p>
-                    <label for="rack_provided_ns" class="pure-radio">
-                        <input id="rack_provided_ns" type="radio" id="rack_provided" name="rack_provided" value="Not Specified" checked>
+                    <label for="rack_ns" class="pure-radio">
+                        <input id="rack_ns" type="radio" name="rack_provided" value="Not Specified" checked>
                         Not Specified
                     </label>
-                    <label for="rack_provided_yes" class="pure-radio">
-                        <input id="rack_provided_yes" type="radio" id="rack_provided" name="rack_provided" value="Yes">
+                    <label for="rack_yes" class="pure-radio">
+                        <input id="rack_yes" type="radio" name="rack_provided" value="Yes">
                         Yes
                     </label>
-                    <label for="rack_provided_no" class="pure-radio">
-                        <input id="rack_provided_no" type="radio" id="rack_provided" name="rack_provided" value="No">
+                    <label for="rack_no" class="pure-radio">
+                        <input id="rack_no" type="radio" name="rack_provided" value="No">
                         No
                     </label>
                 </div>
                 <div class="pure-u-1">
                     <p>Will the part drawing(s) be provided?</p>
                     <label for="drawings_ns" class="pure-radio">
-                        <input id="drawings_ns" type="radio" id="drawings_provided" name="drawings_provided" value="Not Specified" checked>
+                        <input id="drawings_ns" type="radio" name="drawings_provided" value="Not Specified" checked>
                         Not Specified
                     </label>
                     <label for="drawings_yes" class="pure-radio">
-                        <input id="drawings_yes" type="radio" id="drawings_provided" name="drawings_provided" value="Yes">
+                        <input id="drawings_yes" type="radio" name="drawings_provided" value="Yes">
                         Yes
                     </label>
                     <label for="drawings_no" class="pure-radio">
-                        <input id="drawings_no" type="radio" id="drawings_provided" name="drawings_provided" value="No">
+                        <input id="drawings_no" type="radio" name="drawings_provided" value="No">
                         No
                     </label>
                 </div>
                 <div class="pure-u-1">
                     <p>Will the floor plan(s) be provided?</p>
                     <label for="floor_plans_ns" class="pure-radio">
-                        <input id="floor_plans_ns" type="radio" id="floor_plans_provided" name="floor_plans_provided" value="Not Specified" checked>
+                        <input id="floor_plans_ns" type="radio" name="floor_plans_provided" value="Not Specified" checked>
                         Not Specified
                     </label>
                     <label for="floor_plans_yes" class="pure-radio">
-                        <input id="floor_plans_yes" type="radio" id="floor_plans_provided" name="floor_plans_provided" value="Yes">
+                        <input id="floor_plans_yes" type="radio" name="floor_plans_provided" value="Yes">
                         Yes
                     </label>
                     <label for="floor_plans_no" class="pure-radio">
-                        <input id="floor_plans_no" type="radio" id="floor_plans_provided" name="floor_plans_provided" value="No">
+                        <input id="floor_plans_no" type="radio" name="floor_plans_provided" value="No">
                         No
                     </label>
                 </div>
                 <div class="pure-u-1">
                     <p>Will the machine, fixture, or tool drawing(s) be provided?</p>
                     <label for="machine_ns" class="pure-radio">
-                        <input id="machine_ns" type="radio" id="machine_provided" name="machine_provided" value="Not Specified" checked>
+                        <input id="machine_ns" type="radio" name="machine_provided" value="Not Specified" checked>
                         Not Specified
                     </label>
                     <label for="machine_yes" class="pure-radio">
-                        <input id="machine_yes" type="radio" id="machine_provided" name="machine_provided" value="Yes">
+                        <input id="machine_yes" type="radio" name="machine_provided" value="Yes">
                         Yes
                     </label>
                     <label for="machine_no" class="pure-radio">
-                        <input id="machine_no" type="radio" id="machine_provided" name="machine_provided" value="No">
+                        <input id="machine_no" type="radio" name="machine_provided" value="No">
                         No
                     </label>
                 </div>
                 <div class="pure-u-1">
                     <p>Will photo(s) or video(s) be provided?</p>
                     <label for="photo_video_ns" class="pure-radio">
-                        <input id="photo_video_ns" type="radio" id="photo_video_provided" name="photo_videov_provided" value="Not Specified" checked>
+                        <input id="photo_video_ns" type="radio" name="photo_video_provided" value="Not Specified" checked>
                         Not Specified
                     </label>
                     <label for="photo_video_yes" class="pure-radio">
-                        <input id="photo_video_yes" type="radio" id="photo_video_provided" name="photo_video_provided" value="Yes">
+                        <input id="photo_video_yes" type="radio" name="photo_video_provided" value="Yes">
                         Yes
                     </label>
                     <label for="photo_video_no" class="pure-radio">
-                        <input id="photo_video_no" type="radio" id="photo_video_provided" name="photo_video_provided" value="No">
+                        <input id="photo_video_no" type="radio" name="photo_video_provided" value="No">
                         No
                     </label>
                 </div>
                 <div class="pure-u-1">
                     <p>Will approval drawings be be required?</p>
                     <label for="approval_ns" class="pure-radio">
-                        <input id="approval_ns" type="radio" id="approval_provided" name="approval_provided" value="Not Specified" checked>
+                        <input id="approval_ns" type="radio" name="approval_provided" value="Not Specified" checked>
                         Not Specified
                     </label>
                     <label for="approval_yes" class="pure-radio">
-                        <input id="approval_yes" type="radio" id="approval_provided" name="approval_provided" value="Yes">
+                        <input id="approval_yes" type="radio" name="approval_provided" value="Yes">
                         Yes
                     </label>
                     <label for="approval_no" class="pure-radio">
-                        <input id="approval_no" type="radio" id="approval_provided" name="approval_provided" value="No">
+                        <input id="approval_no" type="radio" name="approval_provided" value="No">
                         No
                     </label>
                 </div>
                 <div class="pure-u-1">
                     <p>Will installation drawings be be required?</p>
                     <label for="installation_ns" class="pure-radio">
-                        <input id="installation_ns" type="radio" id="installation" name="installation" value="Not Specified" checked>
+                        <input id="installation_ns" type="radio" name="installation" value="Not Specified" checked>
                         Not Specified
                     </label>
                     <label for="installation_yes" class="pure-radio">
-                        <input id="installation_yes" type="radio" id="installation" name="installation" value="Yes">
+                        <input id="installation_yes" type="radio"  name="installation" value="Yes">
                         Yes
                     </label>
                     <label for="installation_no" class="pure-radio">
-                        <input id="installation_no" type="radio" id="installation" name="installation" value="No">
+                        <input id="installation_no" type="radio" name="installation" value="No">
                         No
                     </label>
                 </div>
                 <div class="pure-u-1">
                     <p>Will customer review(s) be be required?</p>
                     <label for="customer_reviews_ns" class="pure-radio">
-                        <input id="customer_reviews_ns" type="radio" id="customer_reviews" name="customer_reviews" value="Not Specified" checked>
+                        <input id="customer_reviews_ns" type="radio" name="customer_reviews" value="Not Specified" checked>
                         Not Specified
                     </label>
                     <label for="customer_reviews_yes" class="pure-radio">
-                        <input id="customer_reviews_yes" type="radio" id="customer_reviews" name="customer_reviews" value="Yes">
+                        <input id="customer_reviews_yes" type="radio" name="customer_reviews" value="Yes">
                         Yes
                     </label>
                     <label for="customer_reviews_no" class="pure-radio">
-                        <input id="customer_reviews_no" type="radio" id="customer_reviews" name="customer_reviews" value="No">
+                        <input id="customer_reviews_no" type="radio" name="customer_reviews" value="No">
                         No
                     </label>
                     <label>If yes, please explain: <label class='charNum'></label></label>
@@ -546,17 +546,24 @@ require './scripts/functions.php';
                 <div class="pure-u-1">
                     <p>Will drawing be required on customer paper?</p>
                     <label for="customer_paper_ns" class="pure-radio">
-                        <input id="customer_paper_ns" type="radio" id="customer_paper" name="customer_paper" value="Not Specified" checked>
+                        <input id="customer_paper_ns" type="radio" name="customer_paper" value="Not Specified" checked>
                         Not Specified
                     </label>
                     <label for="customer_paper_yes" class="pure-radio">
-                        <input id="customer_paper_yes" type="radio" id="customer_paper" name="customer_paper" value="Yes">
+                        <input id="customer_paper_yes" type="radio" name="customer_paper" value="Yes">
                         Yes
                     </label>
                     <label for="customer_paper_no" class="pure-radio">
-                        <input id="customer_paper_no" type="radio" id="customer_paper" name="customer_paper" value="No">
+                        <input id="customer_paper_no" type="radio" name="customer_paper" value="No">
                         No
                     </label>
+                </div>
+                <div class="pure-u-1">
+                    <legend>Special Requirements or Additional Comments</legend>
+                </di>
+                <div>
+                    <label>If yes, please explain: <label class='charNum'></label></label>
+                    <textarea class="pure-input-1 notes" id="special_requirements" name="special_requirements" rows="3" maxlength="700"></textarea>
                 </div>
                 <div class="pure-u-1">
                     <input class="pure-button pure-button-primary" type="submit" name="" onclick="" />
