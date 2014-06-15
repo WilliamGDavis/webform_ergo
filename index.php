@@ -419,6 +419,17 @@ require './scripts/functions.php';
                 Fill in the rest of the form values
                 -->
                 <div class="pure-u-1">
+                    <legend>Workcell Specification</legend>
+                </div>
+                <div class="pure-u-1-3">
+                    <label>Air Pressure (PSI):</label>
+                    <input type="text" id="txt_psi" name="psi" class="pure-input-1 length_text" maxlength="28" />
+                </div>
+                <div class="pure-u-1">
+                    <label>Other power source? (Please explain): <label class='charNum'></label></label>
+                    <textarea class="pure-input-1 notes" id="other_power_source" name="other_power_source" rows="3" maxlength="700"></textarea>
+                </div>
+                <div class="pure-u-1">
                     <legend>Additional Information</legend>
                 </di>
                 <div class="pure-u-1">

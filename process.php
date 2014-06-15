@@ -737,6 +737,28 @@ $Client->SDDimElevation = array(
 //TODO:
 //The rest of the form values
 
+//Workcell Specifications
+$Client->PSI = array(
+    'Name' => 'PSI',
+    'Type' => 'Textbox',
+    'Value' => trim($_POST['psi']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 28,
+    'Required' => 0,
+    'Display' => 'PSI'
+);
+$Client->OtherPowerSource = array(
+    'Name' => 'OtherPowerSource',
+    'Type' => 'Checkbox',
+    'Value' => trim($_POST['other_power_source']),
+    'Value_Type' => 'String',
+    'MinLength' => 0,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'OtherPowerSource'
+);
+
 // Additional Information
 $Client->RackProvided = array(
     'Name' => 'RackProvided',
