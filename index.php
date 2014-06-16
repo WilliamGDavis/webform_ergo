@@ -663,7 +663,7 @@ require './scripts/functions.php';
                 <div class='pure-u-1'>
                     <legend>Monorail or Crane Systems</legend>
                 </div>
-                <div class="pure-u-1">
+                <div class="width_100">
                     <p>Floor Mounted Arm</p>
                     <label for="fmarm_ns" class="pure-radio">
                         <input id="fmarm_ns" type="radio" id="crane_systems" name="fma" value="Not Specified" checked>
