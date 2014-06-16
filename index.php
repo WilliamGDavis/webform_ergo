@@ -6,8 +6,12 @@ require './scripts/functions.php';
     <head>
         <meta charset="UTF-8">
         <title>Ergomatic Form</title>
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure-min.css">
-        <style>
+        <style type="text/css">
+            div.inline { float:left; }
+            .clearBoth { clear:both; }
+            /*custom font*/
+            /*            @import url(http://fonts.googleapis.com/css?family=Montserrat);*/
+
             /*basic reset*/
             * {margin: 0; padding: 0; box-sizing: border-box;}
 
@@ -17,42 +21,13 @@ require './scripts/functions.php';
                 background: url('./background.png');
                 /*background = gradient + image pattern combo*/
                 background: 
-                    linear-gradient(rgba(196, 102, 0, 0.2), rgba(155, 89, 182, 0.2)), 
+                    /*linear-gradient(rgba(196, 102, 0, 0.2), rgba(155, 89, 182, 0.2)),*/ 
                     url('./background.png');
             }
 
             body {
                 font-family: montserrat, arial, verdana;
             }
-            
-            
-/*            form{
-                width: 70%;
-                max-width: 1100px;
-                min-width: 720px;
-                margin: 0 auto;
-                background-color: lightblue;
-                border: 1px solid black;
-            }*/
-            .pure-u-1,
-            .pure-u-1-2,
-            .pure-u-1-3,
-            .pure-u-1-4,
-            .pure-u-1-8{
-                padding-left: 10px;
-                padding-right: 10px;
-                margin-top: 5px;
-                margin-bottom: 5px;
-            }
-            textarea{
-                resize: none;
-            }
-            
-            div.inline { float:left; }
-            .clearBoth { clear:both; }
-            /*custom font*/
-            /*            @import url(http://fonts.googleapis.com/css?family=Montserrat);*/
-
             /*form styles*/
             #msform {
                 width: 80%;
@@ -70,38 +45,20 @@ require './scripts/functions.php';
                 box-sizing: border-box;
                 width: 80%;
                 margin: 0 10%;
-                
+
                 /*stacking fieldsets above each other*/
                 position: absolute;
-            }
-            
-            .width_100{
-                width: 100%; 
-                text-align: left;
-                padding-left: 10px;
-                padding-right: 10px;
-                margin-top: 5px;
-                margin-bottom: 5px;
-            }
-            .width_33-33_right{
-                width: 33.33%;
-                padding-right: 1%;
-            }
-            .width_33-33_left{
-                width: 33.33%;
-                padding-right: 1%;
-            }
-            .width_33-34{
-                width: 33.33%;
-                padding: 0 1%;
             }
             /*Hide all except first fieldset*/
             #msform fieldset:not(:first-of-type) {
                 display: none;
             }
             /*inputs*/
-            #msform input, #msform textarea {
-                padding: 15px;
+            #msform input, 
+            #msform textarea,
+            #msform select{
+                width: 100%;
+                padding: .25em .5em;
                 border: 1px solid #ccc;
                 border-radius: 3px;
                 margin-bottom: 10px;
@@ -109,7 +66,7 @@ require './scripts/functions.php';
                 box-sizing: border-box;
                 font-family: montserrat;
                 color: #2C3E50;
-                font-size: 13px;
+                font-size: 16px;
             }
             /*buttons*/
             #msform .action-button {
@@ -151,7 +108,7 @@ require './scripts/functions.php';
                 color: white;
                 text-transform: uppercase;
                 font-size: 9px;
-                width: 33.33%;
+                width: 25%;
                 float: left;
                 position: relative;
             }
@@ -188,7 +145,25 @@ require './scripts/functions.php';
                 background: #27AE60;
                 color: white;
             }
-            
+            .width_100{
+                text-align: left;
+                width: 100%;
+            }
+            .width_33-Left{
+                text-align: left;
+                width: 33.33%;
+                padding-right: 1%;
+            }
+            .width_33-Center{
+                text-align: left;
+                width: 33.34%;
+                padding: 0 1%;
+            }
+            .width_33-Right{
+                text-align: left;
+                width: 33.33%;
+                padding-left: 1%;
+            }
         </style>
         <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
         <script src="js/masked_input.js" type="text/javascript"></script>
@@ -285,66 +260,76 @@ require './scripts/functions.php';
     <body>
         <!-- Temporarily used to generate fields -->
         <button type="button" id="btn_GenerateFields">Generate Test</button>
+        <!--        <form id='msform' action="process.php" method="post" enctype="multipart/form-data">-->
         <form id='msform' action="process.php" method="post" enctype="multipart/form-data">
             <ul id="progressbar">
                 <li class="active">Customer Info</li>
                 <li>End User Info</li>
                 <li>Application Info</li>
+                <li>Surface Type</li>
             </ul>
             <fieldset>
-<!--                <div class="pure-u-1">
+                <div>
                     <label>Email Password (Temporary):</label> <input type="password" name="email_password" />
-                </div>-->
-                <!--<br />-->
+                </div>
                 <!-- Customer Information -->
                 <h2 class="fs-title">Customer Information</h2>
                 <h3 class="fs-subtitle">Your company's information</h3>
-                <div>
+                <div class='width_100'>
                     <label>Company Name: </label><label class="charNum"></label>
-                    <input type="text" id="txt_CompanyName" name="company_name" class="width_100 length_text" maxlength="60" />
+                    <input type="text" id="txt_CompanyName" name="company_name" class="length_text" maxlength="60" />
+                </div>
+                <div class='width_100'>
+                    <label>Street Address: </label><label class="charNum"></label>
+                    <input type="text" id="txt_StreetAddress" name="street_address" class="length_text" maxlength="60" />
                 </div>
                 <div>
-                    <label>Street Address: </label><label class="charNum"></label>
-                    <input type="text" id="txt_StreetAddress" name="street_address" class="width_100 length_text" maxlength="60" />
+                    <div class='inline width_33-Left'>
+                        <label>City: </label><label class="charNum"></label>
+                        <input type="text" id="txt_City" name="city" class="length_text" maxlength="28" />
+                    </div>
+                    <div class='inline width_33-Center'>
+                        <label>State:</label>
+                        <select name="state" id="cb_State">
+                            <?php echo state_builder(); ?>
+                        </select>
+                    </div>
+                    <div class='inline width_33-Right'>
+                        <label>Zip:</label><label class="charNum"></label>
+                        <input type="text" id="txt_Zip" name="zip" class="length_text" maxlength="5" />
+                    </div>
                 </div>
-                <div class="inline width_33-33_left">
-                    <label>City:</label><label class="charNum"></label>
-                    <input type="text" id="txt_City" name="city" class="width_100 length_text" maxlength="28" />
+                <br class='clearBoth' />
+                <div>
+                    <div class="inline width_33-Left">
+                        <label>First Name:</label><label class="charNum"></label>
+                        <input type="text" id="txt_FirstName" name="firstName" class="length_text" maxlength="28" />
+                    </div>
+                    <div class="inline width_33-Center">
+                        <label>Last Name:</label><label class="charNum"></label>
+                        <input type="text" id="txt_LastName" name="lastName" class="length_text" maxlength="28" />
+                    </div>
+                    <div class="inline width_33-Right">
+                        <label>Title:</label><label class="charNum"></label>
+                        <input type="text" id="txt_Title" name="title" class="length_text" maxlength="60" />
+                    </div>
                 </div>
-                <div class="inline width_33-34">
-                    <label>State:</label>
-                    <select name="state" id="cb_State" class="width_100">
-                        <?php echo state_builder(); ?>
-                    </select>
+                <br class='clearBoth' />
+                <div>
+                    <div class="inline width_33-Left">
+                        <label>Phone:</label>
+                        <input type="text" id="txt_Phone" name="phone" class="length_text" maxlength="14" />
+                    </div>
+                    <div class="inline width_33-Center">
+                        <label>Fax:</label>
+                        <input type="text" id="txt_Fax" name="fax" class="length_text" maxlength="14" />
+                    </div>
+                    <div class="inline width_33-Right">
+                        <label>Email:</label><label class="charNum"></label>
+                        <input type="text" id="txt_Email" name="email" class="length_text" maxlength="60" />
+                    </div>
                 </div>
-                <div class="inline width_33-33_right">
-                    <label>Zip:</label><label class="charNum"></label>
-                    <input type="text" id="txt_Zip" name="zip" class="width_100 length_text" maxlength="5" />
-                </div>
-                <div class="pure-u-1-3">
-                    <label>First Name:</label><label class="charNum"></label>
-                    <input type="text" id="txt_FirstName" name="firstName" class="pure-input-1 length_text" maxlength="28" />
-                </div>
-                <div class="pure-u-1-3">
-                    <label>Last Name:</label><label class="charNum"></label>
-                    <input type="text" id="txt_LastName" name="lastName" class="pure-input-1 length_text" maxlength="28" />
-                </div>
-                <div class="pure-u-1-3">
-                    <label>Title:</label><label class="charNum"></label>
-                    <input type="text" id="txt_Title" name="title" class="pure-input-1 length_text" maxlength="60" />
-                </div>
-                <div class="pure-u-1-3">
-                    <label>Phone:</label>
-                    <input type="text" id="txt_Phone" name="phone" class="pure-input-1 length_text" maxlength="14" />
-                </div>
-                <div class="pure-u-1-3">
-                    <label>Fax:</label>
-                    <input type="text" id="txt_Fax" name="fax" class="pure-input-1 length_text" maxlength="14" />
-                </div>
-                <div class="pure-u-1-3">
-                    <label>Email:</label><label class="charNum"></label>
-                    <input type="text" id="txt_Email" name="email" class="pure-input-1 length_text" maxlength="60" />
-                </div>
+                <br class='clearBoth' />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
             <fieldset>
@@ -421,10 +406,6 @@ require './scripts/functions.php';
                     <label>LH/RH Units Required:</label>
                     <input type="text" id="txt_LhRhUnit" name="lh_rh_unit" class="pure-input-1" />
                 </div>
-                <input type="button" name="previous" class="previous action-button" value="Previous" />
-                <input type="button" name="next" class="next action-button" value="Next" />
-            </fieldset>
-            <fieldset>
                 <!-- Part Dimensions -->
                 <div class="pure-u-1">
                     <legend>Part Dimensions</legend>
@@ -465,6 +446,11 @@ require './scripts/functions.php';
                     </table>
                     <p style="text-align: center;">***Please include a separate sheet for additional parts if necessary***</p>
                 </div>
+                <input type="button" name="previous" class="previous action-button" value="Previous" />
+                <input type="button" name="next" class="next action-button" value="Next" />
+            </fieldset>
+            <fieldset>
+
                 <!-- Surface Type -->
                 <div class="pure-u-1">
                     <legend>Surface Type: (check all that apply)</legend>
@@ -682,155 +668,154 @@ require './scripts/functions.php';
                 </div>
                 <div class="pure-u-1">
                     <legend>Additional Information</legend>
-                </di>
-                <div class="pure-u-1">
-                    <p>Will the rack or dunnage be provided?</p>
-                    <label for="rack_ns" class="pure-radio">
-                        <input id="rack_ns" type="radio" name="rack_provided" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="rack_yes" class="pure-radio">
-                        <input id="rack_yes" type="radio" name="rack_provided" value="Yes">
-                        Yes
-                    </label>
-                    <label for="rack_no" class="pure-radio">
-                        <input id="rack_no" type="radio" name="rack_provided" value="No">
-                        No
-                    </label>
-                </div>
-                <div class="pure-u-1">
-                    <p>Will the part drawing(s) be provided?</p>
-                    <label for="drawings_ns" class="pure-radio">
-                        <input id="drawings_ns" type="radio" name="drawings_provided" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="drawings_yes" class="pure-radio">
-                        <input id="drawings_yes" type="radio" name="drawings_provided" value="Yes">
-                        Yes
-                    </label>
-                    <label for="drawings_no" class="pure-radio">
-                        <input id="drawings_no" type="radio" name="drawings_provided" value="No">
-                        No
-                    </label>
-                </div>
-                <div class="pure-u-1">
-                    <p>Will the floor plan(s) be provided?</p>
-                    <label for="floor_plans_ns" class="pure-radio">
-                        <input id="floor_plans_ns" type="radio" name="floor_plans_provided" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="floor_plans_yes" class="pure-radio">
-                        <input id="floor_plans_yes" type="radio" name="floor_plans_provided" value="Yes">
-                        Yes
-                    </label>
-                    <label for="floor_plans_no" class="pure-radio">
-                        <input id="floor_plans_no" type="radio" name="floor_plans_provided" value="No">
-                        No
-                    </label>
-                </div>
-                <div class="pure-u-1">
-                    <p>Will the machine, fixture, or tool drawing(s) be provided?</p>
-                    <label for="machine_ns" class="pure-radio">
-                        <input id="machine_ns" type="radio" name="machine_provided" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="machine_yes" class="pure-radio">
-                        <input id="machine_yes" type="radio" name="machine_provided" value="Yes">
-                        Yes
-                    </label>
-                    <label for="machine_no" class="pure-radio">
-                        <input id="machine_no" type="radio" name="machine_provided" value="No">
-                        No
-                    </label>
-                </div>
-                <div class="pure-u-1">
-                    <p>Will photo(s) or video(s) be provided?</p>
-                    <label for="photo_video_ns" class="pure-radio">
-                        <input id="photo_video_ns" type="radio" name="photo_video_provided" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="photo_video_yes" class="pure-radio">
-                        <input id="photo_video_yes" type="radio" name="photo_video_provided" value="Yes">
-                        Yes
-                    </label>
-                    <label for="photo_video_no" class="pure-radio">
-                        <input id="photo_video_no" type="radio" name="photo_video_provided" value="No">
-                        No
-                    </label>
-                </div>
-                <div class="pure-u-1">
-                    <p>Will approval drawings be be required?</p>
-                    <label for="approval_ns" class="pure-radio">
-                        <input id="approval_ns" type="radio" name="approval_provided" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="approval_yes" class="pure-radio">
-                        <input id="approval_yes" type="radio" name="approval_provided" value="Yes">
-                        Yes
-                    </label>
-                    <label for="approval_no" class="pure-radio">
-                        <input id="approval_no" type="radio" name="approval_provided" value="No">
-                        No
-                    </label>
-                </div>
-                <div class="pure-u-1">
-                    <p>Will installation drawings be be required?</p>
-                    <label for="installation_ns" class="pure-radio">
-                        <input id="installation_ns" type="radio" name="installation" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="installation_yes" class="pure-radio">
-                        <input id="installation_yes" type="radio"  name="installation" value="Yes">
-                        Yes
-                    </label>
-                    <label for="installation_no" class="pure-radio">
-                        <input id="installation_no" type="radio" name="installation" value="No">
-                        No
-                    </label>
-                </div>
-                <div class="pure-u-1">
-                    <p>Will customer review(s) be be required?</p>
-                    <label for="customer_reviews_ns" class="pure-radio">
-                        <input id="customer_reviews_ns" type="radio" name="customer_reviews" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="customer_reviews_yes" class="pure-radio">
-                        <input id="customer_reviews_yes" type="radio" name="customer_reviews" value="Yes">
-                        Yes
-                    </label>
-                    <label for="customer_reviews_no" class="pure-radio">
-                        <input id="customer_reviews_no" type="radio" name="customer_reviews" value="No">
-                        No
-                    </label>
-                    <label>If yes, please explain: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" id="customer_reviews_explain" name="customer_reviews_explain" rows="3" maxlength="700"></textarea>
-                </div>
-                <div class="pure-u-1">
-                    <p>Will drawing be required on customer paper?</p>
-                    <label for="customer_paper_ns" class="pure-radio">
-                        <input id="customer_paper_ns" type="radio" name="customer_paper" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="customer_paper_yes" class="pure-radio">
-                        <input id="customer_paper_yes" type="radio" name="customer_paper" value="Yes">
-                        Yes
-                    </label>
-                    <label for="customer_paper_no" class="pure-radio">
-                        <input id="customer_paper_no" type="radio" name="customer_paper" value="No">
-                        No
-                    </label>
-                </div>
-                <div class="pure-u-1">
-                    <legend>Special Requirements or Additional Comments</legend>
-                </di>
-                <div>
-                    <label>If yes, please explain: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" id="special_requirements" name="special_requirements" rows="3" maxlength="700"></textarea>
-                </div>
-                <div class="pure-u-1">
-                    <input class="pure-button pure-button-primary" type="submit" name="" onclick="" />
-                </div>
-            </fieldset>
-        </form>
-    </body>
-</html>
+                    </di>
+                    <div class="pure-u-1">
+                        <p>Will the rack or dunnage be provided?</p>
+                        <label for="rack_ns" class="pure-radio">
+                            <input id="rack_ns" type="radio" name="rack_provided" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                        <label for="rack_yes" class="pure-radio">
+                            <input id="rack_yes" type="radio" name="rack_provided" value="Yes">
+                            Yes
+                        </label>
+                        <label for="rack_no" class="pure-radio">
+                            <input id="rack_no" type="radio" name="rack_provided" value="No">
+                            No
+                        </label>
+                    </div>
+                    <div class="pure-u-1">
+                        <p>Will the part drawing(s) be provided?</p>
+                        <label for="drawings_ns" class="pure-radio">
+                            <input id="drawings_ns" type="radio" name="drawings_provided" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                        <label for="drawings_yes" class="pure-radio">
+                            <input id="drawings_yes" type="radio" name="drawings_provided" value="Yes">
+                            Yes
+                        </label>
+                        <label for="drawings_no" class="pure-radio">
+                            <input id="drawings_no" type="radio" name="drawings_provided" value="No">
+                            No
+                        </label>
+                    </div>
+                    <div class="pure-u-1">
+                        <p>Will the floor plan(s) be provided?</p>
+                        <label for="floor_plans_ns" class="pure-radio">
+                            <input id="floor_plans_ns" type="radio" name="floor_plans_provided" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                        <label for="floor_plans_yes" class="pure-radio">
+                            <input id="floor_plans_yes" type="radio" name="floor_plans_provided" value="Yes">
+                            Yes
+                        </label>
+                        <label for="floor_plans_no" class="pure-radio">
+                            <input id="floor_plans_no" type="radio" name="floor_plans_provided" value="No">
+                            No
+                        </label>
+                    </div>
+                    <div class="pure-u-1">
+                        <p>Will the machine, fixture, or tool drawing(s) be provided?</p>
+                        <label for="machine_ns" class="pure-radio">
+                            <input id="machine_ns" type="radio" name="machine_provided" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                        <label for="machine_yes" class="pure-radio">
+                            <input id="machine_yes" type="radio" name="machine_provided" value="Yes">
+                            Yes
+                        </label>
+                        <label for="machine_no" class="pure-radio">
+                            <input id="machine_no" type="radio" name="machine_provided" value="No">
+                            No
+                        </label>
+                    </div>
+                    <div class="pure-u-1">
+                        <p>Will photo(s) or video(s) be provided?</p>
+                        <label for="photo_video_ns" class="pure-radio">
+                            <input id="photo_video_ns" type="radio" name="photo_video_provided" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                        <label for="photo_video_yes" class="pure-radio">
+                            <input id="photo_video_yes" type="radio" name="photo_video_provided" value="Yes">
+                            Yes
+                        </label>
+                        <label for="photo_video_no" class="pure-radio">
+                            <input id="photo_video_no" type="radio" name="photo_video_provided" value="No">
+                            No
+                        </label>
+                    </div>
+                    <div class="pure-u-1">
+                        <p>Will approval drawings be be required?</p>
+                        <label for="approval_ns" class="pure-radio">
+                            <input id="approval_ns" type="radio" name="approval_provided" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                        <label for="approval_yes" class="pure-radio">
+                            <input id="approval_yes" type="radio" name="approval_provided" value="Yes">
+                            Yes
+                        </label>
+                        <label for="approval_no" class="pure-radio">
+                            <input id="approval_no" type="radio" name="approval_provided" value="No">
+                            No
+                        </label>
+                    </div>
+                    <div class="pure-u-1">
+                        <p>Will installation drawings be be required?</p>
+                        <label for="installation_ns" class="pure-radio">
+                            <input id="installation_ns" type="radio" name="installation" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                        <label for="installation_yes" class="pure-radio">
+                            <input id="installation_yes" type="radio"  name="installation" value="Yes">
+                            Yes
+                        </label>
+                        <label for="installation_no" class="pure-radio">
+                            <input id="installation_no" type="radio" name="installation" value="No">
+                            No
+                        </label>
+                    </div>
+                    <div class="pure-u-1">
+                        <p>Will customer review(s) be be required?</p>
+                        <label for="customer_reviews_ns" class="pure-radio">
+                            <input id="customer_reviews_ns" type="radio" name="customer_reviews" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                        <label for="customer_reviews_yes" class="pure-radio">
+                            <input id="customer_reviews_yes" type="radio" name="customer_reviews" value="Yes">
+                            Yes
+                        </label>
+                        <label for="customer_reviews_no" class="pure-radio">
+                            <input id="customer_reviews_no" type="radio" name="customer_reviews" value="No">
+                            No
+                        </label>
+                        <label>If yes, please explain: <label class='charNum'></label></label>
+                        <textarea class="pure-input-1 notes" id="customer_reviews_explain" name="customer_reviews_explain" rows="3" maxlength="700"></textarea>
+                    </div>
+                    <div class="pure-u-1">
+                        <p>Will drawing be required on customer paper?</p>
+                        <label for="customer_paper_ns" class="pure-radio">
+                            <input id="customer_paper_ns" type="radio" name="customer_paper" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                        <label for="customer_paper_yes" class="pure-radio">
+                            <input id="customer_paper_yes" type="radio" name="customer_paper" value="Yes">
+                            Yes
+                        </label>
+                        <label for="customer_paper_no" class="pure-radio">
+                            <input id="customer_paper_no" type="radio" name="customer_paper" value="No">
+                            No
+                        </label>
+                    </div>
+                    <div class="pure-u-1">
+                        <legend>Special Requirements or Additional Comments</legend>
+                        </di>
+                        <div>
+                            <label>If yes, please explain: <label class='charNum'></label></label>
+                            <textarea class="pure-input-1 notes" id="special_requirements" name="special_requirements" rows="3" maxlength="700"></textarea>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button" value="Previous" />
+                        <input class="pure-button pure-button-primary" type="submit" name="" onclick="" />
+                        </fieldset>
+                        </form>
+                        </body>
+                        </html>
