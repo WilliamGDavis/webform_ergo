@@ -107,6 +107,16 @@ There's a lot of foot traffic here, so we could use a consulatation regarding th
         $('#txt_UserFax').val($('#txt_Fax').val());
         $('#txt_UserEmail').val($('#txt_Email').val());
     });
+
+    $('#btn_GetRFQ').on('click', function() {
+        $.ajax({
+            url: '../db_functions.php',
+            success: function(data) {
+                $("#widget_rfq").html(data);
+                alert(data);
+            }
+        });//end ajax - Fill lead into assign modal
+    });
 });
 
 function textbox_check_length(minLength, maxLength, error, type) {
