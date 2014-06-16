@@ -113,7 +113,6 @@ There's a lot of foot traffic here, so we could use a consulatation regarding th
             url: '../db_functions.php',
             success: function(data) {
                 $("#widget_rfq").html(data);
-                alert(data);
             }
         });//end ajax - Fill lead into assign modal
     });

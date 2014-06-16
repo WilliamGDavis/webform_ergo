@@ -26,8 +26,9 @@
                 <button type="button" id="btn_GetRFQ">Get RFQs</button>
             </div>
             <div id="sidebar_right">
-                <!-- RFQs table placeholder -->
+                <!-- Widgets placeholder -->
                 <div id="widget_rfq"></div>
+                <div id="widget_"></div>
             </div>
         </div>
     </body>
