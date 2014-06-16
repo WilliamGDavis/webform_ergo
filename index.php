@@ -54,7 +54,7 @@ require './scripts/functions.php';
                 display: none;
             }
             /*inputs*/
-            #msform input, 
+            #msform input[type=text], 
             #msform textarea,
             #msform select{
                 width: 100%;
@@ -67,6 +67,7 @@ require './scripts/functions.php';
                 font-family: montserrat;
                 color: #2C3E50;
                 font-size: 16px;
+                resize: none;
             }
             /*buttons*/
             #msform .action-button {
@@ -108,9 +109,10 @@ require './scripts/functions.php';
                 color: white;
                 text-transform: uppercase;
                 font-size: 9px;
-                width: 25%;
+                width: 10%;
                 float: left;
                 position: relative;
+                display: block;
             }
             #progressbar li:before {
                 content: counter(step);
@@ -148,6 +150,16 @@ require './scripts/functions.php';
             .width_100{
                 text-align: left;
                 width: 100%;
+            }
+            .width_50-Left{
+                text-align: left;
+                width: 50%;
+                padding-right: 1%;
+            }
+            .width_50-Right{
+                text-align: left;
+                width: 50%;
+                padding-left: 1%;
             }
             .width_33-Left{
                 text-align: left;
@@ -267,11 +279,17 @@ require './scripts/functions.php';
                 <li>End User Info</li>
                 <li>Application Info</li>
                 <li>Surface Type</li>
+                <li>Current Process</li>
+                <li>Part Engagement</li>
+                <li>Part Set Down</li>
+                <li>Monorail/Crane Systems</li>
+                <li>End Effector</li>
+                <li>Additional Info</li>
             </ul>
             <fieldset>
-                <div>
-                    <label>Email Password (Temporary):</label> <input type="password" name="email_password" />
-                </div>
+                <!--                <div>
+                                    <label>Email Password (Temporary):</label> <input type="password" name="email_password" />
+                                </div>-->
                 <!-- Customer Information -->
                 <h2 class="fs-title">Customer Information</h2>
                 <h3 class="fs-subtitle">Your company's information</h3>
@@ -334,84 +352,85 @@ require './scripts/functions.php';
             </fieldset>
             <fieldset>
                 <!-- End-User Information -->
-                <div class="pure-u-1">
-                    <legend>End User Information</legend>
+                <h2 class="fs-title">End User Information</h2>
+                <h3 class="fs-subtitle">Your client's information</h3>
+                <div class="">
+                    <button type="button" id="btn_CopyCompanyInfo" class="action-button">Same as Above</button>
                 </div>
-                <div class="pure-u-1">
-                    <button type="button" id="btn_CopyCompanyInfo" class="pure-button pure-button-primary">Same as Above</button>
-                </div>
-                <div class="pure-u-1">
+                <div class="width_100">
                     <label>Company Name:</label><label class="charNum"></label>
-                    <input type="text" id="txt_UserCompanyName" name="user_company_name" class="pure-input-1 length_text" maxlength="60" />
+                    <input type="text" id="txt_UserCompanyName" name="user_company_name" class="length_text" maxlength="60" />
                 </div>
-                <div class="pure-u-1">
+                <div class="width_100">
                     <label>Street Address:</label><label class="charNum"></label>
-                    <input type="text" id="txt_UserStreetAddress" name="user_street_address" class="pure-input-1 length_text" maxlength="60" />
+                    <input type="text" id="txt_UserStreetAddress" name="user_street_address" class="length_text" maxlength="60" />
                 </div>
-                <div class="pure-u-1-3">
+                <div class="inline width_33-Left">
                     <label>City:</label><label class="charNum"></label>
-                    <input type="text" id="txt_UserCity" name="user_city" class="pure-input-1 length_text" maxlength="28" />
+                    <input type="text" id="txt_UserCity" name="user_city" class="length_text" maxlength="28" />
                 </div>
-                <div class="pure-u-1-3">
+                <div class="inline width_33-Center">
                     <label>State:</label>
-                    <select id="cb_UserState" name="user_state" class="pure-input-1">
+                    <select id="cb_UserState" name="user_state">
                         <?php echo state_builder(); ?>
                     </select>
                 </div>
-                <div class="pure-u-1-3">
+                <div class="inline width_33-Right">
                     <label>Zip:</label>
-                    <input type="text" id="txt_UserZip" name="user_zip" class="pure-input-1" />
+                    <input type="text" id="txt_UserZip" name="user_zip" class="length_text" maxlength="5" />
                 </div>
-                <div class="pure-u-1-3">
+                <br class='clearBoth' />
+                <div class="inline width_33-Left">
                     <label>First Name:</label>
-                    <input type="text" id="txt_UserFirstName" name="user_firstName" class="pure-input-1" />
+                    <input type="text" id="txt_UserFirstName" name="user_firstName" class="length_text" maxlength="60" />
                 </div>
-                <div class="pure-u-1-3">
+                <div class="inline width_33-Center">
                     <label>Last Name:</label>
-                    <input type="text" id="txt_UserLastName" name="user_lastName" class="pure-input-1" />
+                    <input type="text" id="txt_UserLastName" name="user_lastName" class="length_text" maxlength="60" />
                 </div>
-                <div class="pure-u-1-3">
+                <div class="inline width_33-Right">
                     <label>Title:</label>
-                    <input type="text" id="txt_UserTitle" name="user_title" class="pure-input-1" />
+                    <input type="text" id="txt_UserTitle" name="user_title" class="length_text" maxlength="60" />
                 </div>
-                <div class="pure-u-1-3">
+                <br class="clearBoth" />
+                <div class="inline width_33-Left">
                     <label>Phone:</label>
-                    <input type="text" id="txt_UserPhone" name="user_phone" class="pure-input-1" />
+                    <input type="text" id="txt_UserPhone" name="user_phone" class="length_text" maxlength="14" />
                 </div>
-                <div class="pure-u-1-3">
+                <div class="inline width_33-Center">
                     <label>Fax:</label>
-                    <input type="text" id="txt_UserFax" name="user_fax" class="pure-input-1" />
+                    <input type="text" id="txt_UserFax" name="user_fax" class="length_text" maxlength="14" />
                 </div>
-                <div class="pure-u-1-3">
+                <div class="inline width_33-Right">
                     <label>Email:</label>
-                    <input type="text" id="txt_UserEmail" name="user_email" class="pure-input-1" />
+                    <input type="text" id="txt_UserEmail" name="user_email" class="length_text" maxlength="60" />
                 </div>
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
             <fieldset>
                 <!-- Application Information -->
-                <div class="pure-u-1">
-                    <legend>Application Information</legend>
-                </div>
-                <div class="pure-u-1">
+                <h2 class="fs-title">Application Information</h2>
+                <h3 class="fs-subtitle">Description of the part</h3>
+                <div class="width_100">
                     <label>Part Description:</label><label class="charNum"></label>
-                    <input type="text" id="txt_PartDescription" name="part_description" class="pure-input-1 length_text" maxlength="124"/>
+                    <textarea id="txt_PartDescription" name="part_description" class="length_text" maxlength="700" rows="4"></textarea>
                 </div>
-                <div class="pure-u-1-4">
+                <div class="inline width_33-Left">
                     <label>Quantity:</label>
-                    <input type="text" id="txt_Quantity" name="quantity" class="pure-input-1" />
+                    <input type="text" id="txt_Quantity" name="quantity" class="length_text" />
                 </div>
-                <div class="pure-u-1-4">
+                <div class="inline width_33-Center">
                     <label>LH/RH Units Required:</label>
-                    <input type="text" id="txt_LhRhUnit" name="lh_rh_unit" class="pure-input-1" />
+                    <input type="text" id="txt_LhRhUnit" name="lh_rh_unit" class="length_text" />
                 </div>
+                <br class="clearBoth" />
+                <br />
                 <!-- Part Dimensions -->
-                <div class="pure-u-1">
-                    <legend>Part Dimensions</legend>
-                </div>
-                <div class="pure-u-1">
-                    <table class="pure-table-horizontal">
+                <h2 class="fs-title">Part Dimensions</h2>
+                <h3 class="fs-subtitle">Please be as accurate as possible</h3>
+                <div class="">
+                    <table class="">
                         <thead>
                             <tr>
                                 <th></th>
@@ -426,185 +445,221 @@ require './scripts/functions.php';
                         <tbody>
                             <tr>
                                 <td>Maximum</td>
-                                <td><input type="text" id="txt_MaxWeight" name="max_weight" class="pure-input-1" /></td>
-                                <td><input type="text" id="txt_MaxHeight" name="max_height" class="pure-input-1" /></td>
-                                <td><input type="text" id="txt_MaxWidth" name="max_width" class="pure-input-1" /></td>
-                                <td><input type="text" id="txt_MaxLength" name="max_length" class="pure-input-1" /></td>
-                                <td><input type="text" id="txt_MaxID" name="max_id" class="pure-input-1" /></td>
-                                <td><input type="text" id="txt_MaxOD" name="max_od" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MaxWeight" name="max_weight" class="" /></td>
+                                <td><input type="text" id="txt_MaxHeight" name="max_height" class="" /></td>
+                                <td><input type="text" id="txt_MaxWidth" name="max_width" class="" /></td>
+                                <td><input type="text" id="txt_MaxLength" name="max_length" class="" /></td>
+                                <td><input type="text" id="txt_MaxID" name="max_id" class="" /></td>
+                                <td><input type="text" id="txt_MaxOD" name="max_od" class="" /></td>
                             </tr>
                             <tr>
                                 <td>Minimum</td>
-                                <td><input type="text" id="txt_MinWeight" name="min_weight" class="pure-input-1" /></td>
-                                <td><input type="text" id="txt_MinHeight" name="min_height" class="pure-input-1" /></td>
-                                <td><input type="text" id="txt_MinWidth" name="min_width" class="pure-input-1" /></td>
-                                <td><input type="text" id="txt_MinLength" name="min_length" class="pure-input-1" /></td>
-                                <td><input type="text" id="txt_MinID" name="min_id" class="pure-input-1" /></td>
-                                <td><input type="text" id="txt_MinOD" name="min_od" class="pure-input-1" /></td>
+                                <td><input type="text" id="txt_MinWeight" name="min_weight" class="" /></td>
+                                <td><input type="text" id="txt_MinHeight" name="min_height" class="" /></td>
+                                <td><input type="text" id="txt_MinWidth" name="min_width" class="" /></td>
+                                <td><input type="text" id="txt_MinLength" name="min_length" class="" /></td>
+                                <td><input type="text" id="txt_MinID" name="min_id" class="" /></td>
+                                <td><input type="text" id="txt_MinOD" name="min_od" class="" /></td>
                             </tr>
                         </tbody>
                     </table>
                     <p style="text-align: center;">***Please include a separate sheet for additional parts if necessary***</p>
                 </div>
+                <br class="clearBoth" />
+                <input type="button" name="previous" class="previous action-button" value="Previous" />
+                <input type="button" name="next" class="next action-button" value="Next" />
+            </fieldset>
+            <!-- Surface Type -->
+            <fieldset>
+                <h2 class="fs-title">Surface Type</h2>
+                <h3 class="fs-subtitle">(check all that apply)</h3>
+                <div class="width_100">
+                    <div class="width_100">
+                        <div class="width_100">
+                            <table class="width_100">
+                                <tr>
+                                    <td style="width: 20%;">  
+                                        <label for="st_hot">
+                                            <input id="st_hot" type="checkbox" name="st_hot" value="Yes"> Hot 
+                                        </label>
+                                    </td>
+                                    <td style="width: 60%;">
+                                        <div>
+                                            <label>Temperature:</label>
+                                            <input type="text" id="st_temp" class="pure-u-1" name="st_temp" style="width: 80%;"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <label for="farenheight"">
+                                            <input id="farenheight" type="radio" name="st_temp_scale" value="Farenheight" checked>
+                                            Farenheight
+                                        </label>
+                                        <br />
+                                        <label for="celcius">
+                                            <input id="celcius" type="radio" name="st_temp_scale" value="Celcius">
+                                            Celcius
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <label for="st_wet">
+                            <input id="st_wet" type="checkbox" name="st_wet" value="Yes"> Wet
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="st_dry" class="pure-checkbox">
+                            <input id="st_dry" type="checkbox" name="st_dry" value="Yes"> Dry
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="st_oily" class="pure-checkbox">
+                            <input id="st_oily" type="checkbox" name="st_oily" value="Yes"> Oily
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="st_classA">
+                            <input id="st_classA" type="checkbox" name="st_classA" value="Yes"> Class A
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="st_fragile" class="pure-checkbox">
+                            <input id="st_fragile" type="checkbox" name="st_fragile" value="Yes"> Fragile
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="st_textured" class="pure-checkbox">
+                            <input id="st_textured" type="checkbox" name="st_textured" value="Yes"> Textured
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="st_other" class="pure-checkbox">
+                            <input id="st_other" type="checkbox" name="st_other" value="Yes"> Other
+                        </label>
+                    </div>
+                </div>
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
             <fieldset>
-
-                <!-- Surface Type -->
-                <div class="pure-u-1">
-                    <legend>Surface Type: (check all that apply)</legend>
-                </div>
-                <div class="pure-u-1">
-                    <label for="st_wet" class="pure-checkbox">
-                        <input id="st_wet" type="checkbox" name="st_wet" value="Yes"> Wet
-                    </label>
-                    <label for="st_oily" class="pure-checkbox">
-                        <input id="st_oily" type="checkbox" name="st_oily" value="Yes"> Oily
-                    </label>
-                    <label for="st_dry" class="pure-checkbox">
-                        <input id="st_dry" type="checkbox" name="st_dry" value="Yes"> Dry
-                    </label>
-                    <table class="pure-table">
-                        <tr>
-                            <td>  
-                                <label for="st_hot" class="pure-checkbox">
-                                    <input id="st_hot" type="checkbox" name="st_hot" value="Yes"> Hot 
-                                </label>
-                            </td>
-                            <td>
-                                <div class="pure-u-1">
-                                    <label>Temperature:</label>
-                                    <input type="text" id="st_temp" class="pure-u-1" name="st_temp" />
-                                </div>
-                            </td>
-                            <td>
-                                <label for="farenheight" class="pure-radio">
-                                    <input id="farenheight" type="radio" name="st_temp_scale" value="Farenheight" checked>
-                                    Farenheight
-                                </label>
-                                <label for="celcius" class="pure-radio">
-                                    <input id="celcius" type="radio" name="st_temp_scale" value="Celcius">
-                                    Celcius
-                                </label>
-                            </td>
-                        </tr>
-                    </table>
-                    <label for="st_classA" class="pure-checkbox">
-                        <input id="st_classA" type="checkbox" name="st_classA" value="Yes"> Class A
-                    </label>
-                    <label for="st_fragile" class="pure-checkbox">
-                        <input id="st_fragile" type="checkbox" name="st_fragile" value="Yes"> Fragile
-                    </label>
-                    <label for="st_textured" class="pure-checkbox">
-                        <input id="st_textured" type="checkbox" name="st_textured" value="Yes"> Textured
-                    </label>
-                    <label for="st_other" class="pure-checkbox">
-                        <input id="st_other" type="checkbox" name="st_other" value="Yes"> Other
-                    </label>
-                </div>
-                <br />
-                <br />
                 <!-- Current Process -->
-                <div class="pure-u-1">
-                    <legend>Current Process</legend>
-                </div>
-                <div class="pure-u-1">
+                <h2 class="fs-title">Current Process</h2>
+                <h3 class="fs-subtitle">Please be as thorough as possible</h3>
+                <div class="width_100">
                     <label>Description of current process or sequence of operations: <label class='charNum'></label></label>
                     <textarea class="pure-u-1 length_text" maxlength="700" rows="6" id="process_description" name="process_description"></textarea>
                 </div>
-                <div class="pure-u-1-3">
+                <div class="inline width_33-Left">
                     <label>Production Rate (cycles/hour):</label>
-                    <input type="text" class="pure-input-1" id="production_rate" name="production_rate" />
+                    <input type="text" id="production_rate" name="production_rate" />
                 </div>
-                <div class="pure-u-1-3">
+                <div class="inline width_33-Center">
                     <label>Shifts/Day: </label>
-                    <input type="text" class="pure-input-1" id="shifts" name="shifts" />
+                    <input type="text" id="shifts" name="shifts" />
                 </div>
-                <br />
-                <br />
+                <br class="clearBoth" />
+                <input type="button" name="previous" class="previous action-button" value="Previous" />
+                <input type="button" name="next" class="next action-button" value="Next" />
+            </fieldset>
+            <fieldset>
                 <!-- Part Engagement -->
-                <div class="pure-u-1">
-                    <legend>Part Engagement</legend>
-                </div>
-                <div class="pure-u-1">
+                <h2 class="fs-title">Part Engagement</h2>
+                <h3 class="fs-subtitle">Please be as thorough as possible</h3>
+                <div class="width_100">
                     <label>What is part being picked up from? <label class='charNum'></label></label>
                     <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_pickup" name="eng_pickup"></textarea>
                 </div>
-                <div class="pure-u-1">
+                <div class="width_100">
                     <label>Please list any obstructions that may interfere with engaging the part: <label class='charNum'></label></label>
                     <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_obstructions" name="eng_obstructions"></textarea>
                 </div>
-                <div class="pure-u-1">
-                    <p>Is the part Moving or Stationary?</p>
-                    <label for="part_notSpecified" class="pure-radio">
-                        <input id="part_notSpecified" type="radio" name="eng_movement" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="part_moving" class="pure-radio">
-                        <input id="part_moving" type="radio" name="eng_movement" value="Moving">
-                        Moving
-                    </label>
-                    <label for="part_stationary" class="pure-radio">
-                        <input id="part_stationary" type="radio" name="eng_movement" value="Stationary">
-                        Stationary
-                    </label>
+                <div class="width_100">
+                    <p style="margin-bottom: 1em;">Is the part Moving or Stationary?</p>
+                    <div class="width_100">
+                        <label for="part_notSpecified" class="pure-radio">
+                            <input id="part_notSpecified" type="radio" name="eng_movement" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="part_moving" class="pure-radio">
+                            <input id="part_moving" type="radio" name="eng_movement" value="Moving">
+                            Moving
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="part_stationary" class="pure-radio">
+                            <input id="part_stationary" type="radio" name="eng_movement" value="Stationary">
+                            Stationary
+                        </label>
+                    </div>
                 </div>
-                <div class="pure-u-1">
+                <br />
+                <div class="width_100">
                     <label>Recommended area to engage the part: <label class='charNum'></label></label>
                     <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_recommended" name="eng_recommended"></textarea>
                 </div>
-                <div class="pure-u-1">
+                <div class="width_100">
                     <label>Areas of the part that cannot be touched: <label class='charNum'></label></label>
                     <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_noTouching" name="eng_noTouching"></textarea>
                 </div>
-                <div class="pure-u-1">
+                <div class="width_100">
                     <label>Operator's perspective of part orientation: <label class='charNum'></label></label>
                     <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_orientation" name="eng_orientation"></textarea>
                 </div>
-                <div class="pure-u-1">
+                <div class="width_100">
                     <label>Dimensional elevation of part at set down: <label class='charNum'></label></label>
                     <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_dimElevation" name="eng_dimElevation"></textarea>
                 </div>
-                <br />
-                <br />
+                <input type="button" name="previous" class="previous action-button" value="Previous" />
+                <input type="button" name="next" class="next action-button" value="Next" />
+            </fieldset>
+            <fieldset>
                 <!-- Part Set Down -->
-                <div class="pure-u-1">
-                    <legend>Part Set Down:</legend>
-                </div>
-                <div class="pure-u-1">
+                <h2 class="fs-title">Part Set Down</h2>
+                <h3 class="fs-subtitle">Please be as thorough as possible</h3>
+                <div class="width_100">
                     <label>What is part being set down on/in: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" id="sd_location" name="sd_location" rows="3" maxlength="700"></textarea>
+                    <textarea class="notes" id="sd_location" name="sd_location" rows="3" maxlength="700"></textarea>
                 </div>
-                <div class="pure-u-1">
-                    <p>Is the set-down location Moving or Stationary?</p>
-                    <label for="setDown_notSpecified" class="pure-radio">
-                        <input id="setDown_notSpecified" type="radio" id="sd_movement" name="sd_movement" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="setDown_moving" class="pure-radio">
-                        <input id="setDown_moving" type="radio" id="sd_movement" name="sd_movement" value="Moving">
-                        Moving
-                    </label>
-                    <label for="setDown_stationary" class="pure-radio">
-                        <input id="setDown_stationary" type="radio" id="sd_movement" name="sd_movement" value="Stationary">
-                        Stationary
-                    </label>
+                <div class="width_100">
+                    <p style="text-align: left; margin-bottom: 1em;">Is the set-down location Moving or Stationary?</p>
+                    <div>
+                        <label for="setDown_notSpecified" class="pure-radio">
+                            <input id="setDown_notSpecified" type="radio" name="sd_movement" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                    </div>
+                    <div>
+                        <label for="setDown_moving" class="pure-radio">
+                            <input id="setDown_moving" type="radio" name="sd_movement" value="Moving">
+                            Moving
+                        </label>
+                    </div>
+                    <div>
+                        <label for="setDown_stationary" class="pure-radio">
+                            <input id="setDown_stationary" type="radio" name="sd_movement" value="Stationary">
+                            Stationary
+                        </label>
+                    </div>
                 </div>
-                <div class="pure-u-1">
+                <br />
+                <div class="width_100">
                     <label>Please list any obstructions that may interfere with engaging the part: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" id="sd_obstruction" name="sd_obstruction" rows="3" maxlength="700"></textarea>
+                    <textarea class="notes" id="sd_obstruction" name="sd_obstruction" rows="3" maxlength="700"></textarea>
                 </div>
-                <div class="pure-u-1">
+                <div class="width_100">
                     <label>Operator's perspective of part orientation: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" id="sd_orientation" name="sd_orientation" rows="3" maxlength="700"></textarea>
+                    <textarea class="notes" id="sd_orientation" name="sd_orientation" rows="3" maxlength="700"></textarea>
                 </div>
-                <div class="pure-u-1">
+                <div class="width_100">
                     <label>Dimensional elevation of part at set down: <label class='charNum'></label></label>
-                    <textarea class="pure-input-1 notes" id="sd_dimElevation" name="sd_dimElevation" rows="3" maxlength="700"></textarea>
+                    <textarea class="notes" id="sd_dimElevation" name="sd_dimElevation" rows="3" maxlength="700"></textarea>
                 </div>
-                <br />
-                <br />
+                <input type="button" name="previous" class="previous action-button" value="Previous" />
+                <input type="button" name="next" class="next action-button" value="Next" />
+            </fieldset>
+            <fieldset>
                 <div class='pure-u-1'>
                     <legend>Monorail or Crane Systems</legend>
                 </div>
@@ -649,6 +704,10 @@ require './scripts/functions.php';
                         No
                     </label>
                 </div>
+                <input type="button" name="previous" class="previous action-button" value="Previous" />
+                <input type="button" name="next" class="next action-button" value="Next" />
+            </fieldset>
+            <fieldset>
                 <div class="pure-u-1">
                     <legend>End Effector Specifics</legend>
                 </div>
@@ -666,351 +725,211 @@ require './scripts/functions.php';
                     <label>Other power source? (Please explain): <label class='charNum'></label></label>
                     <textarea class="notes" id="other_power_source" name="other_power_source" rows="3" maxlength="700"></textarea>
                 </div>
-                <div class="pure-u-1">
-                    <legend>Additional Information</legend>
-                    </di>
-                    <div class="pure-u-1">
-                        <p>Will the rack or dunnage be provided?</p>
-                        <label for="rack_ns" class="pure-radio">
+                <input type="button" name="previous" class="previous action-button" value="Previous" />
+                <input type="button" name="next" class="next action-button" value="Next" />
+            </fieldset>
+            <fieldset>
+                <h2 class="fs-title">Additional Information</h2>
+                <h3 class="fs-subtitle">Please be as thorough as possible</h3>
+                <div class="width_100" style="margin-bottom: 1em;">
+                    <p style="margin-bottom: 1em;">Will the rack or dunnage be provided?</p>
+                    <div class="width_100">
+                        <label for="rack_ns">
                             <input id="rack_ns" type="radio" name="rack_provided" value="Not Specified" checked>
                             Not Specified
                         </label>
-                        <label for="rack_yes" class="pure-radio">
+                    </div
+                    <div class="width_100">
+                        <label for="rack_yes">
                             <input id="rack_yes" type="radio" name="rack_provided" value="Yes">
                             Yes
                         </label>
-                        <label for="rack_no" class="pure-radio">
-                            <input id="rack_no" type="radio" name="rack_provided" value="No">
-                            No
-                        </label>
+                        <div class="width_100">
+                            <label for="rack_no">
+                                <input id="rack_no" type="radio" name="rack_provided" value="No">
+                                No
+                            </label>
+                        </div>
                     </div>
-                    <div class="pure-u-1">
-                        <p>Will the part drawing(s) be provided?</p>
-                        <label for="drawings_ns" class="pure-radio">
-                            <input id="drawings_ns" type="radio" name="drawings_provided" value="Not Specified" checked>
-                            Not Specified
-                        </label>
-                        <label for="drawings_yes" class="pure-radio">
-                            <input id="drawings_yes" type="radio" name="drawings_provided" value="Yes">
-                            Yes
-                        </label>
-                        <label for="drawings_no" class="pure-radio">
-                            <input id="drawings_no" type="radio" name="drawings_provided" value="No">
-                            No
-                        </label>
+                    <div class="width_100" style="margin-bottom: 1em;">
+                        <p style="margin-bottom: 1em;">Will the part drawing(s) be provided?</p>
+                        <div class="width_100">
+                            <label for="drawings_ns">
+                                <input id="drawings_ns" type="radio" name="drawings_provided" value="Not Specified" checked>
+                                Not Specified
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="drawings_yes">
+                                <input id="drawings_yes" type="radio" name="drawings_provided" value="Yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="drawings_no">
+                                <input id="drawings_no" type="radio" name="drawings_provided" value="No">
+                                No
+                            </label>
+                        </div>
                     </div>
-                    <div class="pure-u-1">
-                        <p>Will the floor plan(s) be provided?</p>
-                        <label for="floor_plans_ns" class="pure-radio">
-                            <input id="floor_plans_ns" type="radio" name="floor_plans_provided" value="Not Specified" checked>
-                            Not Specified
-                        </label>
-                        <label for="floor_plans_yes" class="pure-radio">
-                            <input id="floor_plans_yes" type="radio" name="floor_plans_provided" value="Yes">
-                            Yes
-                        </label>
-                        <label for="floor_plans_no" class="pure-radio">
-                            <input id="floor_plans_no" type="radio" name="floor_plans_provided" value="No">
-                            No
-                        </label>
+                    <div class="width_100" style="margin-bottom: 1em;">
+                        <p style="margin-bottom: 1em;">Will the floor plan(s) be provided?</p>
+                        <div class="width_100">
+                            <label for="floor_plans_ns">
+                                <input id="floor_plans_ns" type="radio" name="floor_plans_provided" value="Not Specified" checked>
+                                Not Specified
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="floor_plans_yes">
+                                <input id="floor_plans_yes" type="radio" name="floor_plans_provided" value="Yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="floor_plans_no">
+                                <input id="floor_plans_no" type="radio" name="floor_plans_provided" value="No">
+                                No
+                            </label>
+                        </div>
                     </div>
-                    <div class="pure-u-1">
-                        <p>Will the machine, fixture, or tool drawing(s) be provided?</p>
-                        <label for="machine_ns" class="pure-radio">
-                            <input id="machine_ns" type="radio" name="machine_provided" value="Not Specified" checked>
-                            Not Specified
-                        </label>
-                        <label for="machine_yes" class="pure-radio">
-                            <input id="machine_yes" type="radio" name="machine_provided" value="Yes">
-                            Yes
-                        </label>
-                        <label for="machine_no" class="pure-radio">
-                            <input id="machine_no" type="radio" name="machine_provided" value="No">
-                            No
-                        </label>
+                    <div class="width_100" style="margin-bottom: 1em;">
+                        <p style="margin-bottom: 1em;">Will the machine, fixture, or tool drawing(s) be provided?</p>
+                        <div class="width_100">
+                            <label for="machine_ns">
+                                <input id="machine_ns" type="radio" name="machine_provided" value="Not Specified" checked>
+                                Not Specified
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="machine_yes">
+                                <input id="machine_yes" type="radio" name="machine_provided" value="Yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="machine_no">
+                                <input id="machine_no" type="radio" name="machine_provided" value="No">
+                                No
+                            </label>
+                        </div>
                     </div>
-                    <div class="pure-u-1">
-                        <p>Will photo(s) or video(s) be provided?</p>
-                        <label for="photo_video_ns" class="pure-radio">
-                            <input id="photo_video_ns" type="radio" name="photo_video_provided" value="Not Specified" checked>
-                            Not Specified
-                        </label>
-                        <label for="photo_video_yes" class="pure-radio">
-                            <input id="photo_video_yes" type="radio" name="photo_video_provided" value="Yes">
-                            Yes
-                        </label>
-                        <label for="photo_video_no" class="pure-radio">
-                            <input id="photo_video_no" type="radio" name="photo_video_provided" value="No">
-                            No
-                        </label>
+                    <div class="width_100" style="margin-bottom: 1em;">
+                        <p style="margin-bottom: 1em;">Will photo(s) or video(s) be provided?</p>
+                        <div class="width_100">
+                            <label for="photo_video_ns">
+                                <input id="photo_video_ns" type="radio" name="photo_video_provided" value="Not Specified" checked>
+                                Not Specified
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="photo_video_yes">
+                                <input id="photo_video_yes" type="radio" name="photo_video_provided" value="Yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="photo_video_no">
+                                <input id="photo_video_no" type="radio" name="photo_video_provided" value="No">
+                                No
+                            </label>
+                        </div>
                     </div>
-                    <div class="pure-u-1">
-                        <p>Will approval drawings be be required?</p>
-                        <label for="approval_ns" class="pure-radio">
-                            <input id="approval_ns" type="radio" name="approval_provided" value="Not Specified" checked>
-                            Not Specified
-                        </label>
-                        <label for="approval_yes" class="pure-radio">
-                            <input id="approval_yes" type="radio" name="approval_provided" value="Yes">
-                            Yes
-                        </label>
-                        <label for="approval_no" class="pure-radio">
-                            <input id="approval_no" type="radio" name="approval_provided" value="No">
-                            No
-                        </label>
+                    <div class="width_100" style="margin-bottom: 1em;">
+                        <p style="margin-bottom: 1em;">Will approval drawings be be required?</p>
+                        <div class="width_100">
+                            <label for="approval_ns">
+                                <input id="approval_ns" type="radio" name="approval_provided" value="Not Specified" checked>
+                                Not Specified
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="approval_yes">
+                                <input id="approval_yes" type="radio" name="approval_provided" value="Yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="approval_no">
+                                <input id="approval_no" type="radio" name="approval_provided" value="No">
+                                No
+                            </label>
+                        </div>
                     </div>
-                    <div class="pure-u-1">
-                        <p>Will installation drawings be be required?</p>
-                        <label for="installation_ns" class="pure-radio">
-                            <input id="installation_ns" type="radio" name="installation" value="Not Specified" checked>
-                            Not Specified
-                        </label>
-                        <label for="installation_yes" class="pure-radio">
-                            <input id="installation_yes" type="radio"  name="installation" value="Yes">
-                            Yes
-                        </label>
-                        <label for="installation_no" class="pure-radio">
-                            <input id="installation_no" type="radio" name="installation" value="No">
-                            No
-                        </label>
+                    <div class="width_100" style="margin-bottom: 1em;">
+                        <p style="margin-bottom: 1em;">Will installation drawings be be required?</p>
+                        <div class="width_100">
+                            <label for="installation_ns">
+                                <input id="installation_ns" type="radio" name="installation" value="Not Specified" checked>
+                                Not Specified
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="installation_yes">
+                                <input id="installation_yes" type="radio"  name="installation" value="Yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="installation_no">
+                                <input id="installation_no" type="radio" name="installation" value="No">
+                                No
+                            </label>
+                        </div>
                     </div>
-                    <div class="pure-u-1">
-                        <p>Will customer review(s) be be required?</p>
-                        <label for="customer_reviews_ns" class="pure-radio">
-                            <input id="customer_reviews_ns" type="radio" name="customer_reviews" value="Not Specified" checked>
-                            Not Specified
-                        </label>
-                        <label for="customer_reviews_yes" class="pure-radio">
-                            <input id="customer_reviews_yes" type="radio" name="customer_reviews" value="Yes">
-                            Yes
-                        </label>
-                        <label for="customer_reviews_no" class="pure-radio">
-                            <input id="customer_reviews_no" type="radio" name="customer_reviews" value="No">
-                            No
-                        </label>
-                        <label>If yes, please explain: <label class='charNum'></label></label>
-                        <textarea class="pure-input-1 notes" id="customer_reviews_explain" name="customer_reviews_explain" rows="3" maxlength="700"></textarea>
+                    <div class="width_100" style="margin-bottom: 1em;">
+                        <p style="margin-bottom: 1em;">Will drawing be required on customer paper?</p>
+                        <div class="width_100">
+                            <label for="customer_paper_ns">
+                                <input id="customer_paper_ns" type="radio" name="customer_paper" value="Not Specified" checked>
+                                Not Specified
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="customer_paper_yes">
+                                <input id="customer_paper_yes" type="radio" name="customer_paper" value="Yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="customer_paper_no">
+                                <input id="customer_paper_no" type="radio" name="customer_paper" value="No">
+                                No
+                            </label>
+                        </div>
                     </div>
-                    <div class="pure-u-1">
-                        <p>Will drawing be required on customer paper?</p>
-                        <label for="customer_paper_ns" class="pure-radio">
-                            <input id="customer_paper_ns" type="radio" name="customer_paper" value="Not Specified" checked>
-                            Not Specified
-                        </label>
-                        <label for="customer_paper_yes" class="pure-radio">
-                            <input id="customer_paper_yes" type="radio" name="customer_paper" value="Yes">
-                            Yes
-                        </label>
-                        <label for="customer_paper_no" class="pure-radio">
-                            <input id="customer_paper_no" type="radio" name="customer_paper" value="No">
-                            No
-                        </label>
+                    <div class="width_100" style="margin-bottom: 1em;">
+                        <p style="margin-bottom: 1em;">Will customer review(s) be be required?</p>
+                        <div class="width_100">
+                            <label for="customer_reviews_ns">
+                                <input id="customer_reviews_ns" type="radio" name="customer_reviews" value="Not Specified" checked>
+                                Not Specified
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="customer_reviews_yes">
+                                <input id="customer_reviews_yes" type="radio" name="customer_reviews" value="Yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="width_100">
+                            <label for="customer_reviews_no">
+                                <input id="customer_reviews_no" type="radio" name="customer_reviews" value="No">
+                                No
+                            </label>
+                        </div>
+                        <div class="width_100" style="margin-top: .5em;">
+                            <label>If yes, please explain: <label class='charNum'></label></label>
+                            <textarea class="pure-input-1 notes" id="customer_reviews_explain" name="customer_reviews_explain" rows="3" maxlength="700"></textarea>
+                        </div>
                     </div>
-                    <div class="pure-u-1">
-                        <legend>Special Requirements or Additional Comments</legend>
+                    <div class="width_100">
+                        <label>Special Requirements or Additional Comments: <label class='charNum'></label></label>
+                        <textarea class="notes" id="special_requirements" name="special_requirements" rows="4" maxlength="700"></textarea>
                     </div>
-                    <div>
-                        <input type="button" name="previous" class="previous action-button" value="Previous" />
-                        <input type="button" name="next" class="next action-button" value="Next" />
-                        </fieldset>
-                        <fieldset>
-                            <h2 class="fs-title">Additional Information</h2>
-                            <h3 class="fs-subtitle">Please be as thorough as possible</h3>
-                            <div class="width_100" style="margin-bottom: 1em;">
-                                <p style="margin-bottom: 1em;">Will the rack or dunnage be provided?</p>
-                                <div class="width_100">
-                                    <label for="rack_ns">
-                                        <input id="rack_ns" type="radio" name="rack_provided" value="Not Specified" checked>
-                                        Not Specified
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="rack_yes">
-                                        <input id="rack_yes" type="radio" name="rack_provided" value="Yes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="rack_no">
-                                        <input id="rack_no" type="radio" name="rack_provided" value="No">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="width_100" style="margin-bottom: 1em;">
-                                <p style="margin-bottom: 1em;">Will the part drawing(s) be provided?</p>
-                                <div class="width_100">
-                                    <label for="drawings_ns">
-                                        <input id="drawings_ns" type="radio" name="drawings_provided" value="Not Specified" checked>
-                                        Not Specified
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="drawings_yes">
-                                        <input id="drawings_yes" type="radio" name="drawings_provided" value="Yes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="drawings_no">
-                                        <input id="drawings_no" type="radio" name="drawings_provided" value="No">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="width_100" style="margin-bottom: 1em;">
-                                <p style="margin-bottom: 1em;">Will the floor plan(s) be provided?</p>
-                                <div class="width_100">
-                                    <label for="floor_plans_ns">
-                                        <input id="floor_plans_ns" type="radio" name="floor_plans_provided" value="Not Specified" checked>
-                                        Not Specified
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="floor_plans_yes">
-                                        <input id="floor_plans_yes" type="radio" name="floor_plans_provided" value="Yes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="floor_plans_no">
-                                        <input id="floor_plans_no" type="radio" name="floor_plans_provided" value="No">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="width_100" style="margin-bottom: 1em;">
-                                <p style="margin-bottom: 1em;">Will the machine, fixture, or tool drawing(s) be provided?</p>
-                                <div class="width_100">
-                                    <label for="machine_ns">
-                                        <input id="machine_ns" type="radio" name="machine_provided" value="Not Specified" checked>
-                                        Not Specified
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="machine_yes">
-                                        <input id="machine_yes" type="radio" name="machine_provided" value="Yes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="machine_no">
-                                        <input id="machine_no" type="radio" name="machine_provided" value="No">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="width_100" style="margin-bottom: 1em;">
-                                <p style="margin-bottom: 1em;">Will photo(s) or video(s) be provided?</p>
-                                <div class="width_100">
-                                    <label for="photo_video_ns">
-                                        <input id="photo_video_ns" type="radio" name="photo_video_provided" value="Not Specified" checked>
-                                        Not Specified
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="photo_video_yes">
-                                        <input id="photo_video_yes" type="radio" name="photo_video_provided" value="Yes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="photo_video_no">
-                                        <input id="photo_video_no" type="radio" name="photo_video_provided" value="No">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="width_100" style="margin-bottom: 1em;">
-                                <p style="margin-bottom: 1em;">Will approval drawings be be required?</p>
-                                <div class="width_100">
-                                    <label for="approval_ns">
-                                        <input id="approval_ns" type="radio" name="approval_provided" value="Not Specified" checked>
-                                        Not Specified
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="approval_yes">
-                                        <input id="approval_yes" type="radio" name="approval_provided" value="Yes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="approval_no">
-                                        <input id="approval_no" type="radio" name="approval_provided" value="No">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="width_100" style="margin-bottom: 1em;">
-                                <p style="margin-bottom: 1em;">Will installation drawings be be required?</p>
-                                <div class="width_100">
-                                    <label for="installation_ns">
-                                        <input id="installation_ns" type="radio" name="installation" value="Not Specified" checked>
-                                        Not Specified
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="installation_yes">
-                                        <input id="installation_yes" type="radio"  name="installation" value="Yes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="installation_no">
-                                        <input id="installation_no" type="radio" name="installation" value="No">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="width_100" style="margin-bottom: 1em;">
-                                <p style="margin-bottom: 1em;">Will drawing be required on customer paper?</p>
-                                <div class="width_100">
-                                    <label for="customer_paper_ns">
-                                        <input id="customer_paper_ns" type="radio" name="customer_paper" value="Not Specified" checked>
-                                        Not Specified
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="customer_paper_yes">
-                                        <input id="customer_paper_yes" type="radio" name="customer_paper" value="Yes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="customer_paper_no">
-                                        <input id="customer_paper_no" type="radio" name="customer_paper" value="No">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="width_100" style="margin-bottom: 1em;">
-                                <p style="margin-bottom: 1em;">Will customer review(s) be be required?</p>
-                                <div class="width_100">
-                                    <label for="customer_reviews_ns">
-                                        <input id="customer_reviews_ns" type="radio" name="customer_reviews" value="Not Specified" checked>
-                                        Not Specified
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="customer_reviews_yes">
-                                        <input id="customer_reviews_yes" type="radio" name="customer_reviews" value="Yes">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="width_100">
-                                    <label for="customer_reviews_no">
-                                        <input id="customer_reviews_no" type="radio" name="customer_reviews" value="No">
-                                        No
-                                    </label>
-                                </div>
-                                <div class="width_100" style="margin-top: .5em;">
-                                    <label>If yes, please explain: <label class='charNum'></label></label>
-                                    <textarea class="pure-input-1 notes" id="special_requirements" name="special_requirements" rows="3" maxlength="700"></textarea>
-                                </div>
-                                <input type="button" name="previous" class="previous action-button" value="Previous" />
-                                <input class="pure-button pure-button-primary" type="submit" name="" onclick="" />
-                        </fieldset>
-                        </form>
-                        </body>
-                        </html>
+                    <input type="button" name="previous" class="previous action-button" value="Previous" />
+                    <input class="action-button" type="submit" name="" onclick="" />
+            </fieldset>
+        </form>
+    </body>
+</html>
