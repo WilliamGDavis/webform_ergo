@@ -53,7 +53,7 @@ function check_ClientArray($Client) {
 
 //Temporary
 //TODO: Pass in the email password from an environmental variable
-$email_password = $_POST['email_password'];
+(isset($_POST['email_password'])) ? $email_password = $_POST['email_password'] : $email_password = '';
 
 //Check for Checkbox and Radio values (Checked or UnChecked)
 (isset($_POST['st_wet'])) ? $STWet = 'Yes' : $STWet = 'No';
