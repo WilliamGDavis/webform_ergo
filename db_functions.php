@@ -31,7 +31,7 @@ function rfq_table_builder() {
     $statement->execute();
 
     $rfq_table = '';
-    $rfq_table .= '<table id="table_red">';
+    $rfq_table .= '<table border="1">';
     $rfq_table .= '<tr><td>UserCompanyName</td></tr>';
 
     while ($row = $statement->fetchObject()) {

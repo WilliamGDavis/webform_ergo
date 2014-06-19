@@ -879,7 +879,7 @@ $Client->SpecialRequirements = array(
 check_ClientArray($Client);
 
 //Add form values to the database
-add_to_db($Client);
+//add_to_db($Client);
 
 ////Create an email attachment and send the email
 //$attachment = $Client->pdf_attach();

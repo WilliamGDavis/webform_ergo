@@ -6,6 +6,7 @@
         <script src="../js/jquery-1.10.2.min.js" type="text/javascript"></script>
         <script src="../js/masked_input.js" type="text/javascript"></script>
         <script src="../js/functions.js" type="text/javascript"></script>
+        <link href="../css/normalize.css" rel="stylesheet" type="text/css" />
         <style>
             *{box-sizing: border-box;}
             #sidebar_left{

@@ -116,6 +116,10 @@ There's a lot of foot traffic here, so we could use a consulatation regarding th
             }
         });//end ajax - Fill lead into assign modal
     });
+    
+    $('#btn_StartSurvey').on('click', function(){
+        window.location.replace("./survey.php");
+    });
 });
 
 function textbox_check_length(minLength, maxLength, error, type) {
