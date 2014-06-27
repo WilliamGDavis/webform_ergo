@@ -13,6 +13,7 @@
     </head>
     <body>
         <form id='msform' action="process.php" method="post" enctype="multipart/form-data">
+            <!-- Navigation -->
             <ul id="progressbar">
                 <li class="active">Customer Information</li>
                 <li>End User Information</li>
@@ -25,8 +26,8 @@
                 <li>End Effector</li>
                 <li>Additional Information</li>
             </ul>
+            <!-- Customer Information -->
             <fieldset>
-                <!-- Customer Information -->
                 <h2 class="fs-title">Customer Information</h2>
                 <h3 class="fs-subtitle">Your company's information</h3>
                 <div class='width_100'>
@@ -86,8 +87,8 @@
                 <br class='clearBoth' />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
+            <!-- End-User Information -->
             <fieldset>
-                <!-- End-User Information -->
                 <h2 class="fs-title">End User Information</h2>
                 <h3 class="fs-subtitle">Your client's information</h3>
                 <div class="">
@@ -144,8 +145,8 @@
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
+            <!-- Application Information -->
             <fieldset>
-                <!-- Application Information -->
                 <h2 class="fs-title">Application Information</h2>
                 <h3 class="fs-subtitle">Description of the part</h3>
                 <div class="width_100">
@@ -272,8 +273,8 @@
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
+            <!-- Current Process -->
             <fieldset>
-                <!-- Current Process -->
                 <h2 class="fs-title">Current Process</h2>
                 <h3 class="fs-subtitle">Please be as thorough as possible</h3>
                 <div class="width_100">
@@ -293,8 +294,8 @@
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
+            <!-- Part Engagement -->
             <fieldset>
-                <!-- Part Engagement -->
                 <h2 class="fs-title">Part Engagement</h2>
                 <h3 class="fs-subtitle">Please be as thorough as possible</h3>
                 <div class="width_100">
@@ -346,8 +347,8 @@
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
+            <!-- Part Set Down -->
             <fieldset>
-                <!-- Part Set Down -->
                 <h2 class="fs-title">Part Set Down</h2>
                 <h3 class="fs-subtitle">Please be as thorough as possible</h3>
                 <div class="width_100">
@@ -391,6 +392,7 @@
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
+            <!-- Monorail and/or Crane Systems -->
             <fieldset>
                 <h2 class="fs-title">Monorail and/or Crane Systems</h2>
                 <h3 class="fs-subtitle">Please be as thorough as possible</h3>
@@ -460,6 +462,7 @@
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
+            <!-- End Effector Specifics -->
             <fieldset>
                 <h2 class="fs-title">End Effector Specifics</h2>
                 <h3 class="fs-subtitle">Please be as thorough as possible</h3>
@@ -533,6 +536,7 @@
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
+            <!-- Additional Information -->
             <fieldset>
                 <h2 class="fs-title">Additional Information</h2>
                 <h3 class="fs-subtitle">Please be as thorough as possible</h3>

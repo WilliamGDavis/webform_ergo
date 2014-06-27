@@ -1,83 +1,55 @@
 <?php
 
-require 'class.ClientValue';
+require './scripts/class.ClientValue';
+require './scripts/functions.php';
 
-class error_action {
-
-    public $e_type;
-    public $e_message;
-
-    function process_error($e_type, $e_message) {
-        $e_type = $this->e_type;
-        $e_message = $this->e_message;
-
-        if ($e_type == "Error_Continue") {
-            
-        } elseif ($e_type == "Error_Halt") {
-            
-        }
-    }
-
+//Make sure the form was submitted using the POST method
+//If a user reloads this file, they will get nothing but the 'die' message
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    die("Press the BACK button on your browser to proceed.");
 }
 
-function check_ClientArray($Client) {
-    //Checks the POST array for mandatory fields
-    //Gather the individual form fields within the Client object
-    foreach ($Client as $array => $formField) {
-        //Get the values from the Client Object
-        $value = $formField['Value'];
-        if (isset($formField['MinLength'])) {
-            $minLength = $formField['MinLength'];
-        }
-        if (isset($formField['MaxLength'])) {
-            $maxLength = $formField['MaxLength'];
-        }
-        $display = $formField['Display'];
-        $required = $formField['Required'];
-        $valueType = $formField['Value_Type'];
+//Check for mandatory variables within POST array
+$CompanyName = check_post_mandatory(true, 'company_name', 'CompanyName', 'Company Name');
+$FirstName = check_post_mandatory(true, 'firstName', 'FirstName', 'First Name');
+$LastName = check_post_mandatory(true, 'lastName', 'LastName', 'Last Name');
+$Phone = check_post_mandatory(true, 'phone', 'Phone', 'Phone');
+$PartDescription = check_post_mandatory(true, 'part_description', 'PartDescription', 'Part Description');
 
-        //Check for empty required form fields
-        if ($required == 1 && $value == '') {
-            //Display the field that is generating the error
-            echo "Please fill in the $display to continue<br />";
-        } elseif ($required == 1 && $value != '') {
-            //Check the values for the correct attribute requirements
-            switch ($valueType) {
-                Case "String":
-                    check_string_length($value, $minLength, $maxLength, $display);
-                    break;
-            }
-        }
-    }
-}
+//Check for non-mandatory variables within the POST array
+//TODO:
+//Fill in the rest of the variables from the form fields
+$StreetAddress = check_post_mandatory(false, 'street_address', 'StreetAddress', 'Street Address');
 
-//Temporary
-//TODO: Pass in the email password from an environmental variable
-(isset($_POST['email_password'])) ? $email_password = $_POST['email_password'] : $email_password = '';
+//Checkbox Variables
+$STWet = check_checkboxes('st_wet', 'STWet');
+$STOily = check_checkboxes('st_oily', 'STOily');
+$STDry = check_checkboxes('st_dry', 'STDry');
+$STHot = check_checkboxes('st_hot', 'STHot');
+$STClassA = check_checkboxes('st_classA', 'STClassA');
+$STFragile = check_checkboxes('st_fragile', 'STFragile');
+$STTextured = check_checkboxes('st_textured', 'STTextured');
+$STOther = check_checkboxes('st_other', 'STOther');
 
-//Check for Checkbox and Radio values (Checked or UnChecked)
-(isset($_POST['st_wet'])) ? $STWet = 'Yes' : $STWet = 'No';
-(isset($_POST['st_oily'])) ? $STOily = 'Yes' : $STOily = 'No';
-(isset($_POST['st_dry'])) ? $STDry = 'Yes' : $STDry = 'No';
-(isset($_POST['st_hot'])) ? $STHot = 'Yes' : $STHot = 'No';
-(isset($_POST['st_temp'])) ? $STTemp = trim($_POST['st_temp']) : $STTemp = '';
-(isset($_POST['st_temp_scale'])) ? $STTempScale = trim($_POST['st_temp_scale']) : $STTempScale = '';
-(isset($_POST['st_classA'])) ? $STClassA = 'Yes' : $STClassA = 'No';
-(isset($_POST['st_fragile'])) ? $STFragile = 'Yes' : $STFragile = 'No';
-(isset($_POST['st_textured'])) ? $STTextured = 'Yes' : $STTextured = 'No';
-(isset($_POST['st_other'])) ? $STOther = 'Yes' : $STOther = 'No';
-(isset($_POST['eng_movement'])) ? $EngMovement = trim($_POST['eng_movement']) : $EngMovement = '';
-(isset($_POST['sd_movement'])) ? $SDMovement = trim($_POST['sd_movement']) : $SDMovement = '';
-(isset($_POST['rack_provided'])) ? $RackProvided = $_POST['rack_provided'] : $RackProvided = '';
-(isset($_POST['drawings_provided'])) ? $DrawingsProvided = $_POST['drawings_provided'] : $DrawingsProvided = '';
-(isset($_POST['floor_plans_provided'])) ? $FloorPlansProvided = $_POST['floor_plans_provided'] : $FloorPlansProvided = '';
-(isset($_POST['machine_provided'])) ? $MachineProvided = $_POST['machine_provided'] : $MachineProvided = '';
-(isset($_POST['photo_video_provided'])) ? $PhotoVideoProvided = $_POST['photo_video_provided'] : $PhotoVideoProvided = '';
-(isset($_POST['approval_provided'])) ? $ApprovalProvided = $_POST['approval_provided'] : $ApprovalProvided = '';
-(isset($_POST['installation'])) ? $Installation = $_POST['installation'] : $Installation = '';
-(isset($_POST['customer_reviews'])) ? $CustomerReviews = $_POST['customer_reviews'] : $CustomerReviews = '';
-(isset($_POST['customer_reviews_explain'])) ? $CustomerReviewsExplain = $_POST['customer_reviews_explain'] : $CustomerReviewsExplain = '';
-(isset($_POST['customer_paper'])) ? $CustomerPaper = $_POST['customer_paper'] : $CustomerPaper = '';
+//TODO:
+//Check out the temp text imput and scale radio
+(filter_input(INPUT_POST, 'st_temp')) ? $STTemp = 'Yes' : $STTemp = 'No';
+(filter_input(INPUT_POST, 'st_temp_scale')) ? $STTempScale = 'Yes' : $STTempScale = 'No';
+
+
+//Check Radio Buttons
+//(isset($_POST['eng_movement'])) ? $EngMovement = trim($_POST['eng_movement']) : $EngMovement = '';
+$EngMovement = check_radio('eng_movement', 'EngMovement');
+$RackProvided = check_radio('rack_provided', 'RackProvided');
+$DrawingsProvided = check_radio('drawings_provided', 'DrawingsProvided');
+$FloorPlansProvided = check_radio('floor_plans_provided', 'FloorPlansProvided');
+$MachineProvided = check_radio('machine_provided', 'MachineProvided');
+$PhotoVideoProvided = check_radio('photo_video_provided', 'PhotoVideoProvided');
+$ApprovalProvided = check_radio('approval_provided', 'ApprovalProvided');
+$Installation = check_radio('installation', 'Installation');
+$CustomerReviews = check_radio('customer_reviews', 'CustomerReviews');
+$CustomerReviewsExplain = check_radio('customer_reviews_explain', 'CustomerReviewsExplain');
+$CustomerPaper = check_radio('customer_paper', 'CustomerPaper');
 
 //Create a new Client Object
 $Client = new Client_Value();
@@ -96,7 +68,7 @@ $Client->CompanyName = array(
     'Name' => 'CompanyName',
     'Type' => 'Textbox',
     //TODO: Sanitize before passing in POST
-    'Value' => (string) $_POST['company_name'],
+    'Value' => $CompanyName,
     'Value_Type' => 'String',
     'MinLength' => 1,
     'MaxLength' => 60,
@@ -106,7 +78,7 @@ $Client->CompanyName = array(
 $Client->Delivery = array(
     'Name' => 'Delivery',
     'Type' => 'Radio',
-    'Value' => 'Yes',
+    'Value' => 'XXX',
     'Value_Type' => 'String',
     'MinLength' => 2,
     'MaxLength' => 3,
@@ -116,11 +88,11 @@ $Client->Delivery = array(
 $Client->StreetAddress = array(
     'Name' => 'StreetAddress',
     'Type' => 'Textbox',
-    'Value' => (string) $_POST['street_address'],
+    'Value' => $StreetAddress,
     'Value_Type' => 'String',
     'MinLength' => 1,
     'MaxLength' => 60,
-    'Required' => 1,
+    'Required' => 0,
     'Display' => 'Street Address'
 );
 $Client->City = array(
@@ -130,7 +102,7 @@ $Client->City = array(
     'Value_Type' => 'String',
     'MinLength' => 1,
     'MaxLength' => 28,
-    'Required' => 1,
+    'Required' => 0,
     'Display' => 'City'
 );
 $Client->State = array(
@@ -140,7 +112,7 @@ $Client->State = array(
     'Value_Type' => 'String',
     'MinLength' => 2,
     'MaxLength' => 2,
-    'Required' => 1,
+    'Required' => 0,
     'Display' => 'State'
 );
 $Client->Zip = array(
@@ -150,13 +122,13 @@ $Client->Zip = array(
     'Value_Type' => 'String',
     'MinLength' => 5,
     'MaxLength' => 5,
-    'Required' => 1,
+    'Required' => 0,
     'Display' => 'Zip'
 );
 $Client->FirstName = array(
     'Name' => 'FirstName',
     'Type' => 'Textbox',
-    'Value' => (string) $_POST['firstName'],
+    'Value' => $FirstName,
     'Value_Type' => 'String',
     'MinLength' => 1,
     'MaxLength' => 28,
@@ -166,7 +138,7 @@ $Client->FirstName = array(
 $Client->LastName = array(
     'Name' => 'LastName',
     'Type' => 'Textbox',
-    'Value' => (string) $_POST['lastName'],
+    'Value' => $LastName,
     'Value_Type' => 'String',
     'MinLength' => 1,
     'MaxLength' => 28,
@@ -178,7 +150,7 @@ $Client->Title = array(
     'Type' => 'Textbox',
     'Value' => (string) $_POST['title'],
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 60,
     'Required' => 0,
     'Display' => 'Title'
@@ -187,22 +159,20 @@ $Client->Phone = array(
     'Name' => 'Phone',
     'Type' => 'Textbox',
     //Strip all the symbols and whitespaces the phone number
-    'Value' => preg_replace('/(\W*)/', '', trim($_POST['phone'])),
+    'Value' => preg_replace('/(\W*)/', '', $Phone),
     'Value_Type' => 'String',
     'MinLength' => 10,
     'MaxLength' => 10,
-    'Required' => 1,
+    'Required' => 0,
     'Display' => 'Phone'
 );
-//TODO:
-//Fix all Phone Numbers to 10
 $Client->Fax = array(
     'Name' => 'Fax',
     'Type' => 'Textbox',
     'Value' => preg_replace('/(\W*)/', '', trim($_POST['fax'])),
     'Value_Type' => 'String',
-    'MinLength' => 14,
-    'MaxLength' => 14,
+    'MinLength' => 10,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Fax'
 );
@@ -211,7 +181,7 @@ $Client->Email = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['email']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 60,
     'Required' => 0,
     'Display' => 'Email'
@@ -223,7 +193,7 @@ $Client->UserCompanyName = array(
     'Type' => 'Textbox',
     'Value' => (string) $_POST['user_company_name'],
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 60,
     'Required' => 0,
     'Display' => 'End User Company Name'
@@ -233,7 +203,7 @@ $Client->UserStreetAddress = array(
     'Type' => 'Textbox',
     'Value' => (string) $_POST['user_street_address'],
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 60,
     'Required' => 0,
     'Display' => 'End User Street Address'
@@ -243,7 +213,7 @@ $Client->UserCity = array(
     'Type' => 'Textbox',
     'Value' => (string) $_POST['user_city'],
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 28,
     'Required' => 0,
     'Display' => 'End User City'
@@ -253,7 +223,7 @@ $Client->UserState = array(
     'Type' => 'Textbox',
     'Value' => (string) $_POST['user_state'],
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 2,
     'MaxLength' => 2,
     'Required' => 0,
     'Display' => 'End User State'
@@ -263,7 +233,7 @@ $Client->UserZip = array(
     'Type' => 'Textbox',
     'Value' => (string) $_POST['user_zip'],
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 5,
     'MaxLength' => 5,
     'Required' => 0,
     'Display' => 'End User Zip'
@@ -273,7 +243,7 @@ $Client->UserFirstName = array(
     'Type' => 'Textbox',
     'Value' => (string) $_POST['user_firstName'],
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 28,
     'Required' => 0,
     'Display' => 'End User First Name'
@@ -283,7 +253,7 @@ $Client->UserLastName = array(
     'Type' => 'Textbox',
     'Value' => (string) $_POST['user_lastName'],
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 28,
     'Required' => 0,
     'Display' => 'End User Last Name'
@@ -293,7 +263,7 @@ $Client->UserTitle = array(
     'Type' => 'Textbox',
     'Value' => (string) $_POST['user_title'],
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 60,
     'Required' => 0,
     'Display' => 'End User Title'
@@ -303,8 +273,8 @@ $Client->UserPhone = array(
     'Type' => 'Textbox',
     'Value' => preg_replace('/(\W*)/', '', trim($_POST['user_phone'])),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 14,
+    'MinLength' => 10,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Phone'
 );
@@ -313,8 +283,8 @@ $Client->UserFax = array(
     'Type' => 'Textbox',
     'Value' => preg_replace('/(\W*)/', '', trim($_POST['user_fax'])),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 14,
+    'MinLength' => 10,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'End User Fax'
 );
@@ -323,7 +293,7 @@ $Client->UserEmail = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['user_email']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 60,
     'Required' => 0,
     'Display' => 'End User Email'
@@ -346,7 +316,7 @@ $Client->Quantity = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['quantity']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 60,
     'Required' => 0,
     'Display' => 'Quantity Required'
@@ -358,8 +328,8 @@ $Client->MaxWeight = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['max_weight']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 60,
+    'MinLength' => 1,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Maximum Weight'
 );
@@ -368,8 +338,8 @@ $Client->MaxHeight = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['max_height']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 60,
+    'MinLength' => 1,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Maximum Height'
 );
@@ -378,8 +348,8 @@ $Client->MaxWidth = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['max_width']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 60,
+    'MinLength' => 1,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Maximum Width'
 );
@@ -388,8 +358,8 @@ $Client->MaxLength = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['max_length']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 60,
+    'MinLength' => 1,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Maximum Length'
 );
@@ -398,8 +368,8 @@ $Client->MaxID = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['max_id']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 60,
+    'MinLength' => 1,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Maximum Inner Dimension (ID)'
 );
@@ -408,8 +378,8 @@ $Client->MaxOD = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['max_od']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 60,
+    'MinLength' => 1,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Maximum Outer Dimensions (OD)'
 );
@@ -418,8 +388,8 @@ $Client->MinWeight = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['min_weight']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 60,
+    'MinLength' => 1,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Minimum Weight'
 );
@@ -428,8 +398,8 @@ $Client->MinHeight = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['min_height']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 60,
+    'MinLength' => 1,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Minimum Height'
 );
@@ -438,8 +408,8 @@ $Client->MinWidth = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['min_width']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 60,
+    'MinLength' => 1,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Miniimum Width'
 );
@@ -448,8 +418,8 @@ $Client->MinLength = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['min_length']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 60,
+    'MinLength' => 1,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Minimum Length'
 );
@@ -458,8 +428,8 @@ $Client->MinID = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['min_id']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 60,
+    'MinLength' => 1,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Minimum Inner Dimension (ID)'
 );
@@ -468,8 +438,8 @@ $Client->MinOD = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['min_od']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
-    'MaxLength' => 60,
+    'MinLength' => 1,
+    'MaxLength' => 10,
     'Required' => 0,
     'Display' => 'Minimum Outer Dimensions (OD)'
 );
@@ -606,7 +576,7 @@ $Client->EngPickup = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['eng_pickup']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
     'Display' => 'Pickup'
@@ -616,7 +586,7 @@ $Client->EngObstructions = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['eng_obstructions']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
     'Display' => 'Obstructions'
@@ -636,7 +606,7 @@ $Client->EngRecommended = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['eng_recommended']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
     'Display' => 'Recommended'
@@ -646,7 +616,7 @@ $Client->EngNoTouching = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['eng_noTouching']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
     'Display' => 'No Touching'
@@ -656,7 +626,7 @@ $Client->EngOrientation = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['eng_orientation']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
     'Display' => 'Orientation'
@@ -666,7 +636,7 @@ $Client->EngDimElevation = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['eng_dimElevation']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
     'Display' => 'Dimensional Elevation'
@@ -678,7 +648,7 @@ $Client->SDLocation = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['sd_location']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
     'Display' => 'Set Down Location'
@@ -688,7 +658,7 @@ $Client->SDMovement = array(
     'Type' => 'Textbox',
     'Value' => $SDMovement,
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
     'Display' => 'Set Down Movement'
@@ -698,7 +668,7 @@ $Client->SDObstruction = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['sd_obstruction']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
     'Display' => 'Set Down Obstructions'
@@ -708,7 +678,7 @@ $Client->SDOrientation = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['sd_orientation']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
     'Display' => 'Set Down Orientation'
@@ -718,7 +688,7 @@ $Client->SDDimElevation = array(
     'Type' => 'Textbox',
     'Value' => trim($_POST['sd_dimElevation']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
     'Display' => 'Set Down Dimensional Elevation'
@@ -726,14 +696,13 @@ $Client->SDDimElevation = array(
 
 //TODO:
 //The rest of the form values
-
 //Workcell Specifications
 $Client->PSI = array(
     'Name' => 'PSI',
     'Type' => 'Textbox',
     'Value' => trim($_POST['psi']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 28,
     'Required' => 0,
     'Display' => 'PSI'
@@ -743,7 +712,7 @@ $Client->OtherPowerSource = array(
     'Type' => 'Checkbox',
     'Value' => trim($_POST['other_power_source']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
     'Display' => 'OtherPowerSource'
@@ -835,7 +804,7 @@ $Client->CustomerReviewsExplain = array(
     'Type' => 'textbox',
     'Value' => trim($_POST['customer_reviews_explain']),
     'Value_Type' => 'String',
-    'MinLength' => 0,
+    'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
     'Display' => 'CustomerReviewsExplain'
@@ -870,13 +839,16 @@ check_ClientArray($Client);
 
 ////Add form values to the database
 //add_to_db($Client);
-
 ////Create an email attachment and send the email
 //$attachment = $Client->pdf_attach();
 //email_pdf($attachment, $email_password);
-
 //Output the PDF to a browser window
 $Client->pdf_output();
+
+function email_pdf() {
+    //TODO:
+    //Use PHP Mail() to handle emails
+}
 
 //function email_pdf($attachment, $email_password) {
 //    try {
@@ -908,172 +880,42 @@ function check_string_length($string, $minLength, $maxLength, $display) {
     $cleaned_string = '';
     //Remove spaces before and after
     $cleaned_string = trim($string);
-    //Make sure the string is less than the maximum allowed length
+    //Make sure the string is less than the maximum allowed length and more than the minimum allowed length
     if ((strlen($cleaned_string) < $minLength) || strlen($cleaned_string) > $maxLength) {
         die("$display should be between $minLength and $maxLength characters");
     }
     return $cleaned_string;
 }
-//
-//function add_to_db($Client) {
-//    include './mysql_login_pdo.php';
-//    try {
-//        $db->BeginTransaction();
-//        $query = "INSERT INTO `form_values` "
-//                . "VALUES(:id, :CurrentDateTime, :Delivery, "
-//                . ":UserCompanyName, :UserStreetAddress, :UserCity, :UserState, :UserZip, "
-//                . ":UserFirstName, :UserLastName, :UserTitle, :UserPhone, :UserFax, :UserEmail,"
-//                . ":SpecialRequirements)";
-//        $stmt = $db->prepare($query);
-//        $stmt->execute(array(
-//            ':id' => NULL,
-//            //TODO: Fix CurrentDateTime, not writing to the database
-//            ':CurrentDateTime' => date('Y-m-d H:i:s'),
-//            ':Delivery' => $Client->Delivery['Value'],
-//            ':UserCompanyName' => $Client->UserCompanyName['Value'],
-//            ':UserStreetAddress' => $Client->UserStreetAddress['Value'],
-//            ':UserCity' => $Client->UserCity['Value'],
-//            ':UserState' => $Client->UserState['Value'],
-//            ':UserZip' => $Client->UserZip['Value'],
-//            ':UserFirstName' => $Client->UserFirstName['Value'],
-//            ':UserLastName' => $Client->UserLastName['Value'],
-//            ':UserTitle' => $Client->UserTitle['Value'],
-//            ':UserPhone' => $Client->UserPhone['Value'],
-//            ':UserFax' => $Client->UserFax['Value'],
-//            ':UserEmail' => $Client->UserEmail['Value'],
-//            ':SpecialRequirements' => $Client->SpecialRequirements['Value']
-//        ));
-//        $id_form_values = $db->lastInsertId();
-//        $query = "INSERT INTO `clients_temp` "
-//                . "VALUES(:id, :id_form_values, :CompanyName, :StreetAddress, :City, :State, :Zip)";
-//        $stmt = $db->prepare($query);
-//        $stmt->execute(array(
-//            ':id' => NULL,
-//            ':id_form_values' => $id_form_values,
-//            ':CompanyName' => $Client->CompanyName['Value'],
-//            ':StreetAddress' => $Client->StreetAddress['Value'],
-//            ':City' => $Client->City['Value'],
-//            ':State' => $Client->State['Value'],
-//            ':Zip' => $Client->Zip['Value']
-//        ));
-//        $id_client = $db->lastInsertId();
-//        $query = "INSERT INTO `contacts_temp` "
-//                . "VALUES(:id, :id_client, :id_form_values, :FirstName, :LastName, :Title, :Phone, :Fax, :Email)";
-//        $stmt = $db->prepare($query);
-//        $stmt->execute(array(
-//            ':id' => NULL,
-//            //TODO: Setup foreign key in the db
-//            ':id_client' => $id_client,
-//            ':id_form_values' =>$id_form_values,
-//            ':FirstName' => $Client->FirstName['Value'],
-//            ':LastName' => $Client->LastName['Value'],
-//            ':Title' => $Client->Title['Value'],
-//            ':Phone' => $Client->Phone['Value'],
-//            ':Fax' => $Client->Fax['Value'],
-//            ':Email' => $Client->Email['Value']
-//        ));
-//        $query = "INSERT INTO `part_temp` "
-//                . "VALUES(:id, :id_form_values, :PartDescription, :Quantity, :LhRhUnit,"
-//                . ":MaxWeight, :MaxHeight, :MaxWidth, :MaxLength, :MaxID, :MaxOD,"
-//                . ":MinWeight, :MinHeight, :MinWidth, :MinLength, :MinID, :MinOD,"
-//                . ":STWet, :STOily, :STDry, :STHot, :STTemp, :STTempScale,"
-//                . ":STClassA, :STFragile, :STTextured, :STOther)";
-//        $stmt = $db->prepare($query);
-//        $stmt->execute(array(
-//            ':id' => NULL,
-//            //TODO: Setup foreign key in the db
-//            ':id_form_values' =>$id_form_values,
-//            ':PartDescription' => $Client->PartDescription['Value'],
-//            ':Quantity' => $Client->Quantity['Value'],
-//            ':LhRhUnit' => $Client->LhRhUnit['Value'],
-//            ':MaxWeight' => $Client->MaxWeight['Value'],
-//            ':MaxHeight' => $Client->MaxHeight['Value'],
-//            ':MaxWidth' => $Client->MaxWidth['Value'],
-//            ':MaxLength' => $Client->MaxLength['Value'],
-//            ':MaxID' => $Client->MaxID['Value'],
-//            ':MaxOD' => $Client->MaxOD['Value'],
-//            ':MinWeight' => $Client->MinWeight['Value'],
-//            ':MinHeight' => $Client->MinHeight['Value'],
-//            ':MinWidth' => $Client->MinWidth['Value'],
-//            ':MinLength' => $Client->MinLength['Value'],
-//            ':MinID' => $Client->MinID['Value'],
-//            ':MinOD' => $Client->MinOD['Value'],
-//            ':STWet' => $Client->STWet['Value'],
-//            ':STOily' => $Client->STOily['Value'],
-//            ':STDry' => $Client->STDry['Value'],
-//            ':STHot' => $Client->STHot['Value'],
-//            ':STTemp' => $Client->STHot['Temperature'],
-//            ':STTempScale' => $Client->STHot['TemperatureScale'],
-//            ':STClassA' => $Client->STClassA['Value'],
-//            ':STFragile' => $Client->STFragile['Value'],
-//            ':STTextured' => $Client->STTextured['Value'],
-//            ':STOther' => $Client->STOther['Value']
-//        ));
-//        $query = "INSERT INTO `process_temp` "
-//                . "VALUES(:id, :id_form_values, :ProcessDescription, :ProductionRate, :Shifts,"
-//                . ":EngPickup, :EngObstructions, :EngMovement, :EngRecommended, :EngNoTouching,"
-//                . ":EngOrientation, :EngDimElevation, :SDLocation, :SDMovement, :SDOrientation, :SDDimElevation)";
-//        $stmt = $db->prepare($query);
-//        $stmt->execute(array(
-//            ':id' => NULL,
-//            //TODO: Setup foreign key in the db
-//            ':id_form_values' =>$id_form_values,
-//            ':ProcessDescription' => $Client->ProcessDescription['Value'],
-//            ':ProductionRate' => $Client->ProductionRate['Value'],
-//            ':Shifts' => $Client->Shifts['Value'],
-//            ':EngPickup' => $Client->EngPickup['Value'],
-//            ':EngObstructions' => $Client->EngObstructions['Value'],
-//            ':EngMovement' => $Client->EngMovement['Value'],
-//            ':EngRecommended' => $Client->EngRecommended['Value'],
-//            ':EngNoTouching' => $Client->EngNoTouching['Value'],
-//            ':EngOrientation' => $Client->EngOrientation['Value'],
-//            ':EngDimElevation' => $Client->EngDimElevation['Value'],
-//            ':SDLocation' => $Client->SDLocation['Value'],
-//            ':SDMovement' => $Client->SDMovement['Value'],
-//            ':SDOrientation' => $Client->SDOrientation['Value'],
-//            ':SDDimElevation' => $Client->SDDimElevation['Value']
-//        ));
-//        $query = "INSERT INTO `additional_info_temp` "
-//                . "VALUES(:id, :id_form_values, :RackProvided, :DrawingsProvided, :FloorPlansProvided, :MachineProvided,"
-//                . ":PhotoVideoProvided, :ApprovalProvided, :Installation, :CustomerReviews, :CustomerReviewsExplain, :CustomerPaper)";
-//        $stmt = $db->prepare($query);
-//        $stmt->execute(array(
-//            ':id' => NULL,
-//            ':id_form_values' => $id_form_values,
-//            ':RackProvided' => $Client->RackProvided['Value'],
-//            ':DrawingsProvided' => $Client->DrawingsProvided['Value'],
-//            ':FloorPlansProvided' => $Client->FloorPlansProvided['Value'],
-//            ':MachineProvided' => $Client->MachineProvided['Value'],
-//            ':PhotoVideoProvided' => $Client->PhotoVideoProvided['Value'],
-//            ':ApprovalProvided' => $Client->ApprovalProvided['Value'],
-//            ':Installation' => $Client->Installation['Value'],
-//            ':CustomerReviews' => $Client->CustomerReviews['Value'],
-//            ':CustomerReviewsExplain' => $Client->CustomerReviewsExplain['Value'],
-//            ':CustomerPaper' => $Client->CustomerPaper['Value']
-//        ));
-//        $db->commit();
-//    } catch (Exception $e) {
-//        $db->rollback();
-//        //Write the errors to the error_log table in the database and mark with a timestamp
-//        db_errorHandler($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
-//        die("Form did not enter into the database correctly.  Please press the 'BACK' button on your browser and check for invalid entries.");
-//    }
-//    $db = null;
-//}
-//
-////Handle writing MySQL error(s) to the database
-//function db_errorHandler($errno, $errstr, $errfile, $errline) {
-//    include 'mysql_login_pdo.php';
-//    $query = "INSERT INTO `error_log` "
-//            . "VALUES(:id,:error_time,:errno,:errstr,:errfile,:errline)";
-//    $stmt = $db->prepare($query);
-//    $stmt->execute(array(
-//        ':id' => null,
-//        ':error_time' => null,
-//        ':errno' => $errno,
-//        ':errstr' => $errstr,
-//        ':errfile' => $errfile,
-//        ':errline' => $errline
-//    ));
-//    return true; //Don't execute PHP error handler
-//}
+
+/*
+ * Checks the POST array for mandatory fields and validates them
+ * based on type (string, integer, etc.)
+ *
+ * @param   obj         $Client
+ */
+
+function check_ClientArray($Client) {
+    //Gather the individual form fields within the Client object
+    foreach ($Client as $array => $formField) {
+        //Get the values from the Client Object
+        $value = $formField['Value'];
+        $minLength = $formField['MinLength'];
+        $maxLength = $formField['MaxLength'];
+        $display = $formField['Display'];
+        $required = $formField['Required'];
+        $valueType = $formField['Value_Type'];
+
+        //Check for empty required form fields
+        if ($required == 1 && $value == '') {
+            //Display the field that is generating the error
+            echo "Please fill in the $display to continue<br />";
+        } elseif ($required == 1 && $value != '') {
+            //Check the values for the correct attribute requirements
+            switch ($valueType) {
+                Case "String":
+                    check_string_length($value, $minLength, $maxLength, $display);
+                    break;
+            }
+        }
+    }
+}
