@@ -5,6 +5,8 @@
         <group>
             <file>file:/C:/xampp/htdocs/webform_ergo/index.php</file>
             <file>file:/C:/xampp/htdocs/webform_ergo/process.php</file>
+            <file>file:/C:/xampp/htdocs/webform_ergo/survey.php</file>
+            <file>file:/C:/xampp/htdocs/webform_ergo/class.ClientValue</file>
         </group>
     </open-files>
 </project-private>

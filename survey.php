@@ -1,280 +1,15 @@
-<?php
-require './scripts/functions.php';
-?>
+<?php require './scripts/functions.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Ergomatic Form</title>
-        <!--<link href="./css/normalize.css" rel="stylesheet" type="text/css" />-->
-        <style type="text/css">
-            div.inline { float:left; }
-            .clearBoth { clear:both; }
-            /*custom font*/
-            /*            @import url(http://fonts.googleapis.com/css?family=Montserrat);*/
-
-            /*basic reset*/
-            * {margin: 0; padding: 0; box-sizing: border-box;}
-
-            html {
-                height: 100%;
-                /*Image only BG fallback*/
-                background: url('./background.png');
-                /*background = gradient + image pattern combo*/
-                background: 
-                    /*linear-gradient(rgba(196, 102, 0, 0.2), rgba(155, 89, 182, 0.2)),*/ 
-                    url('./background.png');
-            }
-
-            body {
-                font-family: montserrat, arial, verdana;
-            }
-            /*form styles*/
-            #msform {
-                width: 80%;
-                margin: 50px auto;
-                text-align: center;
-                position: relative;
-            }
-            #msform fieldset {
-                background: white;
-                border: 0 none;
-                border-radius: 3px;
-                box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-                padding: 20px 30px;
-
-                box-sizing: border-box;
-                width: 80%;
-                margin: 0 10%;
-
-                /*stacking fieldsets above each other*/
-                position: absolute;
-            }
-            /*Hide all except first fieldset*/
-            #msform fieldset:not(:first-of-type) {
-                display: none;
-            }
-            /*inputs*/
-            #msform input[type=text], 
-            #msform textarea,
-            #msform select{
-                width: 100%;
-                padding: .25em .5em;
-                border: 1px solid #ccc;
-                border-radius: 3px;
-                margin-bottom: 10px;
-                /*width: 100%;*/
-                box-sizing: border-box;
-                font-family: montserrat;
-                color: #2C3E50;
-                font-size: 16px;
-                resize: none;
-            }
-            /*buttons*/
-            #msform .action-button {
-                width: 100px;
-                background: #27AE60;
-                font-weight: bold;
-                color: white;
-                border: 0 none;
-                border-radius: 1px;
-                cursor: pointer;
-                padding: 10px 5px;
-                margin: 10px 5px;
-            }
-            #msform .action-button:hover, #msform .action-button:focus {
-                box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
-            }
-            /*headings*/
-            .fs-title {
-                font-size: 15px;
-                text-transform: uppercase;
-                color: #2C3E50;
-                margin-bottom: 10px;
-            }
-            .fs-subtitle {
-                font-weight: normal;
-                font-size: 13px;
-                color: #666;
-                margin-bottom: 20px;
-            }
-            /*progressbar*/
-            #progressbar {
-                margin-bottom: 30px;
-                overflow: hidden;
-                /*CSS counters to number the steps*/
-                counter-reset: step;
-            }
-            #progressbar li {
-                list-style-type: none;
-                color: white;
-                text-transform: uppercase;
-                font-size: 9px;
-                width: 10%;
-                float: left;
-                position: relative;
-                display: block;
-            }
-            #progressbar li:before {
-                content: counter(step);
-                counter-increment: step;
-                width: 20px;
-                line-height: 20px;
-                display: block;
-                font-size: 10px;
-                color: #333;
-                background: white;
-                border-radius: 3px;
-                margin: 0 auto 5px auto;
-            }
-            /*progressbar connectors*/
-            #progressbar li:after {
-                content: '';
-                width: 100%;
-                height: 2px;
-                background: white;
-                position: absolute;
-                left: -50%;
-                top: 9px;
-                z-index: -1; /*put it behind the numbers*/
-            }
-            #progressbar li:first-child:after {
-                /*connector not needed before the first step*/
-                content: none; 
-            }
-            /*marking active/completed steps green*/
-            /*The number of the step and the connector before it = green*/
-            #progressbar li.active:before,  #progressbar li.active:after{
-                background: #27AE60;
-                color: white;
-            }
-            .width_100{
-                text-align: left;
-                width: 100%;
-            }
-            .width_67-Left{
-                text-align: left;
-                width: 67%;
-                padding-right: 1%;
-            }
-            .width_50-Left{
-                text-align: left;
-                width: 50%;
-                padding-right: 1%;
-            }
-            .width_50-Right{
-                text-align: left;
-                width: 50%;
-                padding-left: 1%;
-            }
-            .width_33-Left{
-                text-align: left;
-                width: 33.33%;
-                padding-right: 1%;
-            }
-            .width_33-Center{
-                text-align: left;
-                width: 33.34%;
-                padding: 0 1%;
-            }
-            .width_33-Right{
-                text-align: left;
-                width: 33.33%;
-                padding-left: 1%;
-            }
-        </style>
-        <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
-        <script src="js/masked_input.js" type="text/javascript"></script>
-        <script src="js/functions.js" type="text/javascript"></script>
-        <!-- jQuery -->
-        <!--<script src="http://thecodeplayer.com/uploads/js/jquery-1.9.1.min.js" type="text/javascript"></script>-->
-        <!-- jQuery easing plugin -->
-        <!--<script src="http://thecodeplayer.com/uploads/js/jquery.easing.min.js" type="text/javascript"></script>-->
-        <script src="js/jquery_easing.js" type="text/javascript"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                //jQuery time
-                var current_fs, next_fs, previous_fs; //fieldsets
-                var left, opacity, scale; //fieldset properties which we will animate
-                var animating; //flag to prevent quick multi-click glitches
-
-                $(".next").click(function() {
-                    if (animating)
-                        return false;
-                    animating = true;
-
-                    current_fs = $(this).parent();
-                    next_fs = $(this).parent().next();
-
-                    //activate next step on progressbar using the index of next_fs
-                    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-                    //show the next fieldset
-                    next_fs.show();
-                    //hide the current fieldset with style
-                    current_fs.animate({opacity: 0}, {
-                        step: function(now, mx) {
-                            //as the opacity of current_fs reduces to 0 - stored in "now"
-                            //1. scale current_fs down to 80%
-                            scale = 1 - (1 - now) * 0.2;
-                            //2. bring next_fs from the right(50%)
-                            left = (now * 50) + "%";
-                            //3. increase opacity of next_fs to 1 as it moves in
-                            opacity = 1 - now;
-                            current_fs.css({'transform': 'scale(' + scale + ')'});
-                            next_fs.css({'left': left, 'opacity': opacity});
-                        },
-                        duration: 800,
-                        complete: function() {
-                            current_fs.hide();
-                            animating = false;
-                        },
-                        // Shis comes from the custom easing plugin
-                        easing: 'easeInOutBack'
-                    });
-                });
-
-                $(".previous").click(function() {
-                    if (animating)
-                        return false;
-                    animating = true;
-
-                    current_fs = $(this).parent();
-                    previous_fs = $(this).parent().prev();
-
-                    //de-activate current step on progressbar
-                    $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-
-                    //show the previous fieldset
-                    previous_fs.show();
-                    //hide the current fieldset with style
-                    current_fs.animate({opacity: 0}, {
-                        step: function(now, mx) {
-                            //as the opacity of current_fs reduces to 0 - stored in "now"
-                            //1. scale previous_fs from 80% to 100%
-                            scale = 0.8 + (1 - now) * 0.2;
-                            //2. take current_fs to the right(50%) - from 0%
-                            left = ((1 - now) * 50) + "%";
-                            //3. increase opacity of previous_fs to 1 as it moves in
-                            opacity = 1 - now;
-                            current_fs.css({'left': left});
-                            previous_fs.css({'transform': 'scale(' + scale + ')', 'opacity': opacity});
-                        },
-                        duration: 800,
-                        complete: function() {
-                            current_fs.hide();
-                            animating = false;
-                        },
-                        //this comes from the custom easing plugin
-                        easing: 'easeInOutBack'
-                    });
-                });
-
-                $(".submit").click(function() {
-                    return false;
-                });
-            });
-        </script>
+        <title>Ergomatic Products RFQ</title>
+        <link href="./css/main.css" rel="stylesheet" type="text/css" />
+        <script src="./js/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="./js/masked_input.js" type="text/javascript"></script>
+        <script src="./js/functions.js" type="text/javascript"></script>
+        <script src="./js/jquery_easing.js" type="text/javascript"></script>
+        <script src="./js/form_animations.js" type="text/javascript"></script>
     </head>
     <body>
         <form id='msform' action="process.php" method="post" enctype="multipart/form-data">
@@ -291,9 +26,6 @@ require './scripts/functions.php';
                 <li>Additional Information</li>
             </ul>
             <fieldset>
-                <!--                <div>
-                                    <label>Email Password (Temporary):</label> <input type="password" name="email_password" />
-                                </div>-->
                 <!-- Customer Information -->
                 <h2 class="fs-title">Customer Information</h2>
                 <h3 class="fs-subtitle">Your company's information</h3>
@@ -421,20 +153,16 @@ require './scripts/functions.php';
                     <textarea id="txt_PartDescription" name="part_description" class="length_text" maxlength="700" rows="4"></textarea>
                 </div>
                 <div class="inline width_33-Left">
-                    <label>Quantity:</label>
-                    <input type="text" id="txt_Quantity" name="quantity" class="length_text" />
-                </div>
-                <div class="inline width_33-Center">
-                    <label>LH/RH Units Required:</label>
-                    <input type="text" id="txt_LhRhUnit" name="lh_rh_unit" class="length_text" />
+                    <label>Quantity:</label><label class="charNum"></label>
+                    <input type="text" id="txt_Quantity" name="quantity" class="length_text" maxlength="64" />
                 </div>
                 <br class="clearBoth" />
                 <br />
                 <!-- Part Dimensions -->
                 <h2 class="fs-title">Part Dimensions</h2>
                 <h3 class="fs-subtitle">Please be as accurate as possible</h3>
-                <div class="">
-                    <table class="">
+                <div>
+                    <table>
                         <thead>
                             <tr>
                                 <th></th>
@@ -449,25 +177,24 @@ require './scripts/functions.php';
                         <tbody>
                             <tr>
                                 <td>Maximum</td>
-                                <td><input type="text" id="txt_MaxWeight" name="max_weight" class="" /></td>
-                                <td><input type="text" id="txt_MaxHeight" name="max_height" class="" /></td>
-                                <td><input type="text" id="txt_MaxWidth" name="max_width" class="" /></td>
-                                <td><input type="text" id="txt_MaxLength" name="max_length" class="" /></td>
-                                <td><input type="text" id="txt_MaxID" name="max_id" class="" /></td>
-                                <td><input type="text" id="txt_MaxOD" name="max_od" class="" /></td>
+                                <td><input type="text" id="txt_MaxWeight" name="max_weight" class="length_text" maxlength="10" /></td>
+                                <td><input type="text" id="txt_MaxHeight" name="max_height" class="length_text" maxlength="10" /></td>
+                                <td><input type="text" id="txt_MaxWidth" name="max_width" class="length_text" maxlength="10" /></td>
+                                <td><input type="text" id="txt_MaxLength" name="max_length" class="length_text" maxlength="10" /></td>
+                                <td><input type="text" id="txt_MaxID" name="max_id" class="length_text" maxlength="10" /></td>
+                                <td><input type="text" id="txt_MaxOD" name="max_od" class="length_text" maxlength="10" /></td>
                             </tr>
                             <tr>
                                 <td>Minimum</td>
-                                <td><input type="text" id="txt_MinWeight" name="min_weight" class="" /></td>
-                                <td><input type="text" id="txt_MinHeight" name="min_height" class="" /></td>
-                                <td><input type="text" id="txt_MinWidth" name="min_width" class="" /></td>
-                                <td><input type="text" id="txt_MinLength" name="min_length" class="" /></td>
-                                <td><input type="text" id="txt_MinID" name="min_id" class="" /></td>
-                                <td><input type="text" id="txt_MinOD" name="min_od" class="" /></td>
+                                <td><input type="text" id="txt_MinWeight" name="min_weight" class="length_text" maxlength="10" /></td>
+                                <td><input type="text" id="txt_MinHeight" name="min_height" class="length_text" maxlength="10" /></td>
+                                <td><input type="text" id="txt_MinWidth" name="min_width" class="length_text" maxlength="10" /></td>
+                                <td><input type="text" id="txt_MinLength" name="min_length" class="length_text" maxlength="10" /></td>
+                                <td><input type="text" id="txt_MinID" name="min_id" class="length_text" maxlength="10" /></td>
+                                <td><input type="text" id="txt_MinOD" name="min_od" class="length_text" maxlength="10" /></td>
                             </tr>
                         </tbody>
                     </table>
-                    <p style="text-align: center;">***Please include a separate sheet for additional parts if necessary***</p>
                 </div>
                 <br class="clearBoth" />
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -482,19 +209,19 @@ require './scripts/functions.php';
                         <div class="width_100">
                             <table class="width_100">
                                 <tr>
-                                    <td style="width: 20%;">  
+                                    <td style="width: 20%;">
                                         <label for="st_hot">
-                                            <input id="st_hot" type="checkbox" name="st_hot" value="Yes"> Hot 
+                                            <input id="st_hot" type="checkbox" name="st_hot" value="Yes"> Hot
                                         </label>
                                     </td>
                                     <td style="width: 60%;">
                                         <div>
-                                            <label>Temperature:</label>
-                                            <input type="text" id="st_temp" class="pure-u-1" name="st_temp" style="width: 80%;"/>
+                                            <label>Temperature:</label><label class="charNum"></label>
+                                            <input type="text" id="st_temp" class="length_text" maxlength="16" name="st_temp" style="width: 80%;"/>
                                         </div>
                                     </td>
                                     <td style="width: 20%;">
-                                        <label for="farenheight"">
+                                        <label for="farenheight">
                                             <input id="farenheight" type="radio" name="st_temp_scale" value="Farenheight" checked>
                                             Farenheight
                                         </label>
@@ -550,11 +277,11 @@ require './scripts/functions.php';
                 <h2 class="fs-title">Current Process</h2>
                 <h3 class="fs-subtitle">Please be as thorough as possible</h3>
                 <div class="width_100">
-                    <label>Description of current process or sequence of operations: <label class='charNum'></label></label>
-                    <textarea class="pure-u-1 length_text" maxlength="700" rows="6" id="process_description" name="process_description"></textarea>
+                    <label>Description of current process or sequence of operations:</label><label class='charNum'></label>
+                    <textarea class="length_text" maxlength="700" rows="6" id="process_description" name="process_description"></textarea>
                 </div>
                 <div class="inline width_33-Left">
-                    <label>Production Rate (cycles/hour):</label>
+                    <label>Production Rate (cycles/hour)*:</label>
                     <input type="text" id="production_rate" name="production_rate" />
                 </div>
                 <div class="inline width_33-Center">
@@ -562,6 +289,7 @@ require './scripts/functions.php';
                     <input type="text" id="shifts" name="shifts" />
                 </div>
                 <br class="clearBoth" />
+                <h3 class="fs-subtitle">*Production rates cannot be guaranteed with manually operated systems</h3>
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
@@ -570,11 +298,11 @@ require './scripts/functions.php';
                 <h2 class="fs-title">Part Engagement</h2>
                 <h3 class="fs-subtitle">Please be as thorough as possible</h3>
                 <div class="width_100">
-                    <label>What is part being picked up from? <label class='charNum'></label></label>
+                    <label>What is part being picked up from?</label><label class='charNum'></label>
                     <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_pickup" name="eng_pickup"></textarea>
                 </div>
                 <div class="width_100">
-                    <label>Please list any obstructions that may interfere with engaging the part: <label class='charNum'></label></label>
+                    <label>Please list any obstructions that may interfere with engaging the part:</label><label class='charNum'></label>
                     <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_obstructions" name="eng_obstructions"></textarea>
                 </div>
                 <div class="width_100">
@@ -600,19 +328,19 @@ require './scripts/functions.php';
                 </div>
                 <br />
                 <div class="width_100">
-                    <label>Recommended area to engage the part: <label class='charNum'></label></label>
+                    <label>Recommended area to engage the part:</label><label class='charNum'></label>
                     <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_recommended" name="eng_recommended"></textarea>
                 </div>
                 <div class="width_100">
-                    <label>Areas of the part that cannot be touched: <label class='charNum'></label></label>
+                    <label>Areas of the part that cannot be touched:</label><label class='charNum'></label>
                     <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_noTouching" name="eng_noTouching"></textarea>
                 </div>
                 <div class="width_100">
-                    <label>Operator's perspective of part orientation: <label class='charNum'></label></label>
+                    <label>Operator's perspective of part orientation:</label><label class='charNum'></label>
                     <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_orientation" name="eng_orientation"></textarea>
                 </div>
                 <div class="width_100">
-                    <label>Dimensional elevation of part at set down: <label class='charNum'></label></label>
+                    <label>Dimensional elevation of part at set down:</label><label class='charNum'></label>
                     <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_dimElevation" name="eng_dimElevation"></textarea>
                 </div>
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
@@ -623,7 +351,7 @@ require './scripts/functions.php';
                 <h2 class="fs-title">Part Set Down</h2>
                 <h3 class="fs-subtitle">Please be as thorough as possible</h3>
                 <div class="width_100">
-                    <label>What is part being set down on/in: <label class='charNum'></label></label>
+                    <label>What is part being set down on/in:</label><label class='charNum'></label>
                     <textarea class="notes" id="sd_location" name="sd_location" rows="3" maxlength="700"></textarea>
                 </div>
                 <div class="width_100">
@@ -649,64 +377,85 @@ require './scripts/functions.php';
                 </div>
                 <br />
                 <div class="width_100">
-                    <label>Please list any obstructions that may interfere with engaging the part: <label class='charNum'></label></label>
+                    <label>Please list any obstructions that may interfere with engaging the part:</label><label class='charNum'></label>
                     <textarea class="notes" id="sd_obstruction" name="sd_obstruction" rows="3" maxlength="700"></textarea>
                 </div>
                 <div class="width_100">
-                    <label>Operator's perspective of part orientation: <label class='charNum'></label></label>
+                    <label>Operator's perspective of part orientation:</label><label class='charNum'></label>
                     <textarea class="notes" id="sd_orientation" name="sd_orientation" rows="3" maxlength="700"></textarea>
                 </div>
                 <div class="width_100">
-                    <label>Dimensional elevation of part at set down: <label class='charNum'></label></label>
+                    <label>Dimensional elevation of part at set down:</label><label class='charNum'></label>
                     <textarea class="notes" id="sd_dimElevation" name="sd_dimElevation" rows="3" maxlength="700"></textarea>
                 </div>
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
             <fieldset>
-                <div class='pure-u-1'>
-                    <legend>Monorail or Crane Systems</legend>
+                <h2 class="fs-title">Monorail and/or Crane Systems</h2>
+                <h3 class="fs-subtitle">Please be as thorough as possible</h3>
+                <div class="width_100" style="margin-bottom: 1em;">
+                    <p style="margin-bottom: 1em;">Floor Mounted Arm</p>
+                    <div class="width_100">
+                        <label for="fmarm_ns" class="pure-radio">
+                            <input id="fmarm_ns" type="radio" name="fma" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="fmarm_yes" class="pure-radio">
+                            <input id="fmarm_yes" type="radio" name="fma" value="Yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="fmarm_no" class="pure-radio">
+                            <input id="fmarm_no" type="radio" name="fma" value="No">
+                            No
+                        </label>
+                    </div>
                 </div>
-                <div class="width_100">
-                    <p>Floor Mounted Arm</p>
-                    <label for="fmarm_ns" class="pure-radio">
-                        <input id="fmarm_ns" type="radio" id="crane_systems" name="fma" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="fmarm_yes" class="pure-radio">
-                        <input id="fmarm_yes" type="radio" id="crane_systems" name="fma" value="Yes">
-                        Yes
-                    </label>
-                    <label for="fmarm_no" class="pure-radio">
-                        <input id="fmarm_no" type="radio" id="crane_systems" name="fma" value="No">
-                        No
-                    </label>
-                    <p>XY Rail System</p>
-                    <label for="xyrail_ns" class="pure-radio">
-                        <input id="xyrail_ns" type="radio" id="crane_systems" name="xyrail" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="xyrail_yes" class="pure-radio">
-                        <input id="xyrail_yes" type="radio" id="crane_systems" name="xyrail" value="Yes">
-                        Yes
-                    </label>
-                    <label for="xyrail_no" class="pure-radio">
-                        <input id="xyrail_no" type="radio" id="crane_systems" name="xyrail" value="No">
-                        No
-                    </label>
-                    <p>Jib Crane</p>
-                    <label for="jibcrane_ns" class="pure-radio">
-                        <input id="jibcrane_ns" type="radio" id="crane_systems" name="jibcrane" value="Not Specified" checked>
-                        Not Specified
-                    </label>
-                    <label for="jibcrane_yes" class="pure-radio">
-                        <input id="jibcrane_yes" type="radio" id="crane_systems" name="jibcrane" value="Yes">
-                        Yes
-                    </label>
-                    <label for="jibcrane_no" class="pure-radio">
-                        <input id="jibcrane_no" type="radio" id="crane_systems" name="jibcrane" value="No">
-                        No
-                    </label>
+                <div class="width_100" style="margin-bottom: 1em;">
+                    <p style="margin-bottom: 1em;">XY Rail System</p>
+                    <div class="width_100">
+                        <label for="xyrail_ns" class="pure-radio">
+                            <input id="xyrail_ns" type="radio" name="xyrail" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="xyrail_yes" class="pure-radio">
+                            <input id="xyrail_yes" type="radio" name="xyrail" value="Yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="xyrail_no" class="pure-radio">
+                            <input id="xyrail_no" type="radio" name="xyrail" value="No">
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="width_100" style="margin-bottom: 1em;">
+                    <p style="margin-bottom: 1em;">Jib Crane</p>
+                    <div class="width_100">
+                        <label for="jibcrane_ns" class="pure-radio">
+                            <input id="jibcrane_ns" type="radio" name="jibcrane" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="jibcrane_yes" class="pure-radio">
+                            <input id="jibcrane_yes" type="radio" name="jibcrane" value="Yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="jibcrane_no" class="pure-radio">
+                            <input id="jibcrane_no" type="radio" name="jibcrane" value="No">
+                            No
+                        </label>
+                    </div>
                 </div>
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
@@ -719,24 +468,24 @@ require './scripts/functions.php';
                     <input type="text" id="txt_psi" name="psi" class="length_text" maxlength="28" />
                 </div>
                 <div class="width_100">
-                    <label>Other power source? (Please explain): <label class='charNum'></label></label>
+                    <label>Other power source? (Please explain):</label><label class='charNum'></label>
                     <textarea class="notes" id="other_power_source" name="other_power_source" rows="3" maxlength="700"></textarea>
                 </div>
                 <h2 class="fs-title">Environment</h2>
                 <div class="width_100">
                     <label>Please explain the environment.  Some things we would like information about include:</label><br />
-                        <ul>
-                            <li>Extreme Temperature (outside of 50-80 degree F range)</li>
-                            <li>Corrosive</li>
-                            <li>Dusty</li>
-                            <li>Clean Room (specify class)</li>
-                            <li>Food/Beverage</li>
-                        </ul>
+                    <ul>
+                        <li>Extreme Temperature (outside of 50-80 degree F range)</li>
+                        <li>Corrosive</li>
+                        <li>Dusty</li>
+                        <li>Clean Room (specify class)</li>
+                        <li>Food/Beverage</li>
+                    </ul>
                     <label class='charNum'></label>
-                    <textarea class="notes" id="other_power_source" name="other_power_source" rows="6" maxlength="700"></textarea>
+                    <textarea class="notes" id="txt_environment" name="txt_environment" rows="6" maxlength="700"></textarea>
                 </div>
                 <div class="width_67-Left">
-                    <label>Elevation from floor to bottom surface of header steel:</label>
+                    <label>Elevation from finished floor to bottom of bridge:</label>
                     <input type="text" id="elevation_header" name="elevation_header" class="length_text" maxlength="28" />
                 </div>
                 <div class="width_100" style="margin-bottom: 1em;">
@@ -746,27 +495,28 @@ require './scripts/functions.php';
                             <input id="elevation_drawings_ns" type="radio" name="elevation_drawings" value="Not Specified" checked>
                             Not Specified
                         </label>
-                    </div
+                    </div>
                     <div class="width_100">
                         <label for="elevation_drawings_yes">
                             <input id="elevation_drawings_yes" type="radio" name="elevation_drawings" value="Yes">
                             Yes
                         </label>
-                        <div class="width_100">
-                            <label for="elevation_drawings_no">
-                                <input id="elevation_drawings_no" type="radio" name="elevation_drawings" value="No">
-                                No
-                            </label>
-                        </div>
                     </div>
-                    <div class="width_100" style="margin-bottom: 1em;">
+                    <div class="width_100">
+                        <label for="elevation_drawings_no">
+                            <input id="elevation_drawings_no" type="radio" name="elevation_drawings" value="No">
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="width_100" style="margin-bottom: 1em;">
                     <p style="margin-bottom: 1em;">Can workcell/plant layout drawings be provided?</p>
                     <div class="width_100">
                         <label for="plant_drawings_ns">
                             <input id="plant_drawings_ns" type="radio" name="plant_drawings" value="Not Specified" checked>
                             Not Specified
                         </label>
-                    </div
+                    </div>
                     <div class="width_100">
                         <label for="plant_drawings_yes">
                             <input id="plant_drawings_yes" type="radio" name="plant_drawings" value="Yes">
@@ -779,6 +529,7 @@ require './scripts/functions.php';
                             </label>
                         </div>
                     </div>
+                </div>
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
@@ -792,7 +543,7 @@ require './scripts/functions.php';
                             <input id="rack_ns" type="radio" name="rack_provided" value="Not Specified" checked>
                             Not Specified
                         </label>
-                    </div
+                    </div>
                     <div class="width_100">
                         <label for="rack_yes">
                             <input id="rack_yes" type="radio" name="rack_provided" value="Yes">
@@ -973,24 +724,24 @@ require './scripts/functions.php';
                             </label>
                         </div>
                         <div class="width_100" style="margin-top: .5em;">
-                            <label>If yes, please explain: <label class='charNum'></label></label>
+                            <label>If yes, please explain:</label><label class='charNum'></label>
                             <textarea class="notes" id="customer_reviews_explain" name="customer_reviews_explain" rows="3" maxlength="700"></textarea>
                         </div>
                     </div>
-                    <div class="width_100">
-                        <label>Special Requirements or Additional Comments: <label class='charNum'></label></label>
-                        <textarea class="notes" id="special_requirements" name="special_requirements" rows="4" maxlength="700"></textarea>
-                    </div>
-                    <div class="width_100">
-                        <label>If others are bidding or if budgetary numbers are known, please explain: <label class='charNum'></label></label>
-                        <textarea class="notes" id="budgetary_numbers" name="budgetary_numbers" rows="4" maxlength="700"></textarea>
-                    </div>
-                    <input type="button" name="previous" class="previous action-button" value="Previous" />
-                    <input class="action-button" type="submit" name="" onclick="" />
+                </div>
+                <div class="width_100">
+                    <label>Special Requirements or Additional Comments:</label><label class='charNum'></label>
+                    <textarea class="notes" id="special_requirements" name="special_requirements" rows="4" maxlength="700"></textarea>
+                </div>
+                <div class="width_100">
+                    <label>If others are bidding or if budgetary numbers are known, please explain:</label><label class='charNum'></label>
+                    <textarea class="notes" id="budgetary_numbers" name="budgetary_numbers" rows="4" maxlength="700"></textarea>
+                </div>
+                <input type="button" name="previous" class="previous action-button" value="Previous" />
+                <input class="action-button" type="submit" name="" onclick="" />
             </fieldset>
         </form>
         <!-- Temporarily used to generate fields -->
         <button type="button" id="btn_GenerateFields">Generate Test</button>
-        <p><a href="./login.php">Admin</a></p>
     </body>
 </html>
