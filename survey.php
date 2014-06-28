@@ -92,7 +92,7 @@
                 <h2 class="fs-title">End User Information</h2>
                 <h3 class="fs-subtitle">Your client's information</h3>
                 <div class="">
-                    <button type="button" id="btn_CopyCompanyInfo" class="action-button">Same as Above</button>
+                    <button type="button" id="btn_CopyCompanyInfo" class="action-button">Copy From Previous</button>
                 </div>
                 <div class="width_100">
                     <label>Company Name:</label><label class="charNum"></label>
@@ -240,12 +240,12 @@
                         </label>
                     </div>
                     <div class="width_100">
-                        <label for="st_dry" class="pure-checkbox">
+                        <label for="st_dry">
                             <input id="st_dry" type="checkbox" name="st_dry" value="Yes"> Dry
                         </label>
                     </div>
                     <div class="width_100">
-                        <label for="st_oily" class="pure-checkbox">
+                        <label for="st_oily">
                             <input id="st_oily" type="checkbox" name="st_oily" value="Yes"> Oily
                         </label>
                     </div>
@@ -255,17 +255,17 @@
                         </label>
                     </div>
                     <div class="width_100">
-                        <label for="st_fragile" class="pure-checkbox">
+                        <label for="st_fragile">
                             <input id="st_fragile" type="checkbox" name="st_fragile" value="Yes"> Fragile
                         </label>
                     </div>
                     <div class="width_100">
-                        <label for="st_textured" class="pure-checkbox">
+                        <label for="st_textured">
                             <input id="st_textured" type="checkbox" name="st_textured" value="Yes"> Textured
                         </label>
                     </div>
                     <div class="width_100">
-                        <label for="st_other" class="pure-checkbox">
+                        <label for="st_other">
                             <input id="st_other" type="checkbox" name="st_other" value="Yes"> Other
                         </label>
                     </div>
@@ -300,28 +300,28 @@
                 <h3 class="fs-subtitle">Please be as thorough as possible</h3>
                 <div class="width_100">
                     <label>What is part being picked up from?</label><label class='charNum'></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_pickup" name="eng_pickup"></textarea>
+                    <textarea class="notes" rows="3" maxlength="700" id="eng_pickup" name="eng_pickup"></textarea>
                 </div>
                 <div class="width_100">
                     <label>Please list any obstructions that may interfere with engaging the part:</label><label class='charNum'></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_obstructions" name="eng_obstructions"></textarea>
+                    <textarea class="notes" rows="3" maxlength="700" id="eng_obstructions" name="eng_obstructions"></textarea>
                 </div>
                 <div class="width_100">
                     <p style="margin-bottom: 1em;">Is the part Moving or Stationary?</p>
                     <div class="width_100">
-                        <label for="part_notSpecified" class="pure-radio">
+                        <label for="part_notSpecified">
                             <input id="part_notSpecified" type="radio" name="eng_movement" value="Not Specified" checked>
                             Not Specified
                         </label>
                     </div>
                     <div class="width_100">
-                        <label for="part_moving" class="pure-radio">
+                        <label for="part_moving">
                             <input id="part_moving" type="radio" name="eng_movement" value="Moving">
                             Moving
                         </label>
                     </div>
                     <div class="width_100">
-                        <label for="part_stationary" class="pure-radio">
+                        <label for="part_stationary">
                             <input id="part_stationary" type="radio" name="eng_movement" value="Stationary">
                             Stationary
                         </label>
@@ -330,19 +330,19 @@
                 <br />
                 <div class="width_100">
                     <label>Recommended area to engage the part:</label><label class='charNum'></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_recommended" name="eng_recommended"></textarea>
+                    <textarea class="notes" rows="3" maxlength="700" id="eng_recommended" name="eng_recommended"></textarea>
                 </div>
                 <div class="width_100">
                     <label>Areas of the part that cannot be touched:</label><label class='charNum'></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_noTouching" name="eng_noTouching"></textarea>
+                    <textarea class="notes" rows="3" maxlength="700" id="eng_noTouching" name="eng_noTouching"></textarea>
                 </div>
                 <div class="width_100">
                     <label>Operator's perspective of part orientation:</label><label class='charNum'></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_orientation" name="eng_orientation"></textarea>
+                    <textarea class="notes" rows="3" maxlength="700" id="eng_orientation" name="eng_orientation"></textarea>
                 </div>
                 <div class="width_100">
                     <label>Dimensional elevation of part at set down:</label><label class='charNum'></label>
-                    <textarea class="pure-input-1 notes" rows="3" maxlength="700" id="eng_dimElevation" name="eng_dimElevation"></textarea>
+                    <textarea class="notes" rows="3" maxlength="700" id="eng_dimElevation" name="eng_dimElevation"></textarea>
                 </div>
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
@@ -358,19 +358,19 @@
                 <div class="width_100">
                     <p style="text-align: left; margin-bottom: 1em;">Is the set-down location Moving or Stationary?</p>
                     <div>
-                        <label for="setDown_notSpecified" class="pure-radio">
+                        <label for="setDown_notSpecified">
                             <input id="setDown_notSpecified" type="radio" name="sd_movement" value="Not Specified" checked>
                             Not Specified
                         </label>
                     </div>
                     <div>
-                        <label for="setDown_moving" class="pure-radio">
+                        <label for="setDown_moving">
                             <input id="setDown_moving" type="radio" name="sd_movement" value="Moving">
                             Moving
                         </label>
                     </div>
                     <div>
-                        <label for="setDown_stationary" class="pure-radio">
+                        <label for="setDown_stationary">
                             <input id="setDown_stationary" type="radio" name="sd_movement" value="Stationary">
                             Stationary
                         </label>
@@ -399,19 +399,19 @@
                 <div class="width_100" style="margin-bottom: 1em;">
                     <p style="margin-bottom: 1em;">Floor Mounted Arm</p>
                     <div class="width_100">
-                        <label for="fmarm_ns" class="pure-radio">
+                        <label for="fmarm_ns">
                             <input id="fmarm_ns" type="radio" name="fma" value="Not Specified" checked>
                             Not Specified
                         </label>
                     </div>
                     <div class="width_100">
-                        <label for="fmarm_yes" class="pure-radio">
+                        <label for="fmarm_yes">
                             <input id="fmarm_yes" type="radio" name="fma" value="Yes">
                             Yes
                         </label>
                     </div>
                     <div class="width_100">
-                        <label for="fmarm_no" class="pure-radio">
+                        <label for="fmarm_no">
                             <input id="fmarm_no" type="radio" name="fma" value="No">
                             No
                         </label>
@@ -420,19 +420,19 @@
                 <div class="width_100" style="margin-bottom: 1em;">
                     <p style="margin-bottom: 1em;">XY Rail System</p>
                     <div class="width_100">
-                        <label for="xyrail_ns" class="pure-radio">
+                        <label for="xyrail_ns">
                             <input id="xyrail_ns" type="radio" name="xyrail" value="Not Specified" checked>
                             Not Specified
                         </label>
                     </div>
                     <div class="width_100">
-                        <label for="xyrail_yes" class="pure-radio">
+                        <label for="xyrail_yes">
                             <input id="xyrail_yes" type="radio" name="xyrail" value="Yes">
                             Yes
                         </label>
                     </div>
                     <div class="width_100">
-                        <label for="xyrail_no" class="pure-radio">
+                        <label for="xyrail_no">
                             <input id="xyrail_no" type="radio" name="xyrail" value="No">
                             No
                         </label>
@@ -441,19 +441,19 @@
                 <div class="width_100" style="margin-bottom: 1em;">
                     <p style="margin-bottom: 1em;">Jib Crane</p>
                     <div class="width_100">
-                        <label for="jibcrane_ns" class="pure-radio">
+                        <label for="jibcrane_ns">
                             <input id="jibcrane_ns" type="radio" name="jibcrane" value="Not Specified" checked>
                             Not Specified
                         </label>
                     </div>
                     <div class="width_100">
-                        <label for="jibcrane_yes" class="pure-radio">
+                        <label for="jibcrane_yes">
                             <input id="jibcrane_yes" type="radio" name="jibcrane" value="Yes">
                             Yes
                         </label>
                     </div>
                     <div class="width_100">
-                        <label for="jibcrane_no" class="pure-radio">
+                        <label for="jibcrane_no">
                             <input id="jibcrane_no" type="radio" name="jibcrane" value="No">
                             No
                         </label>

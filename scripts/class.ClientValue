@@ -155,8 +155,6 @@ class Client_Value {
                 . $this->PartDescription['Value']);
         $pdf->Ln(10);
         $pdf->cell(80, 10, "Quantity Required: " . $this->Quantity['Value']);
-        $pdf->cell(20);
-        $pdf->cell(80, 10, "LH/RH Units: " . $this->LhRhUnit['Value']);
         $pdf->Ln();
         //Part Dimensions
         $pdf->cell(275, 10, 'Part Dimensions', 'B');
