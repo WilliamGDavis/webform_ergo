@@ -32,7 +32,7 @@
                 <h3 class="fs-subtitle">Your company's information</h3>
                 <div class='width_100'>
                     <label>Company Name: </label><label class="charNum"></label>
-                    <input type="text" id="txt_CompanyName" name="company_name" class="length_text" maxlength="60" />
+                    <input type="text" id="txt_CompanyName" name="company_name" class="length_text" maxlength="60" style="background-color: red;" />
                 </div>
                 <div class='width_100'>
                     <label>Street Address: </label><label class="charNum"></label>
@@ -58,11 +58,11 @@
                 <div>
                     <div class="inline width_33-Left">
                         <label>First Name:</label><label class="charNum"></label>
-                        <input type="text" id="txt_FirstName" name="firstName" class="length_text" maxlength="28" />
+                        <input type="text" id="txt_FirstName" name="firstName" class="length_text" maxlength="28" style="background-color: red;" />
                     </div>
                     <div class="inline width_33-Center">
                         <label>Last Name:</label><label class="charNum"></label>
-                        <input type="text" id="txt_LastName" name="lastName" class="length_text" maxlength="28" />
+                        <input type="text" id="txt_LastName" name="lastName" class="length_text" maxlength="28" style="background-color: red;" />
                     </div>
                     <div class="inline width_33-Right">
                         <label>Title:</label><label class="charNum"></label>
@@ -73,7 +73,7 @@
                 <div>
                     <div class="inline width_33-Left">
                         <label>Phone:</label>
-                        <input type="text" id="txt_Phone" name="phone" class="length_text" maxlength="14" />
+                        <input type="text" id="txt_Phone" name="phone" class="length_text" maxlength="14" style="background-color: red;" />
                     </div>
                     <div class="inline width_33-Center">
                         <label>Fax:</label>
@@ -151,7 +151,7 @@
                 <h3 class="fs-subtitle">Description of the part</h3>
                 <div class="width_100">
                     <label>Part Description:</label><label class="charNum"></label>
-                    <textarea id="txt_PartDescription" name="part_description" class="length_text" maxlength="700" rows="4"></textarea>
+                    <textarea id="txt_PartDescription" name="part_description" class="length_text" maxlength="700" rows="4" style="background-color: red;"></textarea>
                 </div>
                 <div class="inline width_33-Left">
                     <label>Quantity:</label><label class="charNum"></label>

@@ -3,6 +3,9 @@ $(document).ready(function() {
     $("#txt_Phone, #txt_Fax, #txt_UserPhone, #txt_UserFax").mask("(999) 999-9999");
 
     //Temporary:
+    //TODO:
+    //Open a new page and fill in the values
+    //Probably use AJAX
     $('#btn_GenerateFields').on('click', function() {
         $('#txt_CompanyName').val("Computer Doctors");
         $('#txt_StreetAddress').val("230 N State Rd Ste 200");
@@ -31,13 +34,13 @@ $(document).ready(function() {
         $('#txt_LhRhUnit').val("2LH 10RH");
         $('#txt_MaxWeight').val("1 Ton");
         $('#txt_MaxHeight').val("120' " + '6"');
-        $('#txt_MaxWidth').val("60' " + '6"')
+        $('#txt_MaxWidth').val("60' " + '6"');
         $('#txt_MaxLength').val("44' " + '2 1/4"');
         $('#txt_MaxID').val('36"');
         $('#txt_MaxOD').val('14"');
         $('#txt_MinWeight').val("900 lbs");
         $('#txt_MinHeight').val("120'");
-        $('#txt_MinWidth').val("60'")
+        $('#txt_MinWidth').val("60'");
         $('#txt_MinLength').val("44'");
         $('#txt_MinID').val('36"');
         $('#txt_MinOD').val('14"');
@@ -51,10 +54,10 @@ We want a pneumatic moving crane to pick up and transport the part.  This proces
         $('#shifts').val('2 (8 Hours/shift)');
         $('#eng_pickup').val("The part will need to be picked up from a 2-shelf rack.  The rack is 8 feet long, 4 feet wide, and 10 feet tall.\n\
 There's a lot of foot traffic here, so we could use a consulatation regarding the best placement for the crane.");
-        $('#eng_obstructions').val("The area in which we need to engage the part is clear of any obstructions.  The amount of foot traffic is our major concern.")
+        $('#eng_obstructions').val("The area in which we need to engage the part is clear of any obstructions.  The amount of foot traffic is our major concern.");
         $('#part_stationary').prop('checked', true);
         $('#eng_recommended').val('We are completely unsure how to approach this.  We have a couple of ideas, but it might require us to "think outside of the box"');
-        $('#eng_noTouching').val('We can engage the part in almost any way that is safe.  There are two very small sections on the left and the right that we might want to avoid, if possible.')
+        $('#eng_noTouching').val('We can engage the part in almost any way that is safe.  There are two very small sections on the left and the right that we might want to avoid, if possible.');
         $('#eng_orientation').val('The operator stands in front of the part.  The operator currently leaves the workspace, gets a forklift and transfers the part to the shelf.  All parts stay in the same direction from both the starting and ending destinations.  The parts do not rotate at all.');
         $('#eng_dimElevation').val("The part will need to be transferred upstairs on our balcony that overlooks the operator's workspace.  When set down, a single part takes up a 24Lx24Wx24H space.");
         $('#sd_location').val("The part will be set down onto a conveyor belt running at 2200rpm.  We can provide the manufacturer's manual for the belt.");
@@ -110,18 +113,44 @@ There's a lot of foot traffic here, so we could use a consulatation regarding th
         $('#txt_UserFax').val($('#txt_Fax').val());
         $('#txt_UserEmail').val($('#txt_Email').val());
     });
-    
-    $('#btn_StartSurvey').on('click', function(){
+
+    $('#btn_StartSurvey').on('click', function() {
         window.location.replace("./survey.php");
+    });
+
+    $('#txt_CompanyName, #txt_FirstName, #txt_LastName, #txt_PartDescription').on('keyup', function() {
+        if ($(this).val().length > 0) {
+            $(this).css({'background-color': 'LightGreen'});
+        } else {
+            $(this).css({'background-color': 'Red'});
+        }
+    });
+    
+    $('#txt_phone').on('focusout', function(){
+//        if ($(this).val().length === 10) {
+//            $(this).css({'background-color': 'LightGreen'});
+//        } else if($(this).val().length > 0 && $(this).val().length < 10){
+//            $(this).css({'background-color': 'Yellow'});
+//        } else {
+//            $(this).css({'background-color': 'Red'});
+//        }
+//          if ($(this).val().length > 0){
+//              $(this).css({'background-color': 'LightGreen'});
+//          }
+          alert('hello');
     });
 });
 
 function textbox_check_length(minLength, maxLength, error, type) {
-    if (type == "Alert") {
+    if (type === "Alert") {
         if (minLength <= maxLength) {
             alert("Incorrect Length");
         }
-    } else if (type == "Message_Halt") {
+    } else if (type === "Message_Halt") {
 
     }
+}
+
+function check_mandatory() {
+
 }

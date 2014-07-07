@@ -126,6 +126,6 @@ function check_radio($postName, $postVariable){
  * @param   string $string         Any String
  */
 function clean_string_html($string) {
-    $clean_string = stripslashes(htmlspecialchars(trim($string)));
+    $clean_string = htmlspecialchars(trim($string));
     return $clean_string;
 }

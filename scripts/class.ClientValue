@@ -100,15 +100,18 @@ class Client_Value {
         $x = $pdf->GetX();
         $y = $pdf->GetY();
         $pdf->MultiCell(80, 5, ""
-                . $this->CompanyName['Value']. "\n"
-                . $this->StreetAddress['Value'] . "\n"
-                . $this->City['Value'] . ", " . $this->State['Value'] . " " . $this->Zip['Value']);
+                . htmlspecialchars_decode($this->CompanyName['Value']) . "\n"
+                . htmlspecialchars_decode($this->StreetAddress['Value']) . "\n"
+                . htmlspecialchars_decode($this->City['Value']) . ", "
+                . htmlspecialchars_decode($this->State['Value']) . " "
+                . htmlspecialchars_decode($this->Zip['Value']));
         //Create columns instead of moving to the next line
         $pdf->SetXY($x + 95, $y);
         $pdf->MultiCell(80, 5, "Contact:\n"
-                . $this->FirstName['Value'] . " " . $this->LastName['Value'] . "\n\n"
+                . htmlspecialchars_decode($this->FirstName['Value']) . " "
+                . htmlspecialchars_decode($this->LastName['Value']) . "\n\n"
                 . "Title:\n"
-                . $this->Title['Value']);
+                . htmlspecialchars_decode($this->Title['Value']));
         $pdf->SetXY($x + 200, $y);
         $pdf->MultiCell(80, 5, "Phone:\n"
                 // Format the phone number in the following format:
@@ -127,7 +130,7 @@ class Client_Value {
                 . "-"
                 . substr($this->Fax['Value'], 6) . "\n"
                 . "Email:\n"
-                . $this->Email['Value']);
+                . htmlspecialchars_decode($this->Email['Value']));
         $pdf->Ln(5);
         
         //End User Information
@@ -136,14 +139,17 @@ class Client_Value {
         $x = $pdf->GetX();
         $y = $pdf->GetY();
         $pdf->MultiCell(80, 5, ""
-                . $this->UserCompanyName['Value'] . "\n"
-                . $this->UserStreetAddress['Value'] . "\n"
-                . $this->UserCity['Value'] . ", " . $this->UserState['Value'] . " " . $this->UserZip['Value']);
+                . htmlspecialchars_decode($this->UserCompanyName['Value']) . "\n"
+                . htmlspecialchars_decode($this->UserStreetAddress['Value']) . "\n"
+                . htmlspecialchars_decode($this->UserCity['Value']) . ", "
+                . htmlspecialchars_decode($this->UserState['Value']) . " "
+                . htmlspecialchars_decode($this->UserZip['Value']));
         $pdf->SetXY($x + 95, $y);
         $pdf->MultiCell(80, 5, "Contact:\n"
-                . $this->UserFirstName['Value'] . " " . $this->UserLastName['Value'] . "\n\n"
+                . htmlspecialchars_decode($this->UserFirstName['Value']) . " "
+                . htmlspecialchars_decode($this->UserLastName['Value']) . "\n\n"
                 . "Title:\n"
-                . $this->UserTitle['Value']);
+                . htmlspecialchars_decode($this->UserTitle['Value']));
         $pdf->SetXY($x + 200, $y);
         $pdf->MultiCell(80, 5, "Phone:\n"
                 . "(" 
@@ -160,7 +166,7 @@ class Client_Value {
                 . "-"
                 . substr($this->UserFax['Value'], 6) . "\n"
                 . "Email:\n"
-                . $this->UserEmail['Value']);
+                . htmlspecialchars_decode($this->UserEmail['Value']));
         $pdf->Ln(15);
         $pdf->Cell(275, 10, "APPLICATION INFORMATION", 'B', 0, 'L');
         $pdf->Ln(15);
@@ -168,13 +174,13 @@ class Client_Value {
         $pdf->Cell(275, 5, "Part Description: ");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->PartDescription['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->PartDescription['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->cell(80, 5, "Quantity Required: ");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(275, 5, $this->Quantity['Value']);
+        $pdf->Cell(275, 5, htmlspecialchars_decode($this->Quantity['Value']));
         $pdf->Ln(15);
         //Part Dimensions
         $pdf->Cell(275, 10, 'PART DIMENSIONS', 'B');
@@ -215,7 +221,7 @@ class Client_Value {
         $pdf->Ln(5);
         $pdf->cell(40, 10, "Dry: " . $this->STDry['Value']);
         $pdf->cell(60);
-        $pdf->cell(40, 10, "Temperature: " . $this->STHot['Temperature']);
+        $pdf->cell(40, 10, "Temperature: " . htmlspecialchars_decode($this->STHot['Temperature']));
         $pdf->cell(60);
         $pdf->cell(40, 10, "Textured: " . $this->STTextured['Value']);
         $pdf->Ln(5);
@@ -232,19 +238,19 @@ class Client_Value {
         $pdf->cell(275, 5, "Description of Current Process or Sequence of Operations:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->ProcessDescription['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->ProcessDescription['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->cell(275, 5, "Production Rate (Cycles/Hour): ");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->cell(275, 5, $this->ProductionRate['Value']);
+        $pdf->cell(275, 5, htmlspecialchars_decode($this->ProductionRate['Value']));
         $pdf->Ln(10);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->cell(275, 5, "Shifts/Day: ");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->cell(275, 5, $this->Shifts['Value']);
+        $pdf->cell(275, 5, htmlspecialchars_decode($this->Shifts['Value']));
         $pdf->Ln(15);
         //Application Information
         $pdf->Cell(275, 10, "APPLICATION INFORMATION", 'B', 0, 'L');
@@ -253,13 +259,13 @@ class Client_Value {
         $pdf->Cell(275, 5, "What is the part being picked up from?");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->EngPickup['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->EngPickup['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(275, 5, "Please list any obstructions that may interfere with engaging the part:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->EngObstructions['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->EngObstructions['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(275, 5, "Part Movement: ");
@@ -271,25 +277,25 @@ class Client_Value {
         $pdf->Cell(275, 5, "Recommended area to engage on the part:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->EngRecommended['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->EngRecommended['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(275, 5, "Areas of the part that cannot be touched:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->EngNoTouching['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->EngNoTouching['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(275, 5, "Operator's perspective of part orientation:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->EngOrientation['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->EngOrientation['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(275, 5, "Dimensional elevation of part at set down:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->EngDimElevation['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->EngDimElevation['Value']));
         $pdf->Ln(15);
         //Part Set Down
         $pdf->Cell(275, 10, "PART SET DOWN", 'B', 0, 'L');
@@ -298,7 +304,7 @@ class Client_Value {
         $pdf->Cell(275, 5, "What is the part being set down on/in:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->SDLocation['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->SDLocation['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(275, 5, "Moving or Stationary: ");
@@ -310,19 +316,19 @@ class Client_Value {
         $pdf->Cell(275, 5, "Please list any obstructions that may interfere with engaging the part:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->SDObstruction['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->SDObstruction['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(275, 5, "Operator's Perspective of part orientation:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->SDOrientation['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->SDOrientation['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(275, 5, "Dimensional Elevation of part at set down location:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->SDDimElevation['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->SDDimElevation['Value']));
         $pdf->Ln(15);
         //Monorail or Crane Systems
         $pdf->Cell(275, 10, "MONORAIL/CRANE SYSTEMS", 'B', 0, 'L');
@@ -349,7 +355,7 @@ class Client_Value {
         $pdf->Cell(275, 5, "Please explain if you selected 'Yes' to any of the above:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->CraneExplain['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->CraneExplain['Value']));
         $pdf->Ln(15);
         //Workcell Specifications
         $pdf->Cell(275, 10, "WORKCELL SPECIFICATIONS", 'B', 0, 'L');
@@ -358,25 +364,25 @@ class Client_Value {
         $pdf->Cell(275, 5, "PSI: ");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(275, 5, $this->PSI['Value']);
+        $pdf->Cell(275, 5, htmlspecialchars_decode($this->PSI['Value']));
         $pdf->Ln(10);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(275, 5, "Other Power Source (Please Explain):");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->OtherPowerSource['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->OtherPowerSource['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(275, 5, "Environment (Please Explain):");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->Environment['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->Environment['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(275, 5, "Elevation from finished floor to bottom of bridge:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->ElevationHeader['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->ElevationHeader['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(275, 5, "Can elevation drawings be provided: ");
@@ -451,19 +457,18 @@ class Client_Value {
         $pdf->Cell(275, 5, "If 'yes', please explain:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->CustomerReviewsExplain['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->CustomerReviewsExplain['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(275, 5, "Special Requirements or Additional Comments:");
         $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->SpecialRequirements['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->SpecialRequirements['Value']));
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->MultiCell(275, 5, "If others are bidding or if budgetary numbers are known, please explain:");
-//        $pdf->Ln(5);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(275, 5, $this->Budget['Value']);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->Budget['Value']));
         
         //Output the PDF to the browser window
         $pdf->Output();
@@ -471,6 +476,9 @@ class Client_Value {
 
     function pdf_attach(){
         $pdf = new PDF();
+        //Fill color of the cell
+        $pdf->SetFillColor(220, 220, 220);
+//        //
         $pdf->AddPage('L');
         $pdf->SetFont('Arial', '', 12);
 
@@ -481,153 +489,388 @@ class Client_Value {
         $pdf->Cell(80, 10, "Salesperson: ________________________________");
         //Do something like this to make black space within a line
         $pdf->Cell(80);
-        $pdf->cell(115, 10, "Request #: _________________________________", 0, 0, 'R');
-        $pdf->Ln(15);
-        $pdf->Cell(70, 10, "Customer Information", 'B', 0, 'L');
-        $pdf->Cell(15, 10, '', 'B');
-        $pdf->cell(85, 10, "Date: " . $this->CurrentDateTime['Value'], 'B', 0, 'C');
-        $pdf->cell(30, 10, '', 'B');
-        $pdf->cell(75, 10, "Delivery Requested: " . $this->Delivery['Value'], 'B', 0, 'L');
-        $pdf->Ln(15);
+        $pdf->cell(115, 10, "Request #: " . rand(00000000, 99999999), 0, 0, 'R');
+        $pdf->Ln(20);
+        $pdf->Cell(70, 5, "CUSTOMER INFORMATION", 'B', 0, 'L');
+        $pdf->Cell(15, 5, '', 'B');
+        $pdf->cell(85, 5, "Date: " . $this->CurrentDateTime['Value'], 'B', 0, 'C');
+        $pdf->cell(30, 5, '', 'B');
+        $pdf->cell(75, 5, "Delivery Requested: " . $this->Delivery['Value'], 'B', 0, 'L');
+        $pdf->Ln(10);
         //Customer Information
         //Get current x and y to make Multicells span the same line
         $x = $pdf->GetX();
         $y = $pdf->GetY();
         $pdf->MultiCell(80, 5, ""
-                . $this->CompanyName['Value']. "\n"
-                . $this->StreetAddress['Value'] . "\n"
-                . $this->City['Value'] . ", " . $this->State['Value'] . " " . $this->Zip['Value']);
-
-        //$pdf->SetXY($x + 95, $y);
-        //$pdf->MultiCell(80, 5, "Contact:\n"
-        //        . "$firstName $lastName\n\n"
-        //        . "Title:\n"
-        //        . "$title");
-        //$pdf->SetXY($x + 200, $y);
-        //$pdf->MultiCell(80, 5, "Phone:\n"
-        //        . "$phone\n"
-        //        . "Fax:\n"
-        //        . "$fax\n"
-        //        . "Email:\n"
-        //        . "$email");
-        //$pdf->Ln(10);
-        ////End User Information
-        //$pdf->Cell(275, 10, "End User Information", 'B', 0, 'L');
-        //$pdf->Ln(15);
-        //$x = $pdf->GetX();
-        //$y = $pdf->GetY();
-        //$pdf->MultiCell(80, 5, ""
-        //        . "$user_company_name\n"
-        //        . "$user_street_address\n"
-        //        . "$user_city, $user_state, $user_zip");
-        //
-        //$pdf->SetXY($x + 95, $y);
-        //$pdf->MultiCell(80, 5, "Contact:\n"
-        //        . "$user_firstName $user_lastName\n\n"
-        //        . "Title:\n"
-        //        . "$user_title");
-        //$pdf->SetXY($x + 200, $y);
-        //$pdf->MultiCell(80, 5, "Phone:\n"
-        //        . "$user_phone\n"
-        //        . "Fax:\n"
-        //        . "$user_fax\n"
-        //        . "Email:\n"
-        //        . "$user_email");
-        //$pdf->Ln();
-        //$pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
-        //$pdf->Ln(10);
-        //$pdf->MultiCell(275, 5, "Part Description:\n"
-        //        . "$part_description");
-        //$pdf->Ln(10);
-        //$pdf->cell(80, 10, "Quantity Required: $quantity");
-        //$pdf->cell(20);
-        //$pdf->cell(80, 10, "LH/RH Units: $lh_rh_unit");
-        //$pdf->Ln();
-        ////Part Dimensions
-        //$pdf->cell(275, 10, 'Part Dimensions', 'B');
-        //$pdf->Ln(20);
-        //$pdf->cell(40);
-        //$pdf->cell(40, 10, 'Weight', 1, 0, 'C');
-        //$pdf->cell(40, 10, 'Height', 1, 0, 'C');
-        //$pdf->cell(40, 10, 'Width', 1, 0, 'C');
-        //$pdf->cell(40, 10, 'Length', 1, 0, 'C');
-        //$pdf->cell(40, 10, 'Inner Dimensions', 1, 0, 'C');
-        //$pdf->cell(40, 10, 'Outer Dimensions', 1, 0, 'C');
-        //$pdf->Ln(10);
-        //$pdf->cell(40, 10, 'Maximum', 1);
-        //$pdf->cell(40, 10, $max_weight, 1);
-        //$pdf->cell(40, 10, $max_height, 1);
-        //$pdf->cell(40, 10, $max_width, 1);
-        //$pdf->cell(40, 10, $max_length, 1);
-        //$pdf->cell(40, 10, $max_id, 1);
-        //$pdf->cell(40, 10, $max_od, 1);
-        //$pdf->Ln(10);
-        //$pdf->cell(40, 10, 'Minimum', 1);
-        //$pdf->cell(40, 10, $min_weight, 1);
-        //$pdf->cell(40, 10, $min_height, 1);
-        //$pdf->cell(40, 10, $min_width, 1);
-        //$pdf->cell(40, 10, $min_length, 1);
-        //$pdf->cell(40, 10, $min_id, 1);
-        //$pdf->cell(40, 10, $min_od, 1);
-        //$pdf->Ln(10);
-        //$pdf->cell(275, 10, "***Please indicate a separate sheet for additional parts if necessary***", 0, 0, 'C');
-        //$pdf->Ln(10);
-        //$pdf->cell(275, 10, "Part Surface", 'B', 0, 'L');
-        //$pdf->Ln(10);
-        //$pdf->cell(40, 10, "Wet: $st_wet");
-        //$pdf->cell(60);
-        //$pdf->cell(40, 10, "Hot: $st_hot");
-        //$pdf->cell(60);
-        //$pdf->cell(40, 10, "Class A: $st_classA");
-        //$pdf->Ln(5);
-        //$pdf->cell(40, 10, "Dry: $st_dry");
-        //$pdf->cell(60);
-        //$pdf->cell(40, 10, "Temperature: $temperature");
-        //$pdf->cell(60);
-        //$pdf->cell(40, 10, "Textured: $st_textured");
-        //$pdf->Ln(5);
-        //$pdf->cell(40, 10, "Oily: $st_oily");
-        //$pdf->cell(60);
-        //$pdf->cell(40, 10, "Scale: $tempScale");
-        //$pdf->cell(60);
-        //$pdf->cell(40, 10, "Fragile: $st_fragile");
-        //$pdf->Ln(15);
-        //$pdf->cell(275, 10, "Description of Current Process or Sequence of Operations:");
-        //$pdf->Ln(10);
-        //$pdf->MultiCell(275, 10, $process_description, 1);
-        //$pdf->Ln(10);
-        //$pdf->cell(275, 10, "Production Rate (Cycles/Hour): $production_rate");
-        //$pdf->Ln(5);
-        //$pdf->cell(275, 10, "Shifts/Day: $shifts");
-        //$pdf->Ln(20);
-        //$pdf->Cell(275, 10, "Application Information", 'B', 0, 'L');
-        //$pdf->Ln(15);
-        //$pdf->MultiCell(275, 5, "What is the part being picked up from?");
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 10, $eng_pickup, 1);
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 5, "Please list any obstructions that may interfere with engaging the part:");
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 10, $eng_obstructions, 1);
-        //$pdf->Ln(5);
-        ////Moving or Stationary?
-        ////Placeholder
-        //$pdf->MultiCell(275, 5, "Recommended area to engage on the part:");
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 10, $eng_recommended, 1);
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 5, "Areas of the part that cannot be touched:");
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 10, $eng_noTouching, 1);
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 5, "Operator's perspective of part orientation:");
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 10, $eng_orientation, 1);
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 5, "Dimensional elevation of part at set down:");
-        //$pdf->Ln(5);
-        //$pdf->MultiCell(275, 10, $eng_dimElevation, 1);
-        //$pdf->Ln(5);
+                . htmlspecialchars_decode($this->CompanyName['Value']) . "\n"
+                . htmlspecialchars_decode($this->StreetAddress['Value']) . "\n"
+                . htmlspecialchars_decode($this->City['Value']) . ", "
+                . htmlspecialchars_decode($this->State['Value']) . " "
+                . htmlspecialchars_decode($this->Zip['Value']));
+        //Create columns instead of moving to the next line
+        $pdf->SetXY($x + 95, $y);
+        $pdf->MultiCell(80, 5, "Contact:\n"
+                . htmlspecialchars_decode($this->FirstName['Value']) . " "
+                . htmlspecialchars_decode($this->LastName['Value']) . "\n\n"
+                . "Title:\n"
+                . htmlspecialchars_decode($this->Title['Value']));
+        $pdf->SetXY($x + 200, $y);
+        $pdf->MultiCell(80, 5, "Phone:\n"
+                // Format the phone number in the following format:
+                // (xxx) xxx-xxxx
+                . "(" 
+                . substr($this->Phone['Value'], 0, 3) 
+                . ") " 
+                . substr($this->Phone['Value'], 3, 3) 
+                . "-"
+                . substr($this->Phone['Value'], 6) . "\n"
+                . "Fax:\n"
+                . "("
+                . substr($this->Fax['Value'], 0, 3)
+                . ") "
+                . substr($this->Fax['Value'], 3, 3)
+                . "-"
+                . substr($this->Fax['Value'], 6) . "\n"
+                . "Email:\n"
+                . htmlspecialchars_decode($this->Email['Value']));
+        $pdf->Ln(5);
+        
+        //End User Information
+        $pdf->Cell(275, 5, "END USER INFORMATION", 'B', 0, 'L');
+        $pdf->Ln(10);
+        $x = $pdf->GetX();
+        $y = $pdf->GetY();
+        $pdf->MultiCell(80, 5, ""
+                . htmlspecialchars_decode($this->UserCompanyName['Value']) . "\n"
+                . htmlspecialchars_decode($this->UserStreetAddress['Value']) . "\n"
+                . htmlspecialchars_decode($this->UserCity['Value']) . ", "
+                . htmlspecialchars_decode($this->UserState['Value']) . " "
+                . htmlspecialchars_decode($this->UserZip['Value']));
+        $pdf->SetXY($x + 95, $y);
+        $pdf->MultiCell(80, 5, "Contact:\n"
+                . htmlspecialchars_decode($this->UserFirstName['Value']) . " "
+                . htmlspecialchars_decode($this->UserLastName['Value']) . "\n\n"
+                . "Title:\n"
+                . htmlspecialchars_decode($this->UserTitle['Value']));
+        $pdf->SetXY($x + 200, $y);
+        $pdf->MultiCell(80, 5, "Phone:\n"
+                . "(" 
+                . substr($this->UserPhone['Value'], 0, 3) 
+                . ") " 
+                . substr($this->UserPhone['Value'], 3, 3) 
+                . "-"
+                . substr($this->UserPhone['Value'], 6) . "\n"
+                . "Fax:\n"
+                . "("
+                . substr($this->UserFax['Value'], 0, 3)
+                . ") "
+                . substr($this->UserFax['Value'], 3, 3)
+                . "-"
+                . substr($this->UserFax['Value'], 6) . "\n"
+                . "Email:\n"
+                . htmlspecialchars_decode($this->UserEmail['Value']));
+        $pdf->Ln(15);
+        $pdf->Cell(275, 10, "APPLICATION INFORMATION", 'B', 0, 'L');
+        $pdf->Ln(15);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Part Description: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->PartDescription['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->cell(80, 5, "Quantity Required: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, htmlspecialchars_decode($this->Quantity['Value']));
+        $pdf->Ln(15);
+        //Part Dimensions
+        $pdf->Cell(275, 10, 'PART DIMENSIONS', 'B');
+        $pdf->Ln(15);
+        $pdf->cell(40);
+        $pdf->cell(40, 10, 'Weight', 1, 0, 'C');
+        $pdf->cell(40, 10, 'Height', 1, 0, 'C');
+        $pdf->cell(40, 10, 'Width', 1, 0, 'C');
+        $pdf->cell(40, 10, 'Length', 1, 0, 'C');
+        $pdf->cell(40, 10, 'Inner Dimensions', 1, 0, 'C');
+        $pdf->cell(40, 10, 'Outer Dimensions', 1, 0, 'C');
+        $pdf->Ln(10);
+        $pdf->cell(40, 10, 'Maximum', 1);
+        $pdf->cell(40, 10, htmlspecialchars_decode($this->MaxWeight['Value']), 1);
+        $pdf->cell(40, 10, htmlspecialchars_decode($this->MaxHeight['Value']), 1);
+        $pdf->cell(40, 10, htmlspecialchars_decode($this->MaxWidth['Value']), 1);
+        $pdf->cell(40, 10, htmlspecialchars_decode($this->MaxLength['Value']), 1);
+        $pdf->cell(40, 10, htmlspecialchars_decode($this->MaxID['Value']), 1);
+        $pdf->cell(40, 10, htmlspecialchars_decode($this->MaxOD['Value']), 1);
+        $pdf->Ln(10);
+        $pdf->cell(40, 10, 'Minimum', 1);
+        $pdf->cell(40, 10, htmlspecialchars_decode($this->MinWeight['Value']), 1);
+        $pdf->cell(40, 10, htmlspecialchars_decode($this->MinHeight['Value']), 1);
+        $pdf->cell(40, 10, htmlspecialchars_decode($this->MinWidth['Value']), 1);
+        $pdf->cell(40, 10, htmlspecialchars_decode($this->MinLength['Value']), 1);
+        $pdf->cell(40, 10, htmlspecialchars_decode($this->MinID['Value']), 1);
+        $pdf->cell(40, 10, htmlspecialchars_decode($this->MinOD['Value']), 1);
+        $pdf->Ln(10);
+        $pdf->cell(275, 10, "***Please indicate a separate sheet for additional parts if necessary***", 0, 0, 'C');
+        $pdf->Ln(10);
+        $pdf->cell(275, 10, "PART SURFACE", 'B', 0, 'L');
+        $pdf->Ln(10);
+        $pdf->cell(40, 10, "Wet: " . $this->STWet['Value']);
+        $pdf->cell(60);
+        $pdf->cell(40, 10, "Hot: " . $this->STHot['Value']);
+        $pdf->cell(60);
+        $pdf->cell(40, 10, "Class A: " . $this->STClassA['Value']);
+        $pdf->Ln(5);
+        $pdf->cell(40, 10, "Dry: " . $this->STDry['Value']);
+        $pdf->cell(60);
+        $pdf->cell(40, 10, "Temperature: " . htmlspecialchars_decode($this->STHot['Temperature']));
+        $pdf->cell(60);
+        $pdf->cell(40, 10, "Textured: " . $this->STTextured['Value']);
+        $pdf->Ln(5);
+        $pdf->cell(40, 10, "Oily: " . $this->STOily['Value']);
+        $pdf->cell(60);
+        $pdf->cell(40, 10, "Scale: " . $this->STHot['TemperatureScale']);
+        $pdf->cell(60);
+        $pdf->cell(40, 10, "Fragile: " . $this->STFragile['Value']);
+        $pdf->Ln(15);
+        //Current Process Description
+        $pdf->Cell(275, 10, "CURRENT PROCESS", 'B', 0, 'L');
+        $pdf->Ln(15);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->cell(275, 5, "Description of Current Process or Sequence of Operations:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->ProcessDescription['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->cell(275, 5, "Production Rate (Cycles/Hour): ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->cell(275, 5, htmlspecialchars_decode($this->ProductionRate['Value']));
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->cell(275, 5, "Shifts/Day: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->cell(275, 5, htmlspecialchars_decode($this->Shifts['Value']));
+        $pdf->Ln(15);
+        //Application Information
+        $pdf->Cell(275, 10, "APPLICATION INFORMATION", 'B', 0, 'L');
+        $pdf->Ln(15);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "What is the part being picked up from?");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->EngPickup['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Please list any obstructions that may interfere with engaging the part:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->EngObstructions['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Part Movement: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->EngMovement['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Recommended area to engage on the part:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->EngRecommended['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Areas of the part that cannot be touched:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->EngNoTouching['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Operator's perspective of part orientation:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->EngOrientation['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Dimensional elevation of part at set down:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->EngDimElevation['Value']));
+        $pdf->Ln(15);
+        //Part Set Down
+        $pdf->Cell(275, 10, "PART SET DOWN", 'B', 0, 'L');
+        $pdf->Ln(15);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "What is the part being set down on/in:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->SDLocation['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Moving or Stationary: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->SDMovement['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Please list any obstructions that may interfere with engaging the part:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->SDObstruction['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Operator's Perspective of part orientation:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->SDOrientation['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Dimensional Elevation of part at set down location:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->SDDimElevation['Value']));
+        $pdf->Ln(15);
+        //Monorail or Crane Systems
+        $pdf->Cell(275, 10, "MONORAIL/CRANE SYSTEMS", 'B', 0, 'L');
+        $pdf->Ln(15);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->cell(275, 5, "Floor Mounted Arm: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->FloorMountedArm['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->cell(275, 5, "XY Rail System: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->XYRailSystem['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->cell(275, 5, "Jib Crane: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->JibCrane['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Please explain if you selected 'Yes' to any of the above:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->CraneExplain['Value']));
+        $pdf->Ln(15);
+        //Workcell Specifications
+        $pdf->Cell(275, 10, "WORKCELL SPECIFICATIONS", 'B', 0, 'L');
+        $pdf->Ln(15);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "PSI: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, htmlspecialchars_decode($this->PSI['Value']));
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Other Power Source (Please Explain):");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->OtherPowerSource['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Environment (Please Explain):");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->Environment['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Elevation from finished floor to bottom of bridge:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->ElevationHeader['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Can elevation drawings be provided: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->ElevationDrawings['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Can plant drawings be provided: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->PlantDrawings['Value']);
+        $pdf->Ln(15);
+        //Additional Information
+        $pdf->Cell(275, 10, "ADDITIONAL INFORMATION", 'B', 0, 'L');
+        $pdf->Ln(15);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Will the rack or dunnage be provided: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->RackProvided['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Will the part drawing(s) be provided: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->DrawingsProvided['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Will the floor plan(s) be provided: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->FloorPlansProvided['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Will the machine, fixture, or tool drawing(s) be provided: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->MachineProvided['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Will photo(s) or video(s) be provided: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->PhotoVideoProvided['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Will approval drawings be be required: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->ApprovalProvided['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Will installation drawings be be required: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->Installation['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Will drawing be required on customer paper: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->CustomerPaper['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Will customer review(s) be be required: ");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(275, 5, $this->CustomerReviews['Value']);
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "If 'yes', please explain:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->CustomerReviewsExplain['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(275, 5, "Special Requirements or Additional Comments:");
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->SpecialRequirements['Value']));
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->MultiCell(275, 5, "If others are bidding or if budgetary numbers are known, please explain:");
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(275, 5, htmlspecialchars_decode($this->Budget['Value']));
 
         //Output the PDF to the browser window
         return $pdf->Output('attachment.pdf', 'S');
