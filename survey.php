@@ -23,7 +23,7 @@
                 <li>Part Engagement</li>
                 <li>Part Set Down</li>
                 <li>Monorail / Crane Systems</li>
-                <li>End Effector</li>
+                <li>Workcell Specifications</li>
                 <li>Additional Information</li>
             </ul>
             <!-- Customer Information -->
@@ -459,12 +459,16 @@
                         </label>
                     </div>
                 </div>
+                <div class="width_100" style="margin-top: .5em;">
+                    <label>Please explain:</label><label class='charNum'></label>
+                    <textarea class="notes" id="crane_explain" name="crane_explain" rows="3" maxlength="700"></textarea>
+                </div>
                 <input type="button" name="previous" class="previous action-button" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
-            <!-- End Effector Specifics -->
+            <!-- Workcell Specifics -->
             <fieldset>
-                <h2 class="fs-title">End Effector Specifics</h2>
+                <h2 class="fs-title">Workcell Specifics</h2>
                 <h3 class="fs-subtitle">Please be as thorough as possible</h3>
                 <div class="width_33-Left">
                     <label>Air Pressure (PSI):</label>
@@ -537,6 +541,7 @@
                 <input type="button" name="next" class="next action-button" value="Next" />
             </fieldset>
             <!-- Additional Information -->
+            <!-- TODO: Fix the div indentation -->
             <fieldset>
                 <h2 class="fs-title">Additional Information</h2>
                 <h3 class="fs-subtitle">Please be as thorough as possible</h3>
@@ -553,184 +558,184 @@
                             <input id="rack_yes" type="radio" name="rack_provided" value="Yes">
                             Yes
                         </label>
-                        <div class="width_100">
-                            <label for="rack_no">
-                                <input id="rack_no" type="radio" name="rack_provided" value="No">
-                                No
-                            </label>
-                        </div>
                     </div>
-                    <div class="width_100" style="margin-bottom: 1em;">
-                        <p style="margin-bottom: 1em;">Will the part drawing(s) be provided?</p>
-                        <div class="width_100">
-                            <label for="drawings_ns">
-                                <input id="drawings_ns" type="radio" name="drawings_provided" value="Not Specified" checked>
-                                Not Specified
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="drawings_yes">
-                                <input id="drawings_yes" type="radio" name="drawings_provided" value="Yes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="drawings_no">
-                                <input id="drawings_no" type="radio" name="drawings_provided" value="No">
-                                No
-                            </label>
-                        </div>
+                    <div class="width_100">
+                        <label for="rack_no">
+                            <input id="rack_no" type="radio" name="rack_provided" value="No">
+                            No
+                        </label>
                     </div>
-                    <div class="width_100" style="margin-bottom: 1em;">
-                        <p style="margin-bottom: 1em;">Will the floor plan(s) be provided?</p>
-                        <div class="width_100">
-                            <label for="floor_plans_ns">
-                                <input id="floor_plans_ns" type="radio" name="floor_plans_provided" value="Not Specified" checked>
-                                Not Specified
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="floor_plans_yes">
-                                <input id="floor_plans_yes" type="radio" name="floor_plans_provided" value="Yes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="floor_plans_no">
-                                <input id="floor_plans_no" type="radio" name="floor_plans_provided" value="No">
-                                No
-                            </label>
-                        </div>
+                </div>
+                <div class="width_100" style="margin-bottom: 1em;">
+                    <p style="margin-bottom: 1em;">Will the part drawing(s) be provided?</p>
+                    <div class="width_100">
+                        <label for="drawings_ns">
+                            <input id="drawings_ns" type="radio" name="drawings_provided" value="Not Specified" checked>
+                            Not Specified
+                        </label>
                     </div>
-                    <div class="width_100" style="margin-bottom: 1em;">
-                        <p style="margin-bottom: 1em;">Will the machine, fixture, or tool drawing(s) be provided?</p>
-                        <div class="width_100">
-                            <label for="machine_ns">
-                                <input id="machine_ns" type="radio" name="machine_provided" value="Not Specified" checked>
-                                Not Specified
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="machine_yes">
-                                <input id="machine_yes" type="radio" name="machine_provided" value="Yes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="machine_no">
-                                <input id="machine_no" type="radio" name="machine_provided" value="No">
-                                No
-                            </label>
-                        </div>
+                    <div class="width_100">
+                        <label for="drawings_yes">
+                            <input id="drawings_yes" type="radio" name="drawings_provided" value="Yes">
+                            Yes
+                        </label>
                     </div>
-                    <div class="width_100" style="margin-bottom: 1em;">
-                        <p style="margin-bottom: 1em;">Will photo(s) or video(s) be provided?</p>
-                        <div class="width_100">
-                            <label for="photo_video_ns">
-                                <input id="photo_video_ns" type="radio" name="photo_video_provided" value="Not Specified" checked>
-                                Not Specified
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="photo_video_yes">
-                                <input id="photo_video_yes" type="radio" name="photo_video_provided" value="Yes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="photo_video_no">
-                                <input id="photo_video_no" type="radio" name="photo_video_provided" value="No">
-                                No
-                            </label>
-                        </div>
+                    <div class="width_100">
+                        <label for="drawings_no">
+                            <input id="drawings_no" type="radio" name="drawings_provided" value="No">
+                            No
+                        </label>
                     </div>
-                    <div class="width_100" style="margin-bottom: 1em;">
-                        <p style="margin-bottom: 1em;">Will approval drawings be be required?</p>
-                        <div class="width_100">
-                            <label for="approval_ns">
-                                <input id="approval_ns" type="radio" name="approval_provided" value="Not Specified" checked>
-                                Not Specified
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="approval_yes">
-                                <input id="approval_yes" type="radio" name="approval_provided" value="Yes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="approval_no">
-                                <input id="approval_no" type="radio" name="approval_provided" value="No">
-                                No
-                            </label>
-                        </div>
+                </div>
+                <div class="width_100" style="margin-bottom: 1em;">
+                    <p style="margin-bottom: 1em;">Will the floor plan(s) be provided?</p>
+                    <div class="width_100">
+                        <label for="floor_plans_ns">
+                            <input id="floor_plans_ns" type="radio" name="floor_plans_provided" value="Not Specified" checked>
+                            Not Specified
+                        </label>
                     </div>
-                    <div class="width_100" style="margin-bottom: 1em;">
-                        <p style="margin-bottom: 1em;">Will installation drawings be be required?</p>
-                        <div class="width_100">
-                            <label for="installation_ns">
-                                <input id="installation_ns" type="radio" name="installation" value="Not Specified" checked>
-                                Not Specified
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="installation_yes">
-                                <input id="installation_yes" type="radio"  name="installation" value="Yes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="installation_no">
-                                <input id="installation_no" type="radio" name="installation" value="No">
-                                No
-                            </label>
-                        </div>
+                    <div class="width_100">
+                        <label for="floor_plans_yes">
+                            <input id="floor_plans_yes" type="radio" name="floor_plans_provided" value="Yes">
+                            Yes
+                        </label>
                     </div>
-                    <div class="width_100" style="margin-bottom: 1em;">
-                        <p style="margin-bottom: 1em;">Will drawing be required on customer paper?</p>
-                        <div class="width_100">
-                            <label for="customer_paper_ns">
-                                <input id="customer_paper_ns" type="radio" name="customer_paper" value="Not Specified" checked>
-                                Not Specified
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="customer_paper_yes">
-                                <input id="customer_paper_yes" type="radio" name="customer_paper" value="Yes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="customer_paper_no">
-                                <input id="customer_paper_no" type="radio" name="customer_paper" value="No">
-                                No
-                            </label>
-                        </div>
+                    <div class="width_100">
+                        <label for="floor_plans_no">
+                            <input id="floor_plans_no" type="radio" name="floor_plans_provided" value="No">
+                            No
+                        </label>
                     </div>
-                    <div class="width_100" style="margin-bottom: 1em;">
-                        <p style="margin-bottom: 1em;">Will customer review(s) be be required?</p>
-                        <div class="width_100">
-                            <label for="customer_reviews_ns">
-                                <input id="customer_reviews_ns" type="radio" name="customer_reviews" value="Not Specified" checked>
-                                Not Specified
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="customer_reviews_yes">
-                                <input id="customer_reviews_yes" type="radio" name="customer_reviews" value="Yes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="width_100">
-                            <label for="customer_reviews_no">
-                                <input id="customer_reviews_no" type="radio" name="customer_reviews" value="No">
-                                No
-                            </label>
-                        </div>
-                        <div class="width_100" style="margin-top: .5em;">
-                            <label>If yes, please explain:</label><label class='charNum'></label>
-                            <textarea class="notes" id="customer_reviews_explain" name="customer_reviews_explain" rows="3" maxlength="700"></textarea>
-                        </div>
+                </div>
+                <div class="width_100" style="margin-bottom: 1em;">
+                    <p style="margin-bottom: 1em;">Will the machine, fixture, or tool drawing(s) be provided?</p>
+                    <div class="width_100">
+                        <label for="machine_ns">
+                            <input id="machine_ns" type="radio" name="machine_provided" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="machine_yes">
+                            <input id="machine_yes" type="radio" name="machine_provided" value="Yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="machine_no">
+                            <input id="machine_no" type="radio" name="machine_provided" value="No">
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="width_100" style="margin-bottom: 1em;">
+                    <p style="margin-bottom: 1em;">Will photo(s) or video(s) be provided?</p>
+                    <div class="width_100">
+                        <label for="photo_video_ns">
+                            <input id="photo_video_ns" type="radio" name="photo_video_provided" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="photo_video_yes">
+                            <input id="photo_video_yes" type="radio" name="photo_video_provided" value="Yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="photo_video_no">
+                            <input id="photo_video_no" type="radio" name="photo_video_provided" value="No">
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="width_100" style="margin-bottom: 1em;">
+                    <p style="margin-bottom: 1em;">Will approval drawings be be required?</p>
+                    <div class="width_100">
+                        <label for="approval_ns">
+                            <input id="approval_ns" type="radio" name="approval_provided" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="approval_yes">
+                            <input id="approval_yes" type="radio" name="approval_provided" value="Yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="approval_no">
+                            <input id="approval_no" type="radio" name="approval_provided" value="No">
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="width_100" style="margin-bottom: 1em;">
+                    <p style="margin-bottom: 1em;">Will installation drawings be be required?</p>
+                    <div class="width_100">
+                        <label for="installation_ns">
+                            <input id="installation_ns" type="radio" name="installation" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="installation_yes">
+                            <input id="installation_yes" type="radio"  name="installation" value="Yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="installation_no">
+                            <input id="installation_no" type="radio" name="installation" value="No">
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="width_100" style="margin-bottom: 1em;">
+                    <p style="margin-bottom: 1em;">Will drawing be required on customer paper?</p>
+                    <div class="width_100">
+                        <label for="customer_paper_ns">
+                            <input id="customer_paper_ns" type="radio" name="customer_paper" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="customer_paper_yes">
+                            <input id="customer_paper_yes" type="radio" name="customer_paper" value="Yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="customer_paper_no">
+                            <input id="customer_paper_no" type="radio" name="customer_paper" value="No">
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="width_100" style="margin-bottom: 1em;">
+                    <p style="margin-bottom: 1em;">Will customer review(s) be be required?</p>
+                    <div class="width_100">
+                        <label for="customer_reviews_ns">
+                            <input id="customer_reviews_ns" type="radio" name="customer_reviews" value="Not Specified" checked>
+                            Not Specified
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="customer_reviews_yes">
+                            <input id="customer_reviews_yes" type="radio" name="customer_reviews" value="Yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="width_100">
+                        <label for="customer_reviews_no">
+                            <input id="customer_reviews_no" type="radio" name="customer_reviews" value="No">
+                            No
+                        </label>
+                    </div>
+                    <div class="width_100" style="margin-top: .5em;">
+                        <label>If yes, please explain:</label><label class='charNum'></label>
+                        <textarea class="notes" id="customer_reviews_explain" name="customer_reviews_explain" rows="3" maxlength="700"></textarea>
                     </div>
                 </div>
                 <div class="width_100">

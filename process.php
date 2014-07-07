@@ -9,6 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
     die("Press the BACK button on your browser to proceed.");
 }
 
+//Set the timezone within the script
+date_default_timezone_set('America/Detroit');
+
 //Check for mandatory variables within POST array
 $CompanyName = check_post_mandatory(true, 'company_name', 'CompanyName', 'Company Name');
 $FirstName = check_post_mandatory(true, 'firstName', 'FirstName', 'First Name');
@@ -17,8 +20,6 @@ $Phone = check_post_mandatory(true, 'phone', 'Phone', 'Phone');
 $PartDescription = check_post_mandatory(true, 'part_description', 'PartDescription', 'Part Description');
 
 //Check for non-mandatory variables within the POST array
-//TODO:
-//Fill in the rest of the variables from the form fields (contiune from "Part Setdown"
 $StreetAddress = check_post_mandatory(false, 'street_address', 'StreetAddress', 'Street Address');
 $City = check_post_mandatory(false, 'city', 'City', 'City');
 $State = check_post_mandatory(false, 'state', 'State', 'State');
@@ -60,7 +61,17 @@ $EngRecommended = check_post_mandatory(false, 'eng_recommended', 'EngRecommended
 $EngNoTouching = check_post_mandatory(false, 'eng_noTouching', 'EngNoTouching', 'Cannot Touch');
 $EngOrientation = check_post_mandatory(false, 'eng_orientation', 'EngOrientation', 'Orientation');
 $EngDimElevation = check_post_mandatory(false, 'eng_dimElevation', 'EngDimElevation', 'Dimensional Elevation');
-
+$CraneExplain = check_post_mandatory(false, 'crane_explain', 'CraneExplain', 'Please Explain the Above');
+$PSI = check_post_mandatory(false, 'psi', 'PSI', 'PSI');
+$OtherPowerSource = check_post_mandatory(false, 'other_power_source', 'OtherPowerSource', 'Other Power Source');
+$Environment = check_post_mandatory(false, 'txt_environment', 'Environment', 'Environment');
+$ElevationHeader = check_post_mandatory(false, 'elevation_header', 'ElevationHeader', 'ElevationHeader');
+$SDLocation = check_post_mandatory(false, 'sd_location', 'SDOther', 'Set Down - Other');
+$SDObstruction = check_post_mandatory(false, 'sd_obstruction', 'SDObstruction', 'Set Down - Obstruction');
+$SDOrientation = check_post_mandatory(false, 'sd_orientation', 'SDOrientation', 'Set Down - Orientation');
+$SDDimElevation = check_post_mandatory(false, 'sd_dimElevation', 'SDDimElevation', 'Set Down - Dimensional Elevation');
+$SpecialRequirements = check_post_mandatory(false, 'special_requirements', 'SpecialRequirements', 'Special Requirements');
+$Budget = check_post_mandatory(false, 'budgetary_numbers', 'Budget', 'Budget');
 
 //Checkbox Variables
 $STWet = check_checkboxes('st_wet', 'STWet');
@@ -76,6 +87,11 @@ $STOther = check_checkboxes('st_other', 'STOther');
 $STTempScale = check_radio('st_temp_scale', 'STTempScale');
 $EngMovement = check_radio('eng_movement', 'EngMovement');
 $SDMovement = check_radio('sd_movement', 'SDMovement');
+$FMA = check_radio('fma', 'FloorMountedArm');
+$XYRailSystem = check_radio('xyrail', 'XYRailSystem');
+$JibCrane = check_radio('jibcrane', 'JibCrane');
+$ElevationDrawings = check_radio('elevation_drawings', 'ElevationDrawings');
+$PlantDrawings = check_radio('plant_drawings', 'PlantDrawings');
 $RackProvided = check_radio('rack_provided', 'RackProvided');
 $DrawingsProvided = check_radio('drawings_provided', 'DrawingsProvided');
 $FloorPlansProvided = check_radio('floor_plans_provided', 'FloorPlansProvided');
@@ -682,7 +698,7 @@ $Client->EngDimElevation = array(
 $Client->SDLocation = array(
     'Name' => 'SDLocation',
     'Type' => 'Textbox',
-    'Value' => trim($_POST['sd_location']),
+    'Value' => $SDLocation,
     'Value_Type' => 'String',
     'MinLength' => 1,
     'MaxLength' => 700,
@@ -702,7 +718,7 @@ $Client->SDMovement = array(
 $Client->SDObstruction = array(
     'Name' => 'SDObstruction',
     'Type' => 'Textbox',
-    'Value' => trim($_POST['sd_obstruction']),
+    'Value' => $SDObstruction,
     'Value_Type' => 'String',
     'MinLength' => 1,
     'MaxLength' => 700,
@@ -712,7 +728,7 @@ $Client->SDObstruction = array(
 $Client->SDOrientation = array(
     'Name' => 'SDOrientation',
     'Type' => 'Textbox',
-    'Value' => trim($_POST['sd_orientation']),
+    'Value' => $SDOrientation,
     'Value_Type' => 'String',
     'MinLength' => 1,
     'MaxLength' => 700,
@@ -722,7 +738,7 @@ $Client->SDOrientation = array(
 $Client->SDDimElevation = array(
     'Name' => 'SDDimElevation',
     'Type' => 'Textbox',
-    'Value' => trim($_POST['sd_dimElevation']),
+    'Value' => $SDDimElevation,
     'Value_Type' => 'String',
     'MinLength' => 1,
     'MaxLength' => 700,
@@ -730,13 +746,83 @@ $Client->SDDimElevation = array(
     'Display' => 'Set Down Dimensional Elevation'
 );
 
-//TODO:
-//The rest of the form values
+//Monorail and/or Crane Systems
+$Client->FloorMountedArm = array(
+    'Name' => 'FloorMountedArm',
+    'Type' => 'Radio',
+    'Value' => $FMA,
+    'Value_Type' => 'String',
+    'MinLength' => 6,
+    'MaxLength' => 10,
+    'Required' => 0,
+    'Display' => 'Floor Mounted Arm'
+);
+$Client->XYRailSystem = array(
+    'Name' => 'XYRailSystem',
+    'Type' => 'Radio',
+    'Value' => $XYRailSystem,
+    'Value_Type' => 'String',
+    'MinLength' => 6,
+    'MaxLength' => 10,
+    'Required' => 0,
+    'Display' => 'XY Rail System'
+);
+$Client->JibCrane = array(
+    'Name' => 'JibCrane',
+    'Type' => 'Radio',
+    'Value' => $JibCrane,
+    'Value_Type' => 'String',
+    'MinLength' => 6,
+    'MaxLength' => 10,
+    'Required' => 0,
+    'Display' => 'Jib Crane'
+);
+$Client->CraneExplain = array(
+    'Name' => 'CraneExplain',
+    'Type' => 'Textbox',
+    'Value' => $CraneExplain,
+    'Value_Type' => 'String',
+    'MinLength' => 1,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Crane Explain'
+);
+$Client->ElevationHeader = array(
+    'Name' => 'ElevationHeader',
+    'Type' => 'Textbox',
+    'Value' => $ElevationHeader,
+    'Value_Type' => 'String',
+    'MinLength' => 1,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Elevation Header'
+);
+$Client->ElevationDrawings = array(
+    'Name' => 'ElevationDrawings',
+    'Type' => 'Radio',
+    'Value' => $ElevationDrawings,
+    'Value_Type' => 'String',
+    'MinLength' => 6,
+    'MaxLength' => 10,
+    'Required' => 0,
+    'Display' => 'Elevation Drawings'
+);
+$Client->PlantDrawings = array(
+    'Name' => 'PlantDrawings',
+    'Type' => 'Radio',
+    'Value' => $PlantDrawings,
+    'Value_Type' => 'String',
+    'MinLength' => 6,
+    'MaxLength' => 10,
+    'Required' => 0,
+    'Display' => 'Plant Drawings'
+);
+
 //Workcell Specifications
 $Client->PSI = array(
     'Name' => 'PSI',
     'Type' => 'Textbox',
-    'Value' => trim($_POST['psi']),
+    'Value' => $PSI,
     'Value_Type' => 'String',
     'MinLength' => 1,
     'MaxLength' => 28,
@@ -745,13 +831,23 @@ $Client->PSI = array(
 );
 $Client->OtherPowerSource = array(
     'Name' => 'OtherPowerSource',
-    'Type' => 'Checkbox',
-    'Value' => trim($_POST['other_power_source']),
+    'Type' => 'Textbox',
+    'Value' => $OtherPowerSource,
     'Value_Type' => 'String',
     'MinLength' => 1,
     'MaxLength' => 700,
     'Required' => 0,
-    'Display' => 'OtherPowerSource'
+    'Display' => 'Other Power Source'
+);
+$Client->Environment = array(
+    'Name' => 'Environment',
+    'Type' => 'Textbox',
+    'Value' => $Environment,
+    'Value_Type' => 'String',
+    'MinLength' => 1,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Environment'
 );
 
 // Additional Information
@@ -859,55 +955,59 @@ $Client->CustomerPaper = array(
 // Special Requirements
 $Client->SpecialRequirements = array(
     'Name' => 'SpecialRequirements',
-    'Type' => 'Checkbox',
-    'Value' => trim($_POST['special_requirements']),
+    'Type' => 'Textbox',
+    'Value' => $SpecialRequirements,
     'Value_Type' => 'String',
-    'MinLength' => 2,
-    'MaxLength' => 13,
+    'MinLength' => 1,
+    'MaxLength' => 700,
     'Required' => 0,
-    'Display' => 'CustomerPaper'
+    'Display' => 'SpecialRequirements'
 );
-
-
+$Client->Budget = array(
+    'Name' => 'Budget',
+    'Type' => 'Textbox',
+    'Value' => $Budget,
+    'Value_Type' => 'String',
+    'MinLength' => 1,
+    'MaxLength' => 700,
+    'Required' => 0,
+    'Display' => 'Budget'
+);
 
 //Validate the array values
 check_ClientArray($Client);
 ////Create an email attachment and send the email
 //$attachment = $Client->pdf_attach();
-//email_pdf($attachment, $email_password);
+//email_pdf($attachment);
 //Output the PDF to a browser window
 $Client->pdf_output();
 
-function email_pdf() {
-    //TODO:
-    //Use PHP Mail() to handle emails
+function email_pdf($attachment) {
+    try {
+        include './class.phpmailer.php';
+        $mail = new PHPMailer(); // create a new object
+        $mail->IsSMTP(); // enable SMTP
+        $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+        $mail->SMTPAuth = true; // authentication enabled
+        $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
+        $mail->Host = 'smtp.gmail.com';
+        $mail->Port = 465; // or 587
+        $mail->IsHTML(true);
+        $mail->Username = 'will@willdavis.net';
+        //Set the password in .htaccess
+        $mail->Password = getenv('EMAIL_PW');
+        $mail->SetFrom('will@willdavis.net');
+        $mail->Subject = "Test Subject";
+        $mail->Body = "Test Body";
+        $mail->AddAddress('will@willdavis.net');
+        $mail->AddStringAttachment($attachment, 'attachment.pdf');
+        $mail->Send();
+    } catch (Exception $e) {
+        db_errorHandler($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
+        die("Email did not send successfully.  Please press the 'BACK' button on your web browser.");
+    }
+    return;
 }
-
-//function email_pdf($attachment, $email_password) {
-//    try {
-//        include 'class.phpmailer.php';
-//        $mail = new PHPMailer(); // create a new object
-//        $mail->IsSMTP(); // enable SMTP
-//        $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
-//        $mail->SMTPAuth = true; // authentication enabled
-//        $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
-//        $mail->Host = 'smtp.gmail.com';
-//        $mail->Port = 465; // or 587
-//        $mail->IsHTML(true);
-//        $mail->Username = 'will@willdavis.net';
-//        $mail->Password = $email_password;
-//        $mail->SetFrom('will@willdavis.net');
-//        $mail->Subject = "Test Subject";
-//        $mail->Body = "Test Body";
-//        $mail->AddAddress('will@willdavis.net');
-//        $mail->AddStringAttachment($attachment, 'attachment.pdf');
-//        $mail->Send();
-//    } catch (Exception $e) {
-//        db_errorHandler($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
-//        die("Email did not send successfully.  Please press the 'BACK' button on your web browser.");
-//    }
-//    return;
-//}
 
 function check_string_length($string, $minLength, $maxLength, $display) {
     $cleaned_string = '';

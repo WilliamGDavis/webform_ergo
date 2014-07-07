@@ -107,7 +107,7 @@ function check_checkboxes($postName, $postVariable){
 }
 
 /*
- * Check all radio buttons and collect the selected radio button value as a string
+ * Check radio buttons and collect the selected radio button value as a string
  * 
  * @param       string $postName        The name of the input field in survey.php
  * @param       string $postVariable    The name of the variable you want created to be refered to as
@@ -126,6 +126,6 @@ function check_radio($postName, $postVariable){
  * @param   string $string         Any String
  */
 function clean_string_html($string) {
-    $clean_string = htmlspecialchars(stripslashes(trim($string)));
+    $clean_string = stripslashes(htmlspecialchars(trim($string)));
     return $clean_string;
 }

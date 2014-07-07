@@ -45,8 +45,7 @@ $(document).ready(function() {
         $('#st_hot').prop('checked', true);
         $('#st_textured').prop('checked', true);
         $('#st_temp').val('12,500');
-        $('#process_description').val("Currently, we use a forklift that transports the part from the operator's workspace to the conveyor belt.\
-\n\
+        $('#process_description').val("Currently, we use a forklift that transports the part from the operator's workspace to the conveyor belt.\n\
 We want a pneumatic moving crane to pick up and transport the part.  This process is quite tedious and a major impact to our output time.");
         $('#production_rate').val("240/Hour");
         $('#shifts').val('2 (8 Hours/shift)');
@@ -70,10 +69,16 @@ There's a lot of foot traffic here, so we could use a consulatation regarding th
         $('#customer_reviews_yes').prop('checked', true);
         $('#customer_reviews_explain').val("Our client will have to sign off on all milestones for this project.  We can discuss milestones at the appropriate time.");
         $('#special_requirements').val("We have no special instructions for you at this time.");
+        $('#fmarm_yes').prop('checked', true);
+        $('#xyrail_no').prop('checked', true);
+        $('#crane_explain').val("We have a floor mounted crane that will need to be avoided.  Please see us for more information");
+        $('#txt_psi').val('80');
+        $('#other_power_source').val('We do not have an additional power source to worry about');
+        $('#txt_environment').val('Our environment is dry and at room temperature 100% of the time.  There should be nothing that should impede the crane.');
     });
 
     //Displays the character count for the text inputs
-    //////Maximum Length: ANY
+    //maxlength is set in the HTML 'maxlength' attribute within each input
     $('.length_text', this).keyup(function() {
         var max = $(this).attr('maxlength');
         var len = $(this).val().length;
@@ -82,8 +87,6 @@ There's a lot of foot traffic here, so we could use a consulatation regarding th
                     .find('.charNum')
                     .text(' (Character limit)')
                     .css('color', 'red');
-//            string = string.substr(0, string.length - 1);
-//            $(this).val(string);
         } else {
             var char = max - len;
             $(this).closest('div')
