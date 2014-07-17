@@ -4,18 +4,6 @@
  deny from all
 </Files>
 
-## require SSL (web servers)
-#SSLOptions +StrictRequire
-#SSLRequireSSL
-#SSLRequire %{HTTP_HOST} eq "willdavis.net"
-#ErrorDocument 404 https://willdavis.net
-
-## require SSL (localhost)
-SSLOptions +StrictRequire
-SSLRequireSSL
-SSLRequire %{HTTP_HOST} eq "localhost"
-ErrorDocument 404 https://localhost
-
 Options -Indexes
 
-SetEnv EMAIL_PW Dr.C0mput3r?
+SetEnv EMAIL_PW Ryguy711

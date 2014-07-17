@@ -118,27 +118,27 @@ There's a lot of foot traffic here, so we could use a consulatation regarding th
         window.location.replace("./survey.php");
     });
 
-    $('#txt_CompanyName, #txt_FirstName, #txt_LastName, #txt_PartDescription').on('keyup', function() {
-        if ($(this).val().length > 0) {
-            $(this).css({'background-color': 'LightGreen'});
-        } else {
-            $(this).css({'background-color': 'Red'});
-        }
-    });
-    
-    $('#txt_phone').on('focusout', function(){
-//        if ($(this).val().length === 10) {
+//    $('#txt_CompanyName, #txt_FirstName, #txt_LastName, #txt_PartDescription').on('keyup', function() {
+//        if ($(this).val().length > 0) {
 //            $(this).css({'background-color': 'LightGreen'});
-//        } else if($(this).val().length > 0 && $(this).val().length < 10){
-//            $(this).css({'background-color': 'Yellow'});
 //        } else {
 //            $(this).css({'background-color': 'Red'});
 //        }
-//          if ($(this).val().length > 0){
-//              $(this).css({'background-color': 'LightGreen'});
-//          }
-          alert('hello');
-    });
+//    });
+    
+//    $('#txt_phone').on('focusout', function(){
+////        if ($(this).val().length === 10) {
+////            $(this).css({'background-color': 'LightGreen'});
+////        } else if($(this).val().length > 0 && $(this).val().length < 10){
+////            $(this).css({'background-color': 'Yellow'});
+////        } else {
+////            $(this).css({'background-color': 'Red'});
+////        }
+////          if ($(this).val().length > 0){
+////              $(this).css({'background-color': 'LightGreen'});
+////          }
+//          alert('hello');
+//    });
 });
 
 function textbox_check_length(minLength, maxLength, error, type) {

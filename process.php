@@ -990,16 +990,16 @@ function email_pdf($attachment) {
         $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
         $mail->SMTPAuth = true; // authentication enabled
         $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
-        $mail->Host = 'smtp.gmail.com';
+        $mail->Host = 'smtp.hmc1.comcast.net';
         $mail->Port = 465; // or 587
         $mail->IsHTML(true);
-        $mail->Username = 'will@willdavis.net';
+        $mail->Username = 'mike@ergomaticproducts.com';
         //Set the password in .htaccess
         $mail->Password = getenv('EMAIL_PW');
-        $mail->SetFrom('will@willdavis.net');
-        $mail->Subject = "Test Subject";
-        $mail->Body = "Test Body";
-        $mail->AddAddress('will@willdavis.net');
+        $mail->SetFrom('mike@ergomaticproducts.com');
+        $mail->Subject = "REQUEST FOR QUOTE";
+        $mail->Body = "REQUEST FOR QUOTE";
+        $mail->AddAddress('mike@ergomaticproducts.com');
         $mail->AddStringAttachment($attachment, 'attachment.pdf');
         $mail->Send();
     } catch (Exception $e) {
