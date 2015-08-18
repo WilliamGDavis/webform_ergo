@@ -1,9 +1,0 @@
-# secure htaccess file
-<Files .htaccess>
- order allow,deny
- deny from all
-</Files>
-
-Options -Indexes
-
-SetEnv EMAIL_PW Ryguy711
